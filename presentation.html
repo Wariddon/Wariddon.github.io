@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#14273d">
+  <title>Interview Presentation | Wariddon Rattanamalee</title>
+  <meta name="description" content="Present Wariddon Rattanamalee's software engineering experience in a 17-slide interview deck with full-screen controls.">
+  <link rel="canonical" href="https://wariddon.github.io/presentation.html">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="materials.css">
+  <script src="presentation.js" defer></script>
+</head>
+<body class="presentation-page">
+  <div class="presentation-shell" id="presentation-shell">
+    <header class="document-header">
+      <a class="brand" href="index.html"><span class="monogram">WR</span><span>Wariddon<span class="brand-dot">.</span></span></a>
+      <nav class="document-tabs" aria-label="Application materials"><a href="index.html">Portfolio</a><a href="resume.html">Resume</a><a href="presentation.html" aria-current="page">Presentation</a></nav>
+    </header>
+    <main class="presentation-main">
+      <div class="presentation-bar"><div><h1 class="material-title">Interview presentation</h1><p>Wariddon Rattanamalee · Software Engineer</p></div><div class="material-actions"><button class="material-link" id="overview-button" aria-haspopup="dialog">All slides</button><a class="material-link" href="assets/Wariddon_Rattanamalee_Presentation.pdf" download>Download PDF</a><button class="material-button" id="fullscreen-button" aria-pressed="false" title="Presentation mode (F)">Present</button></div></div>
+      <button class="exit-presentation" id="exit-presentation" hidden>Exit presentation</button>
+      <div class="slide-stage" id="slide-stage" aria-label="Presentation slide">
+        <img id="slide-image" src="assets/slides/slide-01.png" width="1280" height="720" alt="Slide 1: Wariddon Rattanamalee, Software Engineer" draggable="false" fetchpriority="high">
+        <p id="slide-error" hidden>Unable to load this slide. <a href="assets/Wariddon_Rattanamalee_Presentation.pdf">Open the PDF presentation.</a></p>
+      </div>
+      <div class="slide-controls"><button class="slide-arrow" id="previous-slide" aria-label="Previous slide" title="Previous slide (Left arrow)">← <span>Previous</span></button><p class="slide-position" id="slide-position" aria-live="polite" aria-atomic="true">1 / 17 <span>Introduction</span></p><button class="slide-arrow" id="next-slide" aria-label="Next slide" title="Next slide (Right arrow)"><span>Next</span> →</button></div>
+      <p class="keyboard-hint">← → to change slides <span>·</span> F to present <span>·</span> Esc to exit <span class="swipe-hint">· Swipe to change slides</span></p>
+    </main>
+  </div>
+  <dialog class="slide-overview" id="slide-overview" aria-labelledby="overview-title"><div class="overview-heading"><h2 id="overview-title">All slides</h2><button class="material-button" id="close-overview">Close</button></div><div class="thumbnail-grid" id="thumbnail-grid"></div></dialog>
+  <noscript><p class="noscript-note">Enable JavaScript for slide navigation, or <a href="assets/Wariddon_Rattanamalee_Presentation.pdf">open the PDF presentation</a>.</p></noscript>
+</body>
+</html>

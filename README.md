@@ -40,3 +40,16 @@ The slide overview supports direct selection. Phones support horizontal swipes.
 Links such as `presentation.html#slide=8` open a specific slide.
 
 © 2026 Wariddon Rattanamalee. All rights reserved.
+
+## Application views
+
+- `/?focus=backend` puts backend/cloud cases and backend skills first.
+- `/?focus=fullstack` puts application/integration cases and web skills first.
+- `presentation.html?deck=short` opens the 7-slide, approximately 5-minute deck.
+- `presentation.html?deck=full` opens the full 17-slide presentation.
+- Both presentation modes have their own PDF download and a final portfolio QR.
+- `assets/social-preview.png` is the 1200 x 630 Open Graph and Twitter card.
+
+The project previews show actual interface components running locally with
+synthetic fixtures. The order preview has a simplified surrounding shell.
+No employer source code or customer data is included in this public repository.

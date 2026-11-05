@@ -1,4 +1,4 @@
-const titles = ['Wariddon Rattanamalee, Software Engineer','Engineering profile','Professional experience','SCB banking services','Azure Managed Redis modernization','AML report delivery','Customer data correctness','InblackM platforms and automation','Order handover and payment state','Shared staff identity across applications','Read-only admin AI assistant','AI-assisted engineering in both roles','TISCO Financial Group','CAT Telecom','Thai Insurance','Education and professional development','Contact and discussion'];
+const fullTitles = ['Wariddon Rattanamalee, Software Engineer','Engineering profile','Professional experience','SCB banking services','Azure Managed Redis modernization','AML report delivery','Customer data correctness','InblackM platforms and automation','Order handover and payment state','Shared staff identity across applications','Read-only admin AI assistant','AI-assisted engineering in both roles','TISCO Financial Group','CAT Telecom','Thai Insurance','Education and professional development','Contact and discussion'];
 const image = document.querySelector('#slide-image');
 const position = document.querySelector('#slide-position');
 const previous = document.querySelector('#previous-slide');
@@ -9,22 +9,42 @@ const shell = document.querySelector('#presentation-shell');
 const fullscreen = document.querySelector('#fullscreen-button');
 const exitPresentation = document.querySelector('#exit-presentation');
 const error = document.querySelector('#slide-error');
-const source = index => `assets/slides/slide-${String(index+1).padStart(2,'0')}.png`;
+const decks = {
+  full: { titles: fullTitles, directory: 'slides', pdf: 'Wariddon_Rattanamalee_Presentation.pdf' },
+  short: { titles: ['Wariddon Rattanamalee, Software Engineer','Professional experience','SCB banking services','Azure Managed Redis modernization','InblackM platforms and automation','AI-assisted engineering in both roles','Contact and discussion'], directory: 'slides-short', pdf: 'Wariddon_Rattanamalee_Presentation_Short.pdf' }
+};
+let deckKey = new URL(location.href).searchParams.get('deck') === 'short' ? 'short' : 'full';
+let titles = decks[deckKey].titles;
 let current = 0;
-const buttons = titles.map((title,index) => {
-  const button = document.createElement('button');
-  button.type = 'button'; button.setAttribute('aria-label',`Slide ${index+1}: ${title}`);
-  const preview = document.createElement('img'); preview.src = source(index); preview.alt = ''; preview.loading = 'lazy'; preview.width = 1280; preview.height = 720;
-  const caption = document.createElement('span'); const number = document.createElement('strong'); number.textContent = String(index+1).padStart(2,'0'); caption.append(number,document.createTextNode(title));
-  button.append(preview,caption); button.addEventListener('click',()=>{ show(index); overview.close(); }); grid.append(button); return button;
-});
+let buttons = [];
+const source = index => `assets/${decks[deckKey].directory}/slide-${String(index+1).padStart(2,'0')}.png?v=20261105-application-pack`;
+function buildOverview() {
+  grid.replaceChildren();
+  buttons = titles.map((title,index) => {
+    const button = document.createElement('button');
+    button.type = 'button'; button.setAttribute('aria-label',`Slide ${index+1}: ${title}`);
+    const preview = document.createElement('img'); preview.src = source(index); preview.alt = ''; preview.loading = 'lazy'; preview.width = 1280; preview.height = 720;
+    const caption = document.createElement('span'); const number = document.createElement('strong'); number.textContent = String(index+1).padStart(2,'0'); caption.append(number,document.createTextNode(title));
+    button.append(preview,caption); button.addEventListener('click',()=>{ show(index); overview.close(); }); grid.append(button); return button;
+  });
+  document.querySelectorAll('[data-deck]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.deck===deckKey)));
+  document.querySelector('#deck-download').href=`assets/${decks[deckKey].pdf}`;
+  document.querySelector('#slide-error a').href=`assets/${decks[deckKey].pdf}`;
+}
+function chooseDeck(key) {
+  if(!Object.hasOwn(decks,key)) return;
+  deckKey=key; titles=decks[key].titles;
+  const url=new URL(location.href); url.searchParams.set('deck',key); url.hash='slide=1';
+  history.replaceState(null,'',url); buildOverview(); show(0,false);
+}
+document.querySelectorAll('[data-deck]').forEach(button=>button.addEventListener('click',()=>chooseDeck(button.dataset.deck)));
 function show(index,updateAddress=true) {
   current = Math.max(0,Math.min(titles.length-1,Number.isFinite(index)?Math.trunc(index):0));
   error.hidden = true; image.src = source(current); image.alt = `Slide ${current+1}: ${titles[current]}`;
   position.replaceChildren(document.createTextNode(`${current+1} / ${titles.length}`)); const label = document.createElement('span'); label.textContent = titles[current]; position.append(label);
   previous.disabled = current === 0; next.disabled = current === titles.length-1;
   buttons.forEach((button,i)=>{ if(i===current)button.setAttribute('aria-current','true');else button.removeAttribute('aria-current'); });
-  if(updateAddress) history.replaceState(null,'',`#slide=${current+1}`);
+  if(updateAddress) { const url=new URL(location.href); url.hash=`slide=${current+1}`; history.replaceState(null,'',url); }
   document.title = `${current+1}/${titles.length} ${titles[current]} | Wariddon Rattanamalee`;
   [current-1,current+1].filter(i=>i>=0&&i<titles.length).forEach(i=>{ const preload = new Image(); preload.src = source(i); });
 }
@@ -58,4 +78,4 @@ document.querySelector('#slide-stage').addEventListener('pointerdown',event=>{if
 window.addEventListener('pointerup',event=>{if(!touch||touch.id!==event.pointerId)return;const dx=event.clientX-touch.x,dy=event.clientY-touch.y;touch=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.4)show(current+(dx<0?1:-1));});
 window.addEventListener('pointercancel',()=>{touch=null;});
 image.addEventListener('error',()=>{error.hidden=false;}); image.addEventListener('load',()=>{error.hidden=true;});
-window.addEventListener('hashchange',fromAddress); fromAddress();
+window.addEventListener('hashchange',fromAddress); buildOverview(); fromAddress();

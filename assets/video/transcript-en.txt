@@ -1,0 +1,15 @@
+My experience in software engineering spans insurance, telecommunications, banking and digital platforms. I've been developing software since 2018, working on backend services, web applications and automation. The focus is data integrity and clear system integration.
+
+My career began at Thai Insurance in 2018. I developed Java applications and a policy submission API. That included certificate handling and AES encryption, alongside business workflows built on relational databases.
+
+At CAT Telecom, I developed Java and Spring Boot features, and supported application testing. At TISCO, I worked with Python and Angular on Access Governance, and contributed Java features to a Digital Signature System.
+
+My primary role today is Backend Developer at Extend IT Resource, working with SCB. I develop banking APIs and integrations, and contribute to service modernization, testing and troubleshooting.
+
+For Azure Managed Redis, I implemented token renewal and connection pool rollover. I also adapted gateway authentication to use current credentials when reconnecting. Another contribution was report delivery, with separate handling for ZIP files, empty datasets and failures.
+
+In parallel, I work part-time at InblackM, as a Senior Tech Development Consultant. My contributions include order review screens, transactional order handover and staff single sign-on. I also work on automation and Go ERP services.
+
+I use Claude and Codex in both current roles, to understand code, investigate issues and draft changes. I then review the implementation and verify its behavior. At InblackM, I also implemented a read-only admin assistant, with evidence validation and a search fallback.
+
+Together, these roles connect backend engineering, full-stack development and operational integrations. The common focus is data integrity, clear workflows and reliable application behavior.

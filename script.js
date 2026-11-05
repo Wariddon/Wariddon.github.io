@@ -7,7 +7,7 @@ menu.addEventListener('click', () => {
 });
 nav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
 document.addEventListener('keydown', event => { if (event.key === 'Escape' && nav.classList.contains('open')) { closeMenu(); menu.focus(); } });
-window.matchMedia('(min-width: 761px)').addEventListener('change', event => { if (event.matches) closeMenu(); });
+window.matchMedia('(min-width: 1001px)').addEventListener('change', event => { if (event.matches) closeMenu(); });
 const filters = [...document.querySelectorAll('[data-filter]')];
 const projects = [...document.querySelectorAll('[data-category]')];
 const companySelect = document.querySelector('#company-filter');

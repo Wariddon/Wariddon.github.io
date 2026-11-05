@@ -66,3 +66,20 @@ as `/?company=tisco#work` can be shared and combined with `focus=backend` or
 InblackM visuals are local component previews with synthetic data. The other
 four visuals are labeled workflow/role illustrations, described in
 `assets/project-previews/README.md`.
+
+
+## Career film
+
+`video.html` provides English/Thai narration, native video controls, bilingual captions,
+chapter navigation and links to application materials. `?lang=th` opens Thai narration;
+English is the default. Switching language preserves the playback position and playing state.
+Each language has its own video with an embedded audio stream (WebM/Opus and MP4/AAC fallback).
+The player uses one media element and requires a deliberate Play action; there is no autoplay.
+Native controls provide volume, playback speed and fullscreen; captions also work in fullscreen.
+
+The 141.5-second film describes professional experience without a spoken personal introduction.
+Narration is synthetic (English: Andrew Multilingual; Thai: Niwat). The conceptual map was
+generated for the film; it is not a geographic or employer architecture diagram. Interface
+previews use synthetic records. The reference video inspired the map/timeline approach;
+no footage, speech or music was copied from it. Claude/Codex are development tools; the
+admin assistant is an implementation example, not a claim that production AI is active.

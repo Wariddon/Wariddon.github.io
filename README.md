@@ -53,3 +53,16 @@ Links such as `presentation.html#slide=8` open a specific slide.
 The project previews show actual interface components running locally with
 synthetic fixtures. The order preview has a simplified surrounding shell.
 No employer source code or customer data is included in this public repository.
+
+## Company highlights
+
+The selected work section includes six visual highlights across five career contexts:
+Extend IT / SCB, InblackM, TISCO, CAT Telecom and Thai Insurance. SCB is the client
+assignment through Extend IT Resource, rather than a separate employment entry.
+The company selector filters both highlights and case details. Direct links such
+as `/?company=tisco#work` can be shared and combined with `focus=backend` or
+`focus=fullstack`. There are nine case details in total.
+
+InblackM visuals are local component previews with synthetic data. The other
+four visuals are labeled workflow/role illustrations, described in
+`assets/project-previews/README.md`.

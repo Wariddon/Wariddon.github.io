@@ -6,8 +6,8 @@
   <title>Interview mode | Wariddon Rattanamalee</title>
   <meta name="description" content="A guided interview workspace: career film, short presentation, selected engineering cases and resume.">
   <link rel="canonical" href="https://wariddon.github.io/interview.html"><link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=20261105-interview"><link rel="stylesheet" href="interview.css?v=20261105-interview">
-  <script src="interview.js?v=20261105-interview" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20261105-interview"><link rel="stylesheet" href="interview.css?v=20261105-interview-ready">
+  <script src="interview.js?v=20261105-interview-ready" defer></script>
 </head>
 <body><a class="skip" href="#interview-main">Skip to interview</a>
   <div class="interview-shell" id="interview-shell">
@@ -17,6 +17,7 @@
       <div class="interview-steps" role="tablist" aria-label="Interview steps"><button type="button" role="tab" id="tab-film" aria-controls="panel-film" aria-selected="true" tabindex="0" data-step="film"><span>01</span>Career film</button><button type="button" role="tab" id="tab-slides" aria-controls="panel-slides" aria-selected="false" tabindex="-1" data-step="slides"><span>02</span>Presentation</button><button type="button" role="tab" id="tab-work" aria-controls="panel-work" aria-selected="false" tabindex="-1" data-step="work"><span>03</span>Selected work</button><button type="button" role="tab" id="tab-resume" aria-controls="panel-resume" aria-selected="false" tabindex="-1" data-step="resume"><span>04</span>Resume</button></div>
       <div class="interview-stage">
         <div class="interview-stage-heading"><div><p id="interview-position" role="status" aria-live="polite">Step 1 of 4 · Career film</p><h2 id="interview-step-title">Start with a 45-second overview.</h2></div><a id="open-material" href="video.html?cut=short" target="_blank" rel="noopener">Open separately <span aria-hidden="true">↗</span></a></div>
+        <div class="interview-loading" id="interview-loading" role="status" hidden><span id="interview-loading-text">Preparing this view…</span><button type="button" id="reload-material">Reload view</button></div>
         <section id="panel-film" role="tabpanel" aria-labelledby="tab-film"><iframe id="interview-video" title="45-second career film with English and Thai narration" src="video.html?cut=short&amp;lang=en&amp;embed=1" allow="fullscreen" allowfullscreen></iframe><p class="interview-hint">Choose English or ไทย inside the player, then press Play. Moving to another step pauses the film.</p></section>
         <section id="panel-slides" role="tabpanel" aria-labelledby="tab-slides" hidden><iframe id="interview-slides" title="Seven-slide interview presentation" data-src="presentation.html?deck=short&amp;embed=1" allow="fullscreen" allowfullscreen></iframe><p class="interview-hint">Seven slides for a focused conversation. Use the slide arrows or choose All slides to jump.</p></section>
         <section id="panel-work" role="tabpanel" aria-labelledby="tab-work" hidden><div class="interview-cases">

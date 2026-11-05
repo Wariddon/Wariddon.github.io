@@ -11,6 +11,28 @@
   const next = document.querySelector('#interview-next');
   const present = document.querySelector('#interview-present');
   let current = 0;
+  const loading = document.querySelector('#interview-loading');
+  let loadingFrame = null;
+  function frameReady(frame) {
+    try {
+      const expected = frame.id === 'interview-video' ? '#experience-video' : frame.id === 'interview-slides' ? '#slide-image' : '#resume-pages';
+      return frame.contentDocument?.readyState === 'complete' && !!frame.contentDocument.querySelector(expected);
+    } catch { return false; }
+  }
+  function showFrameState(frame) {
+    loadingFrame = frame;
+    loading.hidden = !frame || frameReady(frame);
+    if (frame) document.querySelector('#interview-loading-text').textContent = `Preparing ${steps[current].name.toLowerCase()}… If it does not appear, reload this view or open it separately.`;
+  }
+  document.querySelectorAll('.interview-stage iframe').forEach(frame => frame.addEventListener('load', () => {
+    if (frame === loadingFrame) showFrameState(frame);
+  }));
+  document.querySelector('#reload-material').addEventListener('click', () => {
+    if (!loadingFrame) return;
+    const frame = loadingFrame;
+    frame.src = frame.dataset.src || frame.getAttribute('src');
+    loading.hidden = false;
+  });
   function show(index, update = true) {
     const position = Math.max(0, Math.min(steps.length - 1, index));
     if (position !== 0) document.querySelector('#interview-video').contentWindow?.postMessage({ type: 'portfolio:pause' }, location.origin);
@@ -24,6 +46,7 @@
     document.querySelector('#interview-position').textContent = `Step ${current + 1} of 4 · ${steps[current].name}`;
     document.querySelector('#interview-step-title').textContent = steps[current].title;
     document.querySelector('#open-material').href = steps[current].href;
+    showFrameState(document.querySelector(`#panel-${steps[current].key} iframe`));
     previous.disabled = current === 0; next.disabled = current === steps.length - 1;
     next.textContent = current < steps.length - 1 ? `Next: ${steps[current + 1].name} →` : 'Finished';
     if (update) history.replaceState(null, '', `${location.pathname}${location.search}#${steps[current].key}`);

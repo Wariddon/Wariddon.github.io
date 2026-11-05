@@ -1,6 +1,6 @@
 (() => {
   const steps = [
-    { key: 'film', name: 'Career film', title: 'Start with a 45-second overview.', href: 'video.html?cut=short&v=20261105-voice-b' },
+    { key: 'film', name: 'Career film', title: 'Start with a 45-second overview.', href: 'video.html?cut=short&v=20261106-motion' },
     { key: 'slides', name: 'Presentation', title: 'Walk through the engineering experience.', href: 'presentation.html?deck=short' },
     { key: 'work', name: 'Selected work', title: 'Explore the decisions behind the implementation.', href: 'index.html#work' },
     { key: 'resume', name: 'Resume', title: 'Review the experience and continue the conversation.', href: 'resume.html' }

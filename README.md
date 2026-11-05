@@ -102,6 +102,17 @@ admin assistant is an implementation example, not a claim that production AI is 
 The owner selected sample B (Brian Multilingual) after comparing two real audio samples.
 Thai narration now uses first-person conversational wording and native speaking tempo (+0%).
 Both the full film and 45-second edit have newly timed Thai captions and transcripts.
-Picture streams and the English media are preserved. The highlight narration is written for
+The approved English and Thai narration tracks are retained across the shared picture timeline. The highlight narration is written for
 its own chapter lengths, rather than cutting clauses out of the full narration.
 Thai media URLs and the embedded film URL carry a version key to refresh cached audio.
+
+
+## Motion picture revision — 6 November 2026
+
+The picture is now rendered at 60 fps with a fixed camera within each chapter.
+Independent route markers, data packets, phased workflow cards and gentle highlights
+animate the explanation. Company labels, role text and the map remain stable.
+The full film remains 141.5 seconds; highlights remain 45 seconds. Both languages
+reuse their approved narration packets, including owner-selected Thai voice B.
+The workflow cards are illustrations; the InblackM interface previews retain sample data.
+The closing QR is stationary for scanning. Captions and chapter timestamps are unchanged.

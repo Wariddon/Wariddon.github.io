@@ -83,3 +83,15 @@ generated for the film; it is not a geographic or employer architecture diagram.
 previews use synthetic records. The reference video inspired the map/timeline approach;
 no footage, speech or music was copied from it. Claude/Codex are development tools; the
 admin assistant is an implementation example, not a claim that production AI is active.
+
+
+## Interview flow and video highlights
+
+- `video.html?cut=short&lang=en` opens a 45-second edit; `cut=full` keeps the 141.5-second story.
+- `t` is a start time in seconds, clamped to the loaded video's duration. Chapter links include `cut`, `lang` and `t`.
+- Related case links follow the active chapter. Read-along text supports either language, sentence seeking and optional following.
+- The highlight edit reuses complete phrases from the existing narration; there are no new experience or performance claims.
+- `interview.html` guides film → short slides → selected cases → resume. Presentation/resume frames load on demand.
+- Changing interview steps sends a same-origin `portfolio:pause` message to the film; embedded playback has no autoplay.
+- `embed=1` strips surrounding navigation for interview frames. Standalone routes keep their full controls.
+- Present mode supports native fullscreen when available and a CSS presentation layout as a fallback; Escape exits.

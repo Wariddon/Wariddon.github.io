@@ -1,0 +1,17 @@
+window.experienceVideoChapters = [
+  { key: 'overview', start: 0, title: 'Engineering experience', company: 'Across five companies', heading: 'Explore the engineering behind the story', description: 'Backend services, full-stack applications and operational integrations since 2018.', links: [['index.html#work', 'Explore selected work']] },
+  { key: 'insurance', start: 20.2, title: 'Thai Insurance', company: 'Thai Insurance · 2018–2022', heading: 'Policy submission and business applications', description: 'Java applications, policy APIs, certificate handling and encrypted data exchange.', links: [['index.html#case-insurance', 'DMSPilot policy submission']] },
+  { key: 'cat-tisco', start: 37.266667, title: 'CAT Telecom & TISCO', company: 'CAT Telecom / TISCO · 2022–2024', heading: 'From Java features to access governance', description: 'Java backend development and testing, followed by Python/Angular access governance and Java digital signatures.', links: [['index.html#case-cat', 'CAT backend development'], ['index.html#case-tisco', 'TISCO access governance']] },
+  { key: 'scb', start: 53.333333, title: 'SCB via Extend IT', company: 'SCB via Extend IT Resource · Current primary role', heading: 'Banking services and integrations', description: 'Backend development across banking APIs, service modernization, reporting and Azure Managed Redis.', links: [['index.html#case-redis', 'Azure Managed Redis'], ['index.html#case-reports', 'AML report delivery']] },
+  { key: 'backend', start: 69.233333, title: 'Backend implementation', company: 'SCB via Extend IT Resource', heading: 'Make reconnects and report outcomes explicit', description: 'Token renewal, connection pool rollover and report handling for ZIP files, empty datasets and failures.', links: [['index.html#case-redis', 'Redis authentication case'], ['index.html#case-reports', 'Report delivery case']] },
+  { key: 'inblackm', start: 88.833333, title: 'Platforms at InblackM', company: 'InblackM · Concurrent part-time role', heading: 'Operational tools with clear handover rules', description: 'Senior Tech Development Consultant contributions across order review, staff sign-in, automation and Go ERP services.', links: [['index.html#case-orders', 'Order handover'], ['index.html#case-sso', 'Shared staff identity'], ['index.html#case-erp', 'Go ERP contributions']] },
+  { key: 'ai', start: 106.5, title: 'AI-assisted engineering', company: 'SCB / InblackM', heading: 'AI in development, with human review', description: 'Claude and Codex support code investigation and drafting. Changes are reviewed and verified; InblackM also includes a read-only assistant implementation.', links: [['index.html#approach', 'My AI workflow'], ['index.html#case-assistant', 'Read-only assistant case']] },
+  { key: 'closing', start: 126.433333, title: 'Experience across systems', company: 'Continue the conversation', heading: 'From a quick overview to an interview', description: 'Review the cases, open the resume or walk through the short interview deck.', links: [['interview.html', 'Start interview mode'], ['resume.html', 'Read the resume']] }
+];
+window.experienceVideoShortSegments = [
+  { key: 'overview', start: 0, duration: 7.6, source: 7.7 },
+  { key: 'scb', start: 7.6, duration: 11, source: 53.5 },
+  { key: 'inblackm', start: 18.6, duration: 13.1, source: 89.1 },
+  { key: 'ai', start: 31.7, duration: 11.7, source: 106.5 },
+  { key: 'closing', start: 43.4, duration: 1.6, source: 139.9 }
+];

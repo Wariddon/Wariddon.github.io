@@ -1,0 +1,21 @@
+I've been developing software since 2018,
+
+working on backend services, web applications and automation.
+
+My primary role today is Backend Developer at Extend IT Resource,
+
+working with SCB.
+
+I develop banking APIs and integrations,
+
+In parallel, I work part-time at InblackM,
+
+as a Senior Tech Development Consultant.
+
+My contributions include order review screens, transactional order handover and staff single sign-on.
+
+I use Claude and Codex in both current roles,
+
+to understand code, investigate issues and draft changes.
+
+I then review the implementation and verify its behavior.

@@ -78,7 +78,7 @@ The player uses one media element and requires a deliberate Play action; there i
 Native controls provide volume, playback speed and fullscreen; captions also work in fullscreen.
 
 The 141.5-second film describes professional experience without a spoken personal introduction.
-Narration is synthetic (English: Andrew Multilingual; Thai: Niwat). The conceptual map was
+Narration is synthetic (English: Andrew Multilingual; Thai: Brian Multilingual, owner-selected voice B). The conceptual map was
 generated for the film; it is not a geographic or employer architecture diagram. Interface
 previews use synthetic records. The reference video inspired the map/timeline approach;
 no footage, speech or music was copied from it. Claude/Codex are development tools; the
@@ -95,3 +95,13 @@ admin assistant is an implementation example, not a claim that production AI is 
 - Changing interview steps sends a same-origin `portfolio:pause` message to the film; embedded playback has no autoplay.
 - `embed=1` strips surrounding navigation for interview frames. Standalone routes keep their full controls.
 - Present mode supports native fullscreen when available and a CSS presentation layout as a fallback; Escape exits.
+
+
+## Thai narration revision — November 2026
+
+The owner selected sample B (Brian Multilingual) after comparing two real audio samples.
+Thai narration now uses first-person conversational wording and native speaking tempo (+0%).
+Both the full film and 45-second edit have newly timed Thai captions and transcripts.
+Picture streams and the English media are preserved. The highlight narration is written for
+its own chapter lengths, rather than cutting clauses out of the full narration.
+Thai media URLs and the embedded film URL carry a version key to refresh cached audio.

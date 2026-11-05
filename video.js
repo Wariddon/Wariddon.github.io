@@ -29,6 +29,7 @@
   const cueData = () => cut === 'short' ? window.experienceVideoHighlights : window.experienceVideoContent;
   const chapters = () => cut === 'short' ? shortSegments.map(segment => ({ ...fullChapters.find(c => c.key === segment.key), ...segment })) : fullChapters;
   const prefix = () => cut === 'short' ? 'highlight' : 'experience';
+  const thaiVersion = () => language === 'th' ? '?v=20261105-voice-b' : '';
   const timeFromAddress = () => {
     const value = Number(params.get('t'));
     return Number.isFinite(value) ? Math.max(0, value) : 0;
@@ -63,6 +64,7 @@
   function shareChapter(chapter) {
     const address = new URL('video.html', location.protocol === 'file:' ? 'https://wariddon.github.io/' : location.href);
     address.searchParams.set('cut', cut); address.searchParams.set('lang', language); address.searchParams.set('t', String(chapter.start));
+    address.searchParams.set('v', '20261105-voice-b');
     $('#chapter-url').value = address.href; $('#share-chapter-title').textContent = chapter.title;
   }
   function showRelated(chapter) {
@@ -132,7 +134,7 @@
     let chapter = fullChapters[0]; for (const item of fullChapters) if (item.start <= time) chapter = item;
     return (shortSegments.find(segment => segment.key === (chapter.key === 'backend' ? 'scb' : chapter.key)) || shortSegments[0]).start;
   }
-  function startSource() { video.src = `assets/video/${prefix()}-${language}.${formats[formatIndex]}`; video.load(); }
+  function startSource() { video.src = `assets/video/${prefix()}-${language}.${formats[formatIndex]}${thaiVersion()}`; video.load(); }
   function selectMedia(lang, edition, initial = false) {
     if (pending || (!initial && lang === language && edition === cut)) return;
     const changedCut = cut !== edition;
@@ -141,8 +143,8 @@
     status.textContent = lang === 'th' ? 'กำลังเตรียมเสียงภาษาไทย…' : 'Preparing English narration…'; loading.textContent = status.textContent;
     languageButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.language === lang)));
     cutButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.cut === edition)));
-    $('#download-video').href = $('#fallback-link').href = `assets/video/${prefix()}-${lang}.mp4`;
-    $('#transcript-link').href = `assets/video/${cut === 'short' ? 'highlight-' : ''}transcript-${lang}.txt`;
+    $('#download-video').href = $('#fallback-link').href = `assets/video/${prefix()}-${lang}.mp4${thaiVersion()}`;
+    $('#transcript-link').href = `assets/video/${cut === 'short' ? 'highlight-' : ''}transcript-${lang}.txt${thaiVersion()}`;
     $('#film-duration').textContent = cut === 'short' ? '00:45' : '02:21';
     $('#film-scope').textContent = cut === 'short' ? 'Current role highlights' : '5 companies';
     $('#quality-duration').textContent = cut === 'short' ? '45 sec' : '2 min 21 sec';

@@ -29,7 +29,7 @@
   const cueData = () => cut === 'short' ? window.experienceVideoHighlights : window.experienceVideoContent;
   const chapters = () => cut === 'short' ? shortSegments.map(segment => ({ ...fullChapters.find(c => c.key === segment.key), ...segment })) : fullChapters;
   const prefix = () => cut === 'short' ? 'highlight' : 'experience';
-  const mediaVersion = () => '?v=20261106-motion';
+  const mediaVersion = () => '?v=20261106-scb';
   const timeFromAddress = () => {
     const value = Number(params.get('t'));
     return Number.isFinite(value) ? Math.max(0, value) : 0;
@@ -64,7 +64,7 @@
   function shareChapter(chapter) {
     const address = new URL('video.html', location.protocol === 'file:' ? 'https://wariddon.github.io/' : location.href);
     address.searchParams.set('cut', cut); address.searchParams.set('lang', language); address.searchParams.set('t', String(chapter.start));
-    address.searchParams.set('v', '20261106-motion');
+    address.searchParams.set('v', '20261106-scb');
     $('#chapter-url').value = address.href; $('#share-chapter-title').textContent = chapter.title;
   }
   function showRelated(chapter) {

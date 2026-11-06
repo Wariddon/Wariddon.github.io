@@ -57,8 +57,7 @@ No employer source code or customer data is included in this public repository.
 ## Company highlights
 
 The selected work section includes six visual highlights across five career contexts:
-Extend IT / SCB, InblackM, TISCO, CAT Telecom and Thai Insurance. SCB is the client
-assignment through Extend IT Resource, rather than a separate employment entry.
+SCB, InblackM, TISCO, CAT Telecom and Thai Insurance. SCB is the primary banking role.
 The company selector filters both highlights and case details. Direct links such
 as `/?company=tisco#work` can be shared and combined with `focus=backend` or
 `focus=fullstack`. There are nine case details in total.
@@ -116,3 +115,8 @@ The full film remains 141.5 seconds; highlights remain 45 seconds. Both language
 reuse their approved narration packets, including owner-selected Thai voice B.
 The workflow cards are illustrations; the InblackM interface previews retain sample data.
 The closing QR is stationary for scanning. Captions and chapter timestamps are unchanged.
+
+
+## SCB naming revision
+
+Current application materials identify the banking experience as Siam Commercial Bank (SCB). The website, resume, both decks, film graphics, English and Thai narration, captions and downloads use this naming consistently.

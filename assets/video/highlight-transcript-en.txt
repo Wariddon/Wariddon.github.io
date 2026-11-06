@@ -2,11 +2,9 @@ I've been developing software since 2018,
 
 working on backend services, web applications and automation.
 
-My primary role today is Backend Developer at Extend IT Resource,
+My primary role is Backend Developer at SCB.
 
-working with SCB.
-
-I develop banking APIs and integrations,
+I develop banking APIs and system integrations.
 
 In parallel, I work part-time at InblackM,
 

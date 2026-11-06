@@ -1,0 +1,39 @@
+﻿1
+00:00:00,220 --> 00:00:03,203
+I've been developing software since 2018,
+
+2
+00:00:03,495 --> 00:00:07,068
+working on backend services, web applications and automation.
+
+3
+00:00:07,904 --> 00:00:11,019
+My primary role is Backend Developer at SCB.
+
+4
+00:00:11,329 --> 00:00:14,977
+I develop banking APIs and system integrations.
+
+5
+00:00:18,820 --> 00:00:22,244
+In parallel, I work part-time at InblackM,
+
+6
+00:00:22,540 --> 00:00:24,511
+as a Senior Tech Development Consultant.
+
+7
+00:00:24,720 --> 00:00:31,274
+My contributions include order review screens, transactional order handover and staff single sign-on.
+
+8
+00:00:31,920 --> 00:00:34,882
+I use Claude and Codex in both current roles,
+
+9
+00:00:34,922 --> 00:00:39,101
+to understand code, investigate issues and draft changes.
+
+10
+00:00:39,348 --> 00:00:42,789
+I then review the implementation and verify its behavior.

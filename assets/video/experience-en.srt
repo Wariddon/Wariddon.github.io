@@ -1,0 +1,127 @@
+﻿1
+00:00:00,750 --> 00:00:07,962
+My experience in software engineering spans insurance, telecommunications, banking and digital platforms.
+
+2
+00:00:08,229 --> 00:00:11,212
+I've been developing software since 2018,
+
+3
+00:00:11,503 --> 00:00:15,076
+working on backend services, web applications and automation.
+
+4
+00:00:15,330 --> 00:00:19,204
+The focus is data integrity and clear system integration.
+
+5
+00:00:20,751 --> 00:00:23,882
+My career began at Thai Insurance in 2018.
+
+6
+00:00:24,125 --> 00:00:28,214
+I developed Java applications and a policy submission API.
+
+7
+00:00:28,469 --> 00:00:32,318
+That included certificate handling and AES encryption,
+
+8
+00:00:32,536 --> 00:00:36,247
+alongside business workflows built on relational databases.
+
+9
+00:00:37,816 --> 00:00:42,143
+At CAT Telecom, I developed Java and Spring Boot features,
+
+10
+00:00:42,183 --> 00:00:43,915
+and supported application testing.
+
+11
+00:00:44,166 --> 00:00:48,331
+At TISCO, I worked with Python and Angular on Access Governance,
+
+12
+00:00:48,383 --> 00:00:52,310
+and contributed Java features to a Digital Signature System.
+
+13
+00:00:53,874 --> 00:00:57,744
+My primary role today is Backend Developer at SCB.
+
+14
+00:00:58,054 --> 00:01:01,468
+I develop banking APIs and system integrations.
+
+15
+00:01:01,765 --> 00:01:06,456
+My work includes service modernization, testing and troubleshooting.
+
+16
+00:01:09,818 --> 00:01:15,076
+For Azure Managed Redis, I implemented token renewal and connection pool rollover.
+
+17
+00:01:15,322 --> 00:01:20,616
+I also adapted gateway authentication to use current credentials when reconnecting.
+
+18
+00:01:20,862 --> 00:01:23,356
+Another contribution was report delivery,
+
+19
+00:01:23,576 --> 00:01:27,839
+with separate handling for ZIP files, empty datasets and failures.
+
+20
+00:01:29,370 --> 00:01:32,794
+In parallel, I work part-time at InblackM,
+
+21
+00:01:33,090 --> 00:01:35,061
+as a Senior Tech Development Consultant.
+
+22
+00:01:35,270 --> 00:01:41,823
+My contributions include order review screens, transactional order handover and staff single sign-on.
+
+23
+00:01:42,070 --> 00:01:45,482
+I also work on automation and Go ERP services.
+
+24
+00:01:47,052 --> 00:01:50,013
+I use Claude and Codex in both current roles,
+
+25
+00:01:50,053 --> 00:01:54,232
+to understand code, investigate issues and draft changes.
+
+26
+00:01:54,479 --> 00:01:57,921
+I then review the implementation and verify its behavior.
+
+27
+00:01:58,181 --> 00:02:02,627
+At InblackM, I also implemented a read-only admin assistant,
+
+28
+00:02:02,746 --> 00:02:05,425
+with evidence validation and a search fallback.
+
+29
+00:02:07,175 --> 00:02:10,274
+Together, these roles connect backend engineering,
+
+30
+00:02:10,389 --> 00:02:13,750
+full-stack development and operational integrations.
+
+31
+00:02:14,023 --> 00:02:16,570
+The common focus is data integrity,
+
+32
+00:02:16,633 --> 00:02:19,863
+clear workflows and reliable application behavior.

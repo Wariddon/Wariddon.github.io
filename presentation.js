@@ -17,7 +17,7 @@ let deckKey = new URL(location.href).searchParams.get('deck') === 'short' ? 'sho
 let titles = decks[deckKey].titles;
 let current = 0;
 let buttons = [];
-const source = index => `assets/${decks[deckKey].directory}/slide-${String(index+1).padStart(2,'0')}.png?v=20261105-application-pack`;
+const source = index => `assets/${decks[deckKey].directory}/slide-${String(index+1).padStart(2,'0')}.png?v=20261106-scb`;
 function buildOverview() {
   grid.replaceChildren();
   buttons = titles.map((title,index) => {
@@ -28,8 +28,8 @@ function buildOverview() {
     button.append(preview,caption); button.addEventListener('click',()=>{ show(index); overview.close(); }); grid.append(button); return button;
   });
   document.querySelectorAll('[data-deck]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.deck===deckKey)));
-  document.querySelector('#deck-download').href=`assets/${decks[deckKey].pdf}`;
-  document.querySelector('#slide-error a').href=`assets/${decks[deckKey].pdf}`;
+  document.querySelector('#deck-download').href=`assets/${decks[deckKey].pdf}?v=20261106-scb`;
+  document.querySelector('#slide-error a').href=`assets/${decks[deckKey].pdf}?v=20261106-scb`;
 }
 function chooseDeck(key) {
   if(!Object.hasOwn(decks,key)) return;

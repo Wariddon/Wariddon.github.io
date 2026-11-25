@@ -10,104 +10,26 @@
   <link rel="stylesheet" href="styles.css?v=20261105-interview"><link rel="stylesheet" href="materials.css?v=20261106-scb">
   <link rel="stylesheet" href="material-embed.css?v=20261105-interview">
   <script src="material-embed.js?v=20261105-interview" defer></script>
+<style>
+.cv{max-width:980px;margin:auto;padding:clamp(20px,5vw,64px);color:#192d30;font:16px/1.6 system-ui,sans-serif}
+.cv h1,.cv h2,.cv h3{color:#173b3e;line-height:1.15;letter-spacing:-.025em;margin:0}
+.cv h1{font:normal clamp(44px,7vw,78px)/1.04 Georgia,serif;max-width:16ch}.cv h2{font:normal 32px/1.2 Georgia,serif;margin-bottom:22px}
+.cv .intro{border-top:4px solid #26685f;padding:26px 0}.cv .intro>strong{display:block;margin-bottom:12px;color:#27685e}
+.cv .summary{max-width:70ch}.cv a{color:#205d54;text-underline-offset:4px}.cv .contacts,.cv nav{display:flex;align-items:center;flex-wrap:wrap;gap:10px 20px}.cv .download{background:#19594e;color:white;padding:10px 18px;border-radius:5px;text-decoration:none}
+.cv nav{position:static;box-shadow:none;background:transparent;border-inline:0;border-block:1px solid #b8cbc4;padding:12px 0}.cv section[id]{padding:30px 0;border-bottom:1px solid #c7d3cf;scroll-margin-top:70px}
+.cv article+article{margin-top:24px;padding-top:22px;border-top:1px solid #d5dfdb}.cv article header{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:4px 16px}
+.cv h3{font-size:20px}.cv .role{margin:4px 0;color:#35645c;font-weight:600}.cv ul{padding-left:1.25em;margin:10px 0 0}.cv li{margin:5px 0;max-width:80ch}.cv dl{margin:0}.cv dl div{display:grid;grid-template-columns:minmax(135px,1fr) 3fr;gap:18px;padding:8px 0}.cv dt{font-weight:650}.cv dd{margin:0}.cv :focus-visible{outline:3px solid #146963;outline-offset:3px}
+@media(max-width:560px){.cv dl div{display:block}.cv article header{display:block}.cv article header span{font-size:14px}.document-header{flex-wrap:wrap;height:auto}.document-tabs{flex-wrap:wrap}}
+</style><link rel="stylesheet" href="reading.css?v=20261125">
 </head>
 <body class="document-page">
-  <a class="skip" href="#resume-pages">Skip to resume</a>
+  <a class="skip" href="#resume-main">Skip to resume</a>
   <header class="document-header">
     <a class="brand" href="index.html?v=20261106-scb"><span class="monogram">WR</span><span>Wariddon<span class="brand-dot">.</span></span></a>
-    <nav class="document-tabs" aria-label="Application materials"><a href="index.html?v=20261106-scb">Portfolio</a><a href="resume.html?v=20261106-scb" aria-current="page">Resume</a><a href="presentation.html?v=20261106-scb">Presentation</a><a href="video.html?v=20261106-scb">Video</a></nav>
+    <nav class="document-tabs" aria-label="Application materials"><a href="index.html?v=20261106-scb">Portfolio</a><a href="resume.html?v=20261106-scb" aria-current="page">Resume</a><a href="presentation.html?v=20261106-scb">Presentation</a><a href="video.html?v=20261106-scb">Video</a><a href="workspace.html">Workspace</a></nav>
   </header>
-  <main class="resume-main">
-    <section class="material-bar" aria-labelledby="resume-title">
-      <div><h1 class="material-title" id="resume-title">Resume</h1><p>Wariddon Rattanamalee · Software Engineer · 2 pages</p></div>
-      <div class="material-actions"><a class="material-link" href="assets/Wariddon_Rattanamalee_Resume.pdf?v=20261106-scb" target="_blank" rel="noopener">Open PDF ↗</a><a class="material-button" href="assets/Wariddon_Rattanamalee_Resume.pdf?v=20261106-scb" download>Download PDF</a></div>
-    </section>
-    <div class="resume-pages" id="resume-pages">
-      <figure><img src="assets/resume-page-1.png?v=20261106-scb" width="1040" height="1346" alt="Resume page 1: profile and current experience at SCB and InblackM"><figcaption>Page 1 of 2 · Profile and current experience</figcaption></figure>
-      <figure><img src="assets/resume-page-2.png?v=20261106-scb" width="1040" height="1346" loading="lazy" alt="Resume page 2: earlier experience, technical skills, education and professional development"><figcaption>Page 2 of 2 · Experience, skills and education</figcaption></figure>
-      <details class="resume-transcript"><summary>Read the resume as text</summary><pre>
-Wariddon Rattanamalee  |  1 / 2
-WARIDDON RATTANAMALEE
-Software Engineer
-Backend and Full-stack Development with AI-assisted Engineering
-Bangkok / Nonthaburi, Thailand  |  099-323-2150
-wrd8856@hotmail.com  |  github.com/Wariddon  |  wariddon.github.io
-PROFILE
-Software Engineer with experience developing banking services, web applications and automation across
-financial services and game top-up platforms. Works with Java/Spring Boot, Node.js, React, Next.js and Go, with a
-focus on API integration, data integrity and service reliability. Uses Claude and OpenAI Codex for code analysis,
-debugging, refactoring and test drafting, supported by code review and validation against requirements.
-CURRENT EXPERIENCE
- Siam Commercial Bank (SCB) May 2024 - Present
-Backend Developer
-• Develop Java/Spring Boot banking APIs and support SCB Connect migration, integration troubleshooting,
-UAT and release activities.
-• Modernized Spring Boot and Spring Cloud services, gateway configuration, dependencies and CI/CD
-settings for Azure AKS.
-• Implemented Azure Managed Redis integration with Entra Managed Identity, token renewal, connection
-pool rollover and fresh credentials on reconnect.
-• Built AML report delivery using Azure Blob Storage and SMTP, including ZIP attachments, no-data
-messages and failure notifications.
-• Corrected customer API handling for omitted and cleared address fields, large income values and audit
-timestamps, with regression coverage.
-• Use Claude and Codex for cross-service analysis, migration changes and defect investigation, then review
-diffs and validate behavior with tests.
- InblackM Jun 2026 - Present
-Senior Tech Development Consultant, Part-time
-• Build Next.js/React management screens and Node.js APIs for order review, package pricing and
-operational dashboards.
-• Implemented transactional order handover and dispatch controls with state, ownership and retry checks
-to protect order and payment records.
-• Integrated staff SSO between System and Audit applications, covering session verification, login/logout
-and regression tests.
-• Implemented a read-only admin AI assistant using the OpenAI Responses API, server-side evidence
-retrieval, structured output validation and fallback handling.
-• Contributed Go ERP services for multi-tenant administration, tenant secret storage and attendance
-geofencing.
-• Use Claude and Codex for investigation across repositories, refactoring, test drafting and technical
-handoffs, with manual review of changes.
-
-
-
-WARIDDON RATTANAMALEE  |  SOFTWARE ENGINEER
-Wariddon Rattanamalee  |  2 / 2
-EARLIER EXPERIENCE
- TISCO Financial Group 2023 - 2024
-Backend Developer
-• Developed Python backend services and Angular screens for Access Governance workflows.
-• Contributed to a Java Digital Signature System, defect investigation and LoadRunner performance testing.
- CAT Telecom Public Company Limited 2022
-Programmer / Java Developer
-• Developed Java/Spring Boot features and supported testing using Oracle, Docker, Podman and GitLab.
- Thai Insurance Public Company Limited 2018 - 2022
-Programmer
-• Developed Java web applications, backend services, stored procedures and database-driven business
-workflows.
-• Built the DMSPilot REST API for real-time policy submission to OIC, with certificate handling and AES
-encryption.
-• Developed TMB Tablet and internal administrative, statement, partner and agent systems using Java,
-Spring, SQL Server, DB2 and Informix.
-TECHNICAL SKILLS
-Backend  Java, Spring Boot, Spring Cloud Gateway, Node.js, Express.js, Go, Python, Kotlin
-Frontend  JavaScript, React, Next.js, Angular
-Data and integration  PostgreSQL, SQL Server, MySQL, Oracle, DB2, Redis, Kafka, REST and SOAP APIs
-Cloud and delivery  Azure AKS, Azure Managed Redis, Blob Storage, Entra Managed Identity, AWS, Docker,
-Kubernetes, Jenkins, Argo CD, GitLab, PM2
-Testing and diagnostics  Regression testing, Playwright, Postman, Bruno, Kibana, Grafana, LoadRunner
-AI development  Claude and OpenAI Codex for repository analysis, debugging, refactoring, code and test drafting,
-SQL and documentation
-AI integration  OpenAI Responses API, server-side context retrieval, structured JSON output, evidence references
-and response validation
-EDUCATION
-Master of Business Administration 2022 - 2024
-Ramkhamhaeng University, Finance and Banking
-Bachelor of Science 2014 - 2018
-Burapha University, Computer Science
-PROFESSIONAL DEVELOPMENT
-KBTG Java and Go Bootcamp, with additional coursework through FutureSkill, True Digital Academy and Coursera.
-</pre></details>
-    </div>
-  </main>
-  <footer class="document-footer"><a href="index.html?v=20261106-scb">Back to portfolio</a><a href="presentation.html?v=20261106-scb">Open interview presentation →</a></footer>
+  <main class="cv" id="resume-main"><header class="intro"><strong>Software Engineer</strong><h1>Wariddon Rattanamalee</h1><p class="summary">Backend and full-stack engineer building banking APIs at SCB and order management tools at InblackM. Works with Java, Spring Boot, Node.js, React and Go on service migrations, payment handling and the screens staff use to resolve orders.</p><p>Bangkok / Nonthaburi, Thailand</p><div class="contacts"><a class="download" href="assets/Wariddon_Rattanamalee_Resume.pdf?v=20261125" download>Download PDF</a><a href="assets/Wariddon_Rattanamalee_Resume.pdf?v=20261125" target="_blank" rel="noopener">Open PDF ↗</a><a href="mailto:wrd8856@hotmail.com">Email</a><a href="tel:+66993232150">099-323-2150</a><a href="https://github.com/Wariddon">GitHub</a></div></header>
+<nav aria-label="Resume sections"><a href="#experience">Current experience</a><a href="#earlier">Earlier roles</a><a href="#skills">Technical skills</a><a href="#education">Education</a></nav>
+<section id="experience"><h2>Current experience</h2><article><header><h3>Siam Commercial Bank (SCB)</h3><span>May 2024 - Present</span></header><p class="role">Backend Developer</p><ul><li>Develop Java/Spring Boot banking APIs and support SCB Connect migration, integration troubleshooting, UAT and release activities.</li><li>Modernized Spring Boot and Spring Cloud services, gateway configuration, dependencies and CI/CD settings for Azure AKS.</li><li>Implemented Azure Managed Redis integration with Entra Managed Identity, token renewal, connection pool rollover and fresh credentials on reconnect.</li><li>Built AML report delivery using Azure Blob Storage and SMTP, including ZIP attachments, no-data messages and failure notifications.</li><li>Corrected customer API handling for omitted and cleared address fields, large income values and audit timestamps, with regression coverage.</li><li>Use Claude and Codex for cross-service analysis, migration changes and defect investigation, then review diffs and validate behavior with tests.</li></ul></article><article><header><h3>InblackM</h3><span>Jun 2026 - Present</span></header><p class="role">Senior Tech Development Consultant, Part-time</p><ul><li>Built Next.js and React tools for order review and package pricing, backed by Node.js APIs. Added staff profiles to admin navigation and displayed shared ownership on grouped orders.</li><li>Implemented transactional order handover and dispatch controls with state, ownership and retry checks to protect order and payment records.</li><li>Integrated staff SSO between System and Audit applications, covering session verification, login/logout and regression tests.</li><li>Implemented a read-only admin AI assistant using the OpenAI Responses API, server-side evidence retrieval, structured output validation and fallback handling.</li><li>Contributed Go ERP services for multi-tenant administration, tenant secret storage and attendance geofencing.</li><li>Implemented per-package expiry for unpaid orders and routed the original QR payment to staff for review.</li></ul></article></section><section id="earlier"><h2>Earlier roles</h2><article><header><h3>TISCO Financial Group</h3><span>2023 - 2024</span></header><p class="role">Backend Developer</p><ul><li>Developed Python backend services and Angular screens for Access Governance workflows.</li><li>Contributed to a Java Digital Signature System, defect investigation and LoadRunner performance testing.</li></ul></article><article><header><h3>CAT Telecom Public Company Limited</h3><span>2022</span></header><p class="role">Programmer / Java Developer</p><ul><li>Developed Java/Spring Boot features and supported testing using Oracle, Docker, Podman and GitLab.</li></ul></article><article><header><h3>Thai Insurance Public Company Limited</h3><span>2018 - 2022</span></header><p class="role">Programmer</p><ul><li>Developed Java web applications, backend services, stored procedures and database-driven business workflows.</li><li>Built the DMSPilot REST API for real-time policy submission to OIC, with certificate handling and AES encryption.</li><li>Developed TMB Tablet and internal administrative, statement, partner and agent systems using Java, Spring, SQL Server, DB2 and Informix.</li></ul></article></section><section id="skills"><h2>Technical skills</h2><dl><div><dt>Backend</dt><dd>Java, Spring Boot, Spring Cloud Gateway, Node.js, Express.js, Go, Python, Kotlin</dd></div><div><dt>Frontend</dt><dd>JavaScript, React, Next.js, Angular</dd></div><div><dt>Data and integration</dt><dd>PostgreSQL, SQL Server, MySQL, Oracle, DB2, Redis, Kafka, REST and SOAP APIs</dd></div><div><dt>Cloud and delivery</dt><dd>Azure AKS, Azure Managed Redis, Blob Storage, Entra Managed Identity, AWS, Docker, Kubernetes, Jenkins, Argo CD, GitLab, PM2</dd></div><div><dt>Testing and diagnostics</dt><dd>Regression testing, Playwright, Postman, Bruno, Kibana, Grafana, LoadRunner</dd></div><div><dt>AI development</dt><dd>Claude and OpenAI Codex for repository analysis, debugging, refactoring, code and test drafting, SQL and documentation</dd></div><div><dt>AI integration</dt><dd>OpenAI Responses API, server-side context retrieval, structured JSON output, evidence references and response validation</dd></div></dl></section><section id="education"><h2>Education</h2><article><header><h3>Master of Business Administration</h3><span>2022 - 2024</span></header><p>Ramkhamhaeng University, Finance and Banking</p></article><article><header><h3>Bachelor of Science</h3><span>2014 - 2018</span></header><p>Burapha University, Computer Science</p></article><h3>Professional development</h3><p>KBTG Java and Go Bootcamp, with additional coursework through FutureSkill, True Digital Academy and Coursera.</p></section></main><footer class="document-footer"><a href="index.html?v=20261106-scb">Back to portfolio</a><a href="presentation.html?v=20261106-scb">Open interview presentation →</a></footer>
 </body>
 </html>

@@ -16,3 +16,10 @@ body{--paper:#faf9f5;--ink:#172e32;--teal:#145f56;--line:#ced9d3}
 .book-notes article{border-bottom:1px solid var(--line);padding:5px 0 28px;margin-bottom:30px;scroll-margin-top:20px}.book-notes h2{font:600 clamp(1.38rem,3vw,1.8rem)/1.45 Tahoma,sans-serif;margin:6px 0 12px}.book-notes h3{font:650 1rem/1.5 Tahoma,sans-serif;margin:18px 0 4px}.book-notes p{margin:0 0 8px}.book-notes .topic{color:#236455;font-size:.82rem;font-weight:700}.book-notes .example{background:#e9f1e9;border-left:3px solid #54856c;padding:14px 18px;margin-top:18px;border-radius:0 6px 6px 0}
 .book-index a:focus-visible,.notebook a:focus-visible{outline:3px solid #28796c;outline-offset:3px}
 @media(max-width:720px){.book-layout{display:block}.book-index{position:static;margin-bottom:26px;padding:16px 20px;background:#edf2ec;border-radius:10px}.document-header{flex-wrap:wrap;height:auto}.document-tabs{flex-wrap:wrap}.cv .intro{padding:21px}.hero #hero-title{font-size:clamp(2.8rem,11vw,4.25rem)}}
+
+.cv .employment header{display:grid;grid-template-columns:2.2rem minmax(0,1fr) auto;gap:.15rem .7rem;align-items:center}
+.cv .employer-mark{grid-column:1;grid-row:1;width:2.2rem;height:2.2rem;display:grid;place-items:center;background:white;border:1px solid #d5dfd9;border-radius:.4rem;padding:.22rem}
+.cv .employer-mark svg{display:block;width:100%;height:100%}
+.cv .employment header h3{grid-column:2}.cv .employment header>span:last-child{grid-column:3}
+.cv .employment .role{margin-left:2.9rem}
+@media(max-width:600px){.cv .employment header{grid-template-columns:2.2rem minmax(0,1fr)}.cv .employment header>span:last-child{grid-column:2}.cv .employment header h3{line-height:1.4}}

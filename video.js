@@ -39,6 +39,16 @@
   };
   if (params.get('embed') === '1') document.body.classList.add('embedded-video');
 
+  const labels = [...document.querySelectorAll('[data-th]')].map(node => ({node, en:node.textContent}));
+  const materialLinks = [...document.querySelectorAll('a[href^="resume.html"],a[href^="presentation.html"]')].map(node => ({node, href:node.getAttribute('href')}));
+  const local = (en, th) => language === 'th' ? th : en;
+  const materialHref = href => language === 'th' ? href.replace(/^(resume|presentation)\.html/, '$1-th.html') : href;
+  function localizePlayer() {
+    document.documentElement.lang = language;
+    for (const {node,en} of labels) node.textContent = local(en,node.dataset.th);
+    for (const {node,href} of materialLinks) node.setAttribute('href',materialHref(href));
+    $('#share-status').textContent = local('The link includes the chapter, narration language and video version.', 'ลิงก์นี้เปิดบท ภาษา และความยาวที่เลือกไว้');
+  }
   function updateAddress(time) {
     params.set('lang', language); params.set('cut', cut);
     if (time !== undefined) params.set('t', String(Math.round(time * 1000) / 1000));
@@ -46,6 +56,7 @@
   }
   function updateCaptions() {
     const chosen = captions.value === 'auto' ? language : captions.value;
+    $('#subtitle-file').href = 'assets/video/'+prefix()+'-'+(chosen==='off'?language:chosen)+'.srt'+mediaVersion();
     for (const lang of ['en', 'th']) tracks[lang].mode = chosen === lang ? 'showing' : 'disabled';
   }
   function rebuildCaptions() {
@@ -62,7 +73,7 @@
   }
   function updateStatus() {
     if (pending) return;
-    status.textContent = `${names[language]} narration · ${video.ended ? 'Finished' : video.paused ? 'Press Play to watch' : 'Playing'}`;
+    status.textContent = local(video.ended ? 'Finished' : video.paused ? 'Press Play to watch' : 'Playing', video.ended ? 'เล่นจบแล้ว' : video.paused ? 'กดเล่นเพื่อดูวิดีโอ' : 'กำลังเล่น');
   }
   function shareChapter(chapter) {
     const address = new URL('video.html', location.protocol === 'file:' ? 'https://wariddon.github.io/' : location.href);
@@ -74,10 +85,10 @@
     $('#related-company').textContent = chapter.company;
     $('#related-title').textContent = chapter.heading;
     $('#related-description').textContent = chapter.description;
-    const links = chapter.links.map(([href, label]) => {
-      const link = document.createElement('a'); link.href = href;
+    const links = chapter.links.map(([href, label], index) => {
+      const link = document.createElement('a'); link.href = materialHref(href);
       const arrow = document.createElement('span'); arrow.textContent = '↗'; arrow.setAttribute('aria-hidden', 'true');
-      link.append(document.createTextNode(label), arrow); return link;
+      link.append(document.createTextNode(chapter.linkLabels?.[index] || label), arrow); return link;
     });
     $('#related-links').replaceChildren(...links);
   }
@@ -104,7 +115,7 @@
       button.append(time, label); button.addEventListener('click', () => seek(chapter.start)); return button;
     });
     $('.chapter-grid').replaceChildren(...chapterButtons.map(button => { const item = document.createElement('li'); item.append(button); return item; }));
-    $('#chapter-count').textContent = `${chapterButtons.length} chapters`; currentChapter = null;
+    $('#chapter-count').textContent = chapterButtons.length + local(' chapters', ' บท'); currentChapter = null;
   }
   function buildTranscript() {
     const lang = $('#read-language').value === 'auto' ? language : $('#read-language').value;
@@ -142,15 +153,15 @@
     if (pending || (!initial && lang === language && edition === cut)) return;
     const changedCut = cut !== edition;
     pending = { time: initial ? timeFromAddress() : changedCut ? mappedTime(edition) : (video.currentTime || 0), play: !initial && !video.paused && !video.ended };
-    video.pause(); language = lang; cut = edition; error.hidden = true; busy(true);
+    video.pause(); language = lang; cut = edition; error.hidden = true; busy(true); localizePlayer();
     status.textContent = lang === 'th' ? 'กำลังเตรียมเสียงภาษาไทย…' : 'Preparing English narration…'; loading.textContent = status.textContent;
     languageButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.language === lang)));
     cutButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.cut === edition)));
     $('#download-video').href = $('#fallback-link').href = `assets/video/${prefix()}-${lang}.mp4${mediaVersion()}`;
     $('#transcript-link').href = `assets/video/${cut === 'short' ? 'highlight-' : ''}transcript-${lang}.txt${mediaVersion()}`;
     $('#film-duration').textContent = cut === 'short' ? '00:45' : '02:21';
-    $('#film-scope').textContent = cut === 'short' ? 'Current role highlights' : '5 companies';
-    $('#quality-duration').textContent = cut === 'short' ? '45 sec' : '2 min 21 sec';
+    $('#film-scope').textContent = cut === 'short' ? local('Current roles','งานปัจจุบัน') : local('5 companies','5 บริษัท');
+    $('#quality-duration').textContent = cut === 'short' ? local('45 sec','45 วินาที') : local('2 min 21 sec','2 นาที 21 วินาที');
     if (initial || changedCut) rebuildCaptions();
     buildChapters();
     buildTranscript(); updateCaptions(); updateAddress(pending.time);
@@ -166,7 +177,7 @@
   });
   video.addEventListener('error', () => {
     if (formatIndex + 1 < formats.length) { pending ||= { time: video.currentTime || 0, play: !video.paused }; busy(true); formatIndex += 1; startSource(); return; }
-    pending = null; busy(false); error.hidden = false; status.textContent = 'Video unavailable · Use the direct video link below.';
+    pending = null; busy(false); error.hidden = false; status.textContent = local('Video unavailable · Use the direct video link below.', 'โหลดวิดีโอไม่ได้ กรุณาเปิดไฟล์วิดีโอจากลิงก์ด้านล่าง');
   });
   languageButtons.forEach(button => button.addEventListener('click', () => selectMedia(button.dataset.language, cut)));
   cutButtons.forEach(button => button.addEventListener('click', () => selectMedia(language, button.dataset.cut)));
@@ -174,8 +185,8 @@
   for (const event of ['play', 'pause', 'ended']) video.addEventListener(event, updateStatus);
   video.addEventListener('timeupdate', () => { updateChapter(); updateTranscript(); });
   $('#copy-chapter').addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText($('#chapter-url').value); $('#share-status').textContent = 'Chapter link copied. It includes the narration language and video version.'; }
-    catch { $('#chapter-url').focus(); $('#chapter-url').select(); $('#share-status').textContent = 'The chapter link is selected. Press Ctrl+C or use Copy to share it.'; }
+    try { await navigator.clipboard.writeText($('#chapter-url').value); $('#share-status').textContent = local('Chapter link copied.', 'คัดลอกลิงก์บทนี้แล้ว'); }
+    catch { $('#chapter-url').focus(); $('#chapter-url').select(); $('#share-status').textContent = local('Select Copy or press Ctrl+C to copy the link.', 'เลือกคัดลอก หรือกด Ctrl+C เพื่อคัดลอกลิงก์'); }
   });
   window.addEventListener('message', event => {
     if (event.source === window.parent && event.origin === location.origin && event.data?.type === 'portfolio:pause') { if (pending) pending.play = false; video.pause(); }

@@ -3,7 +3,6 @@
   const $ = selector => document.querySelector(selector);
   const video = $('#experience-video');
   if (!video) return;
-  const languageButtons = [...document.querySelectorAll('[data-language]')];
   const cutButtons = [...document.querySelectorAll('[data-cut]')];
   const status = $('#playback-status');
   const screen = $('.film-screen');
@@ -13,7 +12,7 @@
   const fullChapters = window.experienceVideoChapters;
   const shortSegments = window.experienceVideoShortSegments;
   const params = new URLSearchParams(location.search);
-  let language = params.get('lang') === 'th' ? 'th' : 'en';
+  const language = 'en';
   let cut = params.get('cut') === 'short' ? 'short' : 'full';
   let pending = null;
   let formats = [];
@@ -23,57 +22,43 @@
   let transcriptButtons = [];
   let transcriptCues = [];
   let activeSentence = -1;
-  const names = { en: 'English', th: 'ไทย' };
-  const tracks = { en: video.addTextTrack('captions', 'English', 'en'), th: video.addTextTrack('captions', 'ไทย', 'th') };
+  const track = video.addTextTrack('captions', 'English', 'en');
   const clock = time => `${Math.floor(time / 60)}:${String(Math.floor(time % 60)).padStart(2, '0')}`;
   const cueData = () => cut === 'short' ? window.experienceVideoHighlights : window.experienceVideoContent;
   const chapters = () => {
     const list = cut === 'short' ? shortSegments.map(segment => ({ ...fullChapters.find(c => c.key === segment.key), ...segment })) : fullChapters;
-    return language === 'th' ? list.map(chapter => ({ ...chapter, ...window.experienceChapterThai[chapter.key] })) : list;
+    return list;
   };
   const prefix = () => cut === 'short' ? 'highlight' : 'experience';
-  const mediaVersion = () => language === 'th' ? '?v=20261126-th-motion' : '?v=20261126-motion';
+  const mediaVersion = () => '?v=rights-20261126';
   const timeFromAddress = () => {
     const value = Number(params.get('t'));
     return Number.isFinite(value) ? Math.max(0, value) : 0;
   };
   if (params.get('embed') === '1') document.body.classList.add('embedded-video');
 
-  const labels = [...document.querySelectorAll('[data-th]')].map(node => ({node, en:node.textContent}));
-  const materialLinks = [...document.querySelectorAll('a[href^="resume.html"],a[href^="presentation.html"]')].map(node => ({node, href:node.getAttribute('href')}));
-  const local = (en, th) => language === 'th' ? th : en;
-  const materialHref = href => language === 'th' ? href.replace(/^(resume|presentation)\.html/, '$1-th.html') : href;
-  function localizePlayer() {
-    document.documentElement.lang = language;
-    for (const {node,en} of labels) node.textContent = local(en,node.dataset.th);
-    for (const {node,href} of materialLinks) node.setAttribute('href',materialHref(href));
-    $('#share-status').textContent = local('The link includes the chapter, narration language and video version.', 'ลิงก์นี้เปิดบท ภาษา และความยาวที่เลือกไว้');
-  }
   function updateAddress(time) {
     params.set('lang', language); params.set('cut', cut);
     if (time !== undefined) params.set('t', String(Math.round(time * 1000) / 1000));
     if (location.protocol !== 'file:') history.replaceState(null, '', `${location.pathname}?${params}${location.hash}`);
   }
   function updateCaptions() {
-    const chosen = captions.value === 'auto' ? language : captions.value;
-    $('#subtitle-file').href = 'assets/video/'+prefix()+'-'+(chosen==='off'?language:chosen)+'.srt'+mediaVersion();
-    for (const lang of ['en', 'th']) tracks[lang].mode = chosen === lang ? 'showing' : 'disabled';
+    track.mode = captions.value === 'off' ? 'disabled' : 'showing';
+    $('#subtitle-file').href = 'assets/video/'+prefix()+'-en.srt'+mediaVersion();
   }
   function rebuildCaptions() {
-    for (const lang of ['en', 'th']) {
-      const track = tracks[lang]; track.mode = 'hidden';
-      while (track.cues.length) track.removeCue(track.cues[0]);
-      for (const cue of cueData()[lang]) track.addCue(new VTTCue(cue.start, cue.end, cue.text));
-    }
+    track.mode = 'hidden';
+    while (track.cues.length) track.removeCue(track.cues[0]);
+    for (const cue of cueData().en) track.addCue(new VTTCue(cue.start, cue.end, cue.text));
     updateCaptions();
   }
   function busy(value) {
     screen.setAttribute('aria-busy', String(value)); loading.hidden = !value;
-    [...languageButtons, ...cutButtons].forEach(button => { button.disabled = value; });
+    cutButtons.forEach(button => { button.disabled = value; });
   }
   function updateStatus() {
     if (pending) return;
-    status.textContent = local(video.ended ? 'Finished' : video.paused ? 'Press Play to watch' : 'Playing', video.ended ? 'เล่นจบแล้ว' : video.paused ? 'กดเล่นเพื่อดูวิดีโอ' : 'กำลังเล่น');
+    status.textContent = (video.ended ? 'Finished' : video.paused ? 'Press Play to watch' : 'Playing');
   }
   function shareChapter(chapter) {
     const address = new URL('video.html', location.protocol === 'file:' ? 'https://wariddon.github.io/' : location.href);
@@ -86,7 +71,7 @@
     $('#related-title').textContent = chapter.heading;
     $('#related-description').textContent = chapter.description;
     const links = chapter.links.map(([href, label], index) => {
-      const link = document.createElement('a'); link.href = materialHref(href);
+      const link = document.createElement('a'); link.href = href;
       const arrow = document.createElement('span'); arrow.textContent = '↗'; arrow.setAttribute('aria-hidden', 'true');
       link.append(document.createTextNode(chapter.linkLabels?.[index] || label), arrow); return link;
     });
@@ -115,10 +100,10 @@
       button.append(time, label); button.addEventListener('click', () => seek(chapter.start)); return button;
     });
     $('.chapter-grid').replaceChildren(...chapterButtons.map(button => { const item = document.createElement('li'); item.append(button); return item; }));
-    $('#chapter-count').textContent = chapterButtons.length + local(' chapters', ' บท'); currentChapter = null;
+    $('#chapter-count').textContent = chapterButtons.length + ' chapters'; currentChapter = null;
   }
   function buildTranscript() {
-    const lang = $('#read-language').value === 'auto' ? language : $('#read-language').value;
+    const lang = 'en';
     transcriptCues = cueData()[lang];
     transcriptButtons = transcriptCues.map(cue => {
       const button = document.createElement('button'); button.type = 'button';
@@ -148,20 +133,19 @@
     let chapter = fullChapters[0]; for (const item of fullChapters) if (item.start <= time) chapter = item;
     return (shortSegments.find(segment => segment.key === (chapter.key === 'backend' ? 'scb' : chapter.key)) || shortSegments[0]).start;
   }
-  function startSource() { video.poster = 'assets/video/'+(language === 'th' ? 'poster-th.jpg' : 'poster.jpg')+mediaVersion(); video.src = `assets/video/${prefix()}-${language}.${formats[formatIndex]}${mediaVersion()}`; video.load(); }
-  function selectMedia(lang, edition, initial = false) {
-    if (pending || (!initial && lang === language && edition === cut)) return;
+  function startSource() { video.poster = 'assets/video/'+('poster.jpg')+mediaVersion(); video.src = `assets/video/${prefix()}-${language}.${formats[formatIndex]}${mediaVersion()}`; video.load(); }
+  function selectMedia(edition, initial = false) {
+    if (pending || (!initial && edition === cut)) return;
     const changedCut = cut !== edition;
     pending = { time: initial ? timeFromAddress() : changedCut ? mappedTime(edition) : (video.currentTime || 0), play: !initial && !video.paused && !video.ended };
-    video.pause(); language = lang; cut = edition; error.hidden = true; busy(true); localizePlayer();
-    status.textContent = lang === 'th' ? 'กำลังเตรียมเสียงภาษาไทย…' : 'Preparing English narration…'; loading.textContent = status.textContent;
-    languageButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.language === lang)));
+    video.pause(); cut = edition; error.hidden = true; busy(true);
+    status.textContent = 'Preparing English narration…'; loading.textContent = status.textContent;
     cutButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.cut === edition)));
-    $('#download-video').href = $('#fallback-link').href = `assets/video/${prefix()}-${lang}.mp4${mediaVersion()}`;
-    $('#transcript-link').href = `assets/video/${cut === 'short' ? 'highlight-' : ''}transcript-${lang}.txt${mediaVersion()}`;
+    $('#download-video').href = $('#fallback-link').href = `assets/video/${prefix()}-${language}.mp4${mediaVersion()}`;
+    $('#transcript-link').href = `assets/video/${cut === 'short' ? 'highlight-' : ''}transcript-${language}.txt${mediaVersion()}`;
     $('#film-duration').textContent = cut === 'short' ? '00:45' : '02:21';
-    $('#film-scope').textContent = cut === 'short' ? local('Current roles','งานปัจจุบัน') : local('5 companies','5 บริษัท');
-    $('#quality-duration').textContent = cut === 'short' ? local('45 sec','45 วินาที') : local('2 min 21 sec','2 นาที 21 วินาที');
+    $('#film-scope').textContent = cut === 'short' ? 'Current roles' : '5 companies';
+    $('#quality-duration').textContent = cut === 'short' ? '45 sec' : '2 min 21 sec';
     if (initial || changedCut) rebuildCaptions();
     buildChapters();
     buildTranscript(); updateCaptions(); updateAddress(pending.time);
@@ -173,23 +157,22 @@
     if (restore.time > 0) video.currentTime = Math.min(restore.time, maxTime);
     pending = null; busy(false); updateCaptions(); updateChapter(); updateTranscript(); updateStatus();
     shareChapter(chapters().find(c => c.key === currentChapter) || chapters()[0]);
-    if (restore.play) video.play().catch(() => { status.textContent = `${names[language]} narration ready · Press Play to continue at ${clock(video.currentTime)}`; });
+    if (restore.play) video.play().catch(() => { status.textContent = `English narration ready · Press Play to continue at ${clock(video.currentTime)}`; });
   });
   video.addEventListener('error', () => {
     if (formatIndex + 1 < formats.length) { pending ||= { time: video.currentTime || 0, play: !video.paused }; busy(true); formatIndex += 1; startSource(); return; }
-    pending = null; busy(false); error.hidden = false; status.textContent = local('Video unavailable · Use the direct video link below.', 'โหลดวิดีโอไม่ได้ กรุณาเปิดไฟล์วิดีโอจากลิงก์ด้านล่าง');
+    pending = null; busy(false); error.hidden = false; status.textContent = 'Video unavailable · Use the direct video link below.';
   });
-  languageButtons.forEach(button => button.addEventListener('click', () => selectMedia(button.dataset.language, cut)));
-  cutButtons.forEach(button => button.addEventListener('click', () => selectMedia(language, button.dataset.cut)));
-  captions.addEventListener('change', updateCaptions); $('#read-language').addEventListener('change', buildTranscript);
+  cutButtons.forEach(button => button.addEventListener('click', () => selectMedia(button.dataset.cut)));
+  captions.addEventListener('change', updateCaptions);
   for (const event of ['play', 'pause', 'ended']) video.addEventListener(event, updateStatus);
   video.addEventListener('timeupdate', () => { updateChapter(); updateTranscript(); });
   $('#copy-chapter').addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText($('#chapter-url').value); $('#share-status').textContent = local('Chapter link copied.', 'คัดลอกลิงก์บทนี้แล้ว'); }
-    catch { $('#chapter-url').focus(); $('#chapter-url').select(); $('#share-status').textContent = local('Select Copy or press Ctrl+C to copy the link.', 'เลือกคัดลอก หรือกด Ctrl+C เพื่อคัดลอกลิงก์'); }
+    try { await navigator.clipboard.writeText($('#chapter-url').value); $('#share-status').textContent = 'Chapter link copied.'; }
+    catch { $('#chapter-url').focus(); $('#chapter-url').select(); $('#share-status').textContent = 'Select Copy or press Ctrl+C to copy the link.'; }
   });
   window.addEventListener('message', event => {
     if (event.source === window.parent && event.origin === location.origin && event.data?.type === 'portfolio:pause') { if (pending) pending.play = false; video.pause(); }
   });
-  selectMedia(language, cut, true);
+  selectMedia(cut, true);
 })();

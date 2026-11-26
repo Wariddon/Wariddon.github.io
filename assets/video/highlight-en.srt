@@ -1,15 +1,15 @@
-﻿1
-00:00:00,100 --> 00:00:06,100
-I’m Wariddon Rattanamalee. I build banking APIs and tools for people who review orders.
+1
+00:00:00,120 --> 00:00:07,372
+I build banking APIs and tools for the people who check orders. Here’s a quick look at my work.
 
 2
-00:00:07,700 --> 00:00:16,796
-At SCB, my role is Software engineering, Full Stack Developer. I build Spring Boot APIs and helped migrate SCB Connect.
+00:00:07,720 --> 00:00:18,039
+At SCB, I work in software engineering as a full stack developer. I build Spring Boot APIs and helped migrate SCB Connect.
 
 3
-00:00:18,700 --> 00:00:26,764
-At InblackM, I work part-time on pricing and order review. Before an order changes hands, I check who owns it and whether it’s still open.
+00:00:18,720 --> 00:00:28,478
+At InblackM, I work part time on pricing and order review. Before an order changes hands, the system checks who owns it and whether it’s still open.
 
 4
-00:00:31,800 --> 00:00:41,232
-I use Claude and Codex to trace code and draft tests. I review each change and run the tests myself. My portfolio has the full examples.
+00:00:31,820 --> 00:00:41,974
+Claude and Codex help me trace code and draft tests. I review the changes and test them myself. You can find the full examples in my portfolio.

@@ -50,9 +50,7 @@ Links such as `presentation.html#slide=8` open a specific slide.
 - Both presentation modes have their own PDF download and a final portfolio QR.
 - `assets/social-preview.png` is the 1200 x 630 Open Graph and Twitter card.
 
-The project previews show actual interface components running locally with
-synthetic fixtures. The order preview has a simplified surrounding shell.
-No employer source code or customer data is included in this public repository.
+Project illustrations explain the workflows using original shapes and text.
 
 ## Company highlights
 
@@ -62,65 +60,19 @@ The company selector filters both highlights and case details. Direct links such
 as `/?company=tisco#work` can be shared and combined with `focus=backend` or
 `focus=fullstack`. There are nine case details in total.
 
-InblackM visuals are local component previews with synthetic data. The other
-four visuals are labeled workflow/role illustrations, described in
-`assets/project-previews/README.md`.
+Artwork is documented in `assets/project-previews/README.md`.
 
 
 ## Career film
 
-`video.html` provides English/Thai narration, native video controls, bilingual captions,
-chapter navigation and links to application materials. `?lang=th` opens Thai narration;
-English is the default. Switching language preserves the playback position and playing state.
-Each language has its own video with an embedded audio stream (WebM/Opus and MP4/AAC fallback).
-The player uses one media element and requires a deliberate Play action; there is no autoplay.
-Native controls provide volume, playback speed and fullscreen; captions also work in fullscreen.
-
-The 141.5-second film describes professional experience without a spoken personal introduction.
-Narration is synthetic (English: Andrew Multilingual; Thai: Brian Multilingual, owner-selected voice B). The conceptual map was
-generated for the film; it is not a geographic or employer architecture diagram. Interface
-previews use synthetic records. The reference video inspired the map/timeline approach;
-no footage, speech or music was copied from it. Claude/Codex are development tools; the
-admin assistant is an implementation example, not a claim that production AI is active.
-
+The career videos use newly drawn title and workflow cards. Names appear as text. The English films have locally synthesized narration, synchronized captions and transcripts. [Narration credits](assets/video/VOICE-CREDITS.md).
 
 ## Interview flow and video highlights
 
 - `video.html?cut=short&lang=en` opens a 45-second edit; `cut=full` keeps the 141.5-second story.
 - `t` is a start time in seconds, clamped to the loaded video's duration. Chapter links include `cut`, `lang` and `t`.
 - Related case links follow the active chapter. Read-along text supports either language, sentence seeking and optional following.
-- The highlight edit reuses complete phrases from the existing narration; there are no new experience or performance claims.
 - `interview.html` guides film → short slides → selected cases → resume. Presentation/resume frames load on demand.
 - Changing interview steps sends a same-origin `portfolio:pause` message to the film; embedded playback has no autoplay.
 - `embed=1` strips surrounding navigation for interview frames. Standalone routes keep their full controls.
 - Present mode supports native fullscreen when available and a CSS presentation layout as a fallback; Escape exits.
-
-
-## Thai narration revision — November 2026
-
-The owner selected sample B (Brian Multilingual) after comparing two real audio samples.
-Thai narration now uses first-person conversational wording and native speaking tempo (+0%).
-Both the full film and 45-second edit have newly timed Thai captions and transcripts.
-The approved English and Thai narration tracks are retained across the shared picture timeline. The highlight narration is written for
-its own chapter lengths, rather than cutting clauses out of the full narration.
-Thai media URLs and the embedded film URL carry a version key to refresh cached audio.
-
-
-## Motion picture revision — 6 November 2026
-
-The picture is now rendered at 60 fps with a fixed camera within each chapter.
-Independent route markers, data packets, phased workflow cards and gentle highlights
-animate the explanation. Company labels, role text and the map remain stable.
-The full film remains 141.5 seconds; highlights remain 45 seconds. Both languages
-reuse their approved narration packets, including owner-selected Thai voice B.
-The workflow cards are illustrations; the InblackM interface previews retain sample data.
-The closing QR is stationary for scanning. Captions and chapter timestamps are unchanged.
-
-
-## SCB naming revision
-
-Current application materials identify the banking experience as Siam Commercial Bank (SCB). The website, resume, both decks, film graphics, English and Thai narration, captions and downloads use this naming consistently.
-
-## Interview films · 26 November 2026
-
-Both cuts use the original 60 fps career animation, with the updated SCB role on screen. Each language has its own first-person narration, captions and transcript. The full introduction runs for 141.5 seconds and the highlights for 45 seconds. The current SCB role is Software engineering, Full Stack Developer.

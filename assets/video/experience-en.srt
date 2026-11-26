@@ -1,63 +1,63 @@
-﻿1
-00:00:00,100 --> 00:00:08,500
-I’m Wariddon Rattanamalee. I build banking APIs at SCB and tools for the staff who review orders at InblackM.
+1
+00:00:00,120 --> 00:00:09,384
+At SCB, I build banking APIs. At InblackM, I build tools for the people who check orders every day.
 
 2
-00:00:09,700 --> 00:00:19,180
-I started in insurance in 2018. Since then I’ve worked on telecom services, access management and banking systems. Let me show you a few examples.
+00:00:09,720 --> 00:00:17,250
+I started in insurance in twenty eighteen. Since then, I’ve worked on telecom services, access management, and banking.
 
 3
-00:00:20,300 --> 00:00:29,821
-At Thai Insurance, I built an API that sent policy data to the insurance regulator in real time. I handled the certificates and encryption for that connection.
+00:00:20,320 --> 00:00:29,773
+At Thai Insurance, I built an API that sent policy data to the insurance regulator. I also handled the certificates and encryption.
 
 4
-00:00:30,100 --> 00:00:36,532
-I also worked on TMB Tablet and the systems staff used for agents, partners and account statements.
+00:00:30,120 --> 00:00:35,767
+I also worked on TMB Tablet and systems for agents, partners, and account statements.
 
 5
-00:00:37,367 --> 00:00:43,823
-At CAT Telecom, I built Java and Spring Boot features and helped test them against what the business needed.
+00:00:37,387 --> 00:00:44,689
+At CAT Telecom, I built Java features with Spring Boot and helped test them against the business requirements.
 
 6
-00:00:45,000 --> 00:00:53,157
-At TISCO, I built Python services and Angular screens for user access. I also worked on digital signatures and helped test performance with LoadRunner.
+00:00:45,020 --> 00:00:53,120
+At TISCO, I worked on user access and digital signatures. My part covered Python services, Angular screens, and performance tests.
 
 7
-00:00:53,433 --> 00:01:01,419
-At SCB, my role is Software engineering, Full Stack Developer. I build banking APIs in Java and Spring Boot.
+00:00:53,453 --> 00:01:01,379
+At SCB, I work in software engineering as a full stack developer. I build banking APIs with Java and Spring Boot.
 
 8
-00:01:01,700 --> 00:01:09,055
-During the SCB Connect migration, I helped update the gateway and trace issues the team found during user acceptance testing.
+00:01:01,720 --> 00:01:09,002
+During the SCB Connect migration, I updated the gateway and followed up on issues the team found during testing.
 
 9
-00:01:09,333 --> 00:01:19,365
-One Redis service could outlive its login token. I changed how it renews the token and switches connection pools, so it reconnects with fresh credentials.
+00:01:09,353 --> 00:01:16,700
+A service can stay up longer than its token lasts. I changed the connection pool so it reconnects to Redis with a fresh token.
 
 10
-00:01:19,800 --> 00:01:28,653
-For monthly AML reports, I made sure the team gets a different email when there’s no data and when delivery fails. Those need different follow-up.
+00:01:19,820 --> 00:01:27,098
+An empty report and a failed delivery need different follow-up. I made the monthly report emails tell the team which one happened.
 
 11
-00:01:28,933 --> 00:01:37,622
-I also work part-time at InblackM as a Senior Tech Development Consultant. I build order review and pricing screens in React and Next.js.
+00:01:28,953 --> 00:01:37,588
+At InblackM, I work part time on pricing and order review. I build the screens staff use in React and Next.js.
 
 12
-00:01:37,900 --> 00:01:44,452
-When staff hand over an order, I check who owns it and whether it’s still open. The queue and order record change together.
+00:01:37,920 --> 00:01:44,268
+Before an order changes hands, I check its owner and status. The queue and the order record need to agree.
 
 13
-00:01:46,600 --> 00:01:54,016
-I use Claude and Codex to trace requests across services or follow an order from the staff screen to the worker that handles it.
+00:01:46,620 --> 00:01:53,662
+I use Claude and Codex to follow a request across services, or trace an order from a staff screen to its worker.
 
 14
-00:01:56,200 --> 00:02:05,752
-I read the changes and run the tests myself. For our read-only admin assistant, I also check the references and keep the original search results available.
+00:01:56,220 --> 00:02:04,725
+I read the diff and run the tests myself. For the admin assistant, I also check its references and keep the original search results available.
 
 15
-00:02:06,533 --> 00:02:14,821
-I studied computer science at Burapha University and later completed an MBA in finance and banking at Ramkhamhaeng University.
+00:02:06,553 --> 00:02:14,782
+I studied computer science at Burapha University. Later, I completed an MBA in finance and banking at Ramkhamhaeng University.
 
 16
-00:02:15,100 --> 00:02:19,804
-Thanks for listening. You can find the slides and my resume on my portfolio.
+00:02:15,120 --> 00:02:21,283
+Thanks for watching. My portfolio has the slides, my resume, and the projects I’ve built.

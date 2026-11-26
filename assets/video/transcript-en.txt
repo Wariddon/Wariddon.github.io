@@ -1,31 +1,31 @@
-I’m Wariddon Rattanamalee. I build banking APIs at SCB and tools for the staff who review orders at InblackM.
+At SCB, I build banking APIs. At InblackM, I build tools for the people who check orders every day.
 
-I started in insurance in 2018. Since then I’ve worked on telecom services, access management and banking systems. Let me show you a few examples.
+I started in insurance in twenty eighteen. Since then, I’ve worked on telecom services, access management, and banking.
 
-At Thai Insurance, I built an API that sent policy data to the insurance regulator in real time. I handled the certificates and encryption for that connection.
+At Thai Insurance, I built an API that sent policy data to the insurance regulator. I also handled the certificates and encryption.
 
-I also worked on TMB Tablet and the systems staff used for agents, partners and account statements.
+I also worked on TMB Tablet and systems for agents, partners, and account statements.
 
-At CAT Telecom, I built Java and Spring Boot features and helped test them against what the business needed.
+At CAT Telecom, I built Java features with Spring Boot and helped test them against the business requirements.
 
-At TISCO, I built Python services and Angular screens for user access. I also worked on digital signatures and helped test performance with LoadRunner.
+At TISCO, I worked on user access and digital signatures. My part covered Python services, Angular screens, and performance tests.
 
-At SCB, my role is Software engineering, Full Stack Developer. I build banking APIs in Java and Spring Boot.
+At SCB, I work in software engineering as a full stack developer. I build banking APIs with Java and Spring Boot.
 
-During the SCB Connect migration, I helped update the gateway and trace issues the team found during user acceptance testing.
+During the SCB Connect migration, I updated the gateway and followed up on issues the team found during testing.
 
-One Redis service could outlive its login token. I changed how it renews the token and switches connection pools, so it reconnects with fresh credentials.
+A service can stay up longer than its token lasts. I changed the connection pool so it reconnects to Redis with a fresh token.
 
-For monthly AML reports, I made sure the team gets a different email when there’s no data and when delivery fails. Those need different follow-up.
+An empty report and a failed delivery need different follow-up. I made the monthly report emails tell the team which one happened.
 
-I also work part-time at InblackM as a Senior Tech Development Consultant. I build order review and pricing screens in React and Next.js.
+At InblackM, I work part time on pricing and order review. I build the screens staff use in React and Next.js.
 
-When staff hand over an order, I check who owns it and whether it’s still open. The queue and order record change together.
+Before an order changes hands, I check its owner and status. The queue and the order record need to agree.
 
-I use Claude and Codex to trace requests across services or follow an order from the staff screen to the worker that handles it.
+I use Claude and Codex to follow a request across services, or trace an order from a staff screen to its worker.
 
-I read the changes and run the tests myself. For our read-only admin assistant, I also check the references and keep the original search results available.
+I read the diff and run the tests myself. For the admin assistant, I also check its references and keep the original search results available.
 
-I studied computer science at Burapha University and later completed an MBA in finance and banking at Ramkhamhaeng University.
+I studied computer science at Burapha University. Later, I completed an MBA in finance and banking at Ramkhamhaeng University.
 
-Thanks for listening. You can find the slides and my resume on my portfolio.
+Thanks for watching. My portfolio has the slides, my resume, and the projects I’ve built.

@@ -13,17 +13,11 @@ const decks = {
   full: { titles: fullTitles, directory: 'slides', pdf: 'Wariddon_Rattanamalee_Presentation.pdf' },
   short: { titles: ["Wariddon Rattanamalee", "Where I\u2019ve worked", "My work at SCB", "Keeping Redis connections alive", "My work at InblackM", "How I use Claude and Codex", "Contact"], directory: 'slides-short', pdf: 'Wariddon_Rattanamalee_Presentation_Short.pdf' }
 };
-const thai = document.documentElement.lang === 'th';
-if (thai) {
-  const titlesTh = ["Wariddon Rattanamalee", "งานที่ผมทำอยู่ตอนนี้", "ผมเคยทำงานที่ไหนบ้าง", "งานของผมที่ SCB", "เมื่อโทเคนหมดอายุ แต่บริการยังทำงานอยู่", "รายงาน AML ต้องรู้ว่าส่งถึงขั้นไหน", "ไม่ส่งที่อยู่ กับขอล้างที่อยู่ เป็นคนละกรณี", "งานของผมที่ InblackM", "ส่งต่อออเดอร์อย่างไรไม่ให้ทำงานซ้ำ", "ล็อกอินครั้งเดียว ใช้ได้สองแอป", "ช่วยแอดมินค้นออเดอร์", "ผมใช้ Claude และ Codex ตอนไหน", "กลุ่มทิสโก้", "กสท โทรคมนาคม", "ไทยประกันภัย", "การศึกษาและการอบรม", "ติดต่อผม"];
-  decks.full = {titles:titlesTh,directory:'slides-th',pdf:'Wariddon_Rattanamalee_Presentation_TH.pdf'};
-  decks.short = {titles:[0,2,3,4,7,11,16].map(i=>titlesTh[i]),directory:'slides-short-th',pdf:'Wariddon_Rattanamalee_Presentation_Short_TH.pdf'};
-}
 let deckKey = new URL(location.href).searchParams.get('deck') === 'short' ? 'short' : 'full';
 let titles = decks[deckKey].titles;
 let current = 0;
 let buttons = [];
-const source = index => `assets/${decks[deckKey].directory}/slide-${String(index+1).padStart(2,'0')}.png?v=20261126`;
+const source = index => `assets/${decks[deckKey].directory}/slide-${String(index+1).padStart(2,'0')}.png?v=rights-20261126`;
 function buildOverview() {
   grid.replaceChildren();
   buttons = titles.map((title,index) => {
@@ -34,8 +28,8 @@ function buildOverview() {
     button.append(preview,caption); button.addEventListener('click',()=>{ show(index); overview.close(); }); grid.append(button); return button;
   });
   document.querySelectorAll('[data-deck]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.deck===deckKey)));
-  document.querySelector('#deck-download').href=`assets/${decks[deckKey].pdf}?v=20261126`;
-  document.querySelector('#slide-error a').href=`assets/${decks[deckKey].pdf}?v=20261126`;
+  document.querySelector('#deck-download').href=`assets/${decks[deckKey].pdf}?v=rights-20261126`;
+  document.querySelector('#slide-error a').href=`assets/${decks[deckKey].pdf}?v=rights-20261126`;
 }
 function chooseDeck(key) {
   if(!Object.hasOwn(decks,key)) return;
@@ -47,9 +41,6 @@ document.querySelectorAll('[data-deck]').forEach(button=>button.addEventListener
 function show(index,updateAddress=true) {
   current = Math.max(0,Math.min(titles.length-1,Number.isFinite(index)?Math.trunc(index):0));
   error.hidden = true; image.src = source(current); image.alt = `Slide ${current+1}: ${titles[current]}`;
-  const other = new URL(thai ? 'presentation.html' : 'presentation-th.html',location.href);
-  other.search = location.search; other.searchParams.set('deck',deckKey); other.hash = 'slide='+(current+1);
-  document.querySelector('#deck-language').href=other.href;
   position.replaceChildren(document.createTextNode(`${current+1} / ${titles.length}`)); const label = document.createElement('span'); label.textContent = titles[current]; position.append(label);
   previous.disabled = current === 0; next.disabled = current === titles.length-1;
   buttons.forEach((button,i)=>{ if(i===current)button.setAttribute('aria-current','true');else button.removeAttribute('aria-current'); });
@@ -62,7 +53,7 @@ previous.addEventListener('click',()=>show(current-1)); next.addEventListener('c
 document.querySelector('#overview-button').addEventListener('click',()=>{ overview.showModal(); buttons[current].focus(); });
 document.querySelector('#close-overview').addEventListener('click',()=>overview.close());
 overview.addEventListener('click',event=>{ if(event.target===overview){const rect=overview.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)overview.close();} });
-function presentationMode(active) { shell.classList.toggle('presenting',active); exitPresentation.hidden=!active; fullscreen.setAttribute('aria-pressed',String(active)); fullscreen.textContent=active?(thai?'ออกจากโหมดนำเสนอ':'Exit presentation'):(thai?'นำเสนอ':'Present'); }
+function presentationMode(active) { shell.classList.toggle('presenting',active); exitPresentation.hidden=!active; fullscreen.setAttribute('aria-pressed',String(active)); fullscreen.textContent=active?'Exit presentation':'Present'; }
 async function leavePresentation() { presentationMode(false); if(document.fullscreenElement) { try { await document.exitFullscreen(); } catch {} } }
 async function toggleFullscreen() {
   if(shell.classList.contains('presenting')) { await leavePresentation(); return; }

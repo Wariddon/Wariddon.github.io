@@ -6,7 +6,11 @@ const params = new URLSearchParams(location.search);
 let shelf = filters.some(b => b.dataset.filter === params.get('shelf')) ? params.get('shelf') : '-1';
 query.value = params.get('q') || '';
 const normalize = value => value.normalize('NFC').toLowerCase().trim();
-const index = entries.map(entry => normalize([entry.textContent, entry.dataset.terms].join(' ')));
+const index = entries.map(entry => {
+  const content = entry.cloneNode(true);
+  content.querySelectorAll('.lesson-neighbors, .permalink').forEach(link => link.remove());
+  return normalize([content.textContent, entry.dataset.terms].join(' '));
+});
 const segmenter = typeof Intl.Segmenter === 'function' ? new Intl.Segmenter('th',{granularity:'word'}) : null;
 const stop = new Set(['ทำไม','อย่างไร','ทำยังไง','ยังไง','อะไร','คือ','ทำ','การ','ใน','ที่','แล้ว','ต้อง','ได้','อยาก','ให้','เมื่อ','ถึง','จึง','ควร','มี','ไหม','ทำอย่างไร','แก้','จะ','กับ','ของ','ผม','ครับ','มาก']);
 function words(text) {

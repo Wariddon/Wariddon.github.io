@@ -57,3 +57,31 @@
 .library .bookcase, .library .reader-rail nav { position:static; inset:auto; z-index:auto; box-shadow:none; border:0; background:transparent; }
 .library .reader-rail nav { padding:0; align-items:stretch; }
 @media(min-width:761px) { .bookcase { display:block; } }
+
+/* Lesson pages inside the catalogue */
+.results .entry[open] > summary { border-bottom:1px solid #d5d9cb; background:#edf2e9; }
+.entry .answer { max-width:84ch; margin-inline:auto; padding:20px clamp(12px,2vw,30px); }
+.answer .example { border-radius:0 6px 6px 0; }
+.lesson-table { overflow-x:auto; margin-block:16px; }
+.lesson-table table { width:100%; border-collapse:collapse; font-size:.95rem; }
+.lesson-table caption { text-align:left; font-weight:700; margin-bottom:6px; }
+.lesson-table th, .lesson-table td { text-align:left; padding:8px 12px; border-bottom:1px solid #d8dece; }
+.lesson-table th { background:#e9eee4; }
+.lesson-table td:first-child { white-space:nowrap; }
+.lesson-check { margin-block:18px; border:1px solid #cdd9ca; border-radius:8px; padding:14px 16px; }
+.lesson-check h3 { font:700 .83rem/1.6 Tahoma,sans-serif; color:#456046; margin:0 0 4px; }
+.lesson-check > p { margin-bottom:8px; }
+.entry .solution { padding:0; margin:12px 0; border-top:1px dashed #c3cdbb; }
+.entry .solution > summary { padding:8px 0; justify-content:flex-start; gap:8px; color:#235942; font-weight:700; }
+.entry .solution > summary::after { content:'＋'; font:inherit; }
+.entry .solution[open] > summary::after { content:'−'; }
+.entry .solution > p { margin-bottom:4px; }
+.reading-resources { display:grid; gap:7px; margin-block:18px; }
+.answer .reading-resource { border:1px solid #cbd5c6; border-left:4px solid #839978; border-radius:5px; background:#f0f3e9; display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 14px; text-decoration:none; }
+.reading-resource small, .lesson-neighbors small { display:block; color:#536653; font-size:.77rem; }
+.reading-resource strong { overflow-wrap:anywhere; }
+.answer .reading-resource:hover, .lesson-neighbors a:hover { background:#e6edde; text-decoration:underline; }
+.lesson-neighbors { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(195px,100%),1fr)); gap:8px; margin-top:22px; border-top:1px solid #d6d8ca; padding-top:12px; }
+.lesson-neighbors a { padding:8px 10px; text-decoration:none; border-radius:4px; background:#f4f2e9; line-height:1.55; }
+.answer .permalink { text-align:right; margin-top:10px; }
+.answer .permalink a { display:inline-block; padding:4px 8px; font-size:.8rem; }

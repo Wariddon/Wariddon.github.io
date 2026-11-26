@@ -1,19 +1,7 @@
-I've been developing software since 2018,
+I’m Wariddon Rattanamalee. I build banking APIs and tools for people who review orders.
 
-working on backend services, web applications and automation.
+At SCB, my role is Software engineering, Full Stack Developer. I build Spring Boot APIs and helped migrate SCB Connect.
 
-My primary role is Backend Developer at SCB.
+At InblackM, I work part-time on pricing and order review. Before an order changes hands, I check who owns it and whether it’s still open.
 
-I develop banking APIs and system integrations.
-
-In parallel, I work part-time at InblackM,
-
-as a Senior Tech Development Consultant.
-
-My contributions include order review screens, transactional order handover and staff single sign-on.
-
-I use Claude and Codex in both current roles,
-
-to understand code, investigate issues and draft changes.
-
-I then review the implementation and verify its behavior.
+I use Claude and Codex to trace code and draft tests. I review each change and run the tests myself. My portfolio has the full examples.

@@ -120,3 +120,7 @@ The closing QR is stationary for scanning. Captions and chapter timestamps are u
 ## SCB naming revision
 
 Current application materials identify the banking experience as Siam Commercial Bank (SCB). The website, resume, both decks, film graphics, English and Thai narration, captions and downloads use this naming consistently.
+
+## Interview films · 26 November 2026
+
+Both cuts now use the corresponding English or Thai interview slides. Each language has its own first-person narration, captions and transcript. The full introduction runs for 141.5 seconds and the highlights for 45 seconds. The current SCB role is Software engineering, Full Stack Developer.

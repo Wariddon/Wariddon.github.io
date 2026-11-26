@@ -27,9 +27,12 @@
   const tracks = { en: video.addTextTrack('captions', 'English', 'en'), th: video.addTextTrack('captions', 'ไทย', 'th') };
   const clock = time => `${Math.floor(time / 60)}:${String(Math.floor(time % 60)).padStart(2, '0')}`;
   const cueData = () => cut === 'short' ? window.experienceVideoHighlights : window.experienceVideoContent;
-  const chapters = () => cut === 'short' ? shortSegments.map(segment => ({ ...fullChapters.find(c => c.key === segment.key), ...segment })) : fullChapters;
+  const chapters = () => {
+    const list = cut === 'short' ? shortSegments.map(segment => ({ ...fullChapters.find(c => c.key === segment.key), ...segment })) : fullChapters;
+    return language === 'th' ? list.map(chapter => ({ ...chapter, ...window.experienceChapterThai[chapter.key] })) : list;
+  };
   const prefix = () => cut === 'short' ? 'highlight' : 'experience';
-  const mediaVersion = () => '?v=20261106-scb';
+  const mediaVersion = () => '?v=20261126-film';
   const timeFromAddress = () => {
     const value = Number(params.get('t'));
     return Number.isFinite(value) ? Math.max(0, value) : 0;
@@ -64,7 +67,7 @@
   function shareChapter(chapter) {
     const address = new URL('video.html', location.protocol === 'file:' ? 'https://wariddon.github.io/' : location.href);
     address.searchParams.set('cut', cut); address.searchParams.set('lang', language); address.searchParams.set('t', String(chapter.start));
-    address.searchParams.set('v', '20261106-scb');
+    address.searchParams.set('v', '20261126-film');
     $('#chapter-url').value = address.href; $('#share-chapter-title').textContent = chapter.title;
   }
   function showRelated(chapter) {
@@ -148,7 +151,8 @@
     $('#film-duration').textContent = cut === 'short' ? '00:45' : '02:21';
     $('#film-scope').textContent = cut === 'short' ? 'Current role highlights' : '5 companies';
     $('#quality-duration').textContent = cut === 'short' ? '45 sec' : '2 min 21 sec';
-    if (initial || changedCut) { rebuildCaptions(); buildChapters(); }
+    if (initial || changedCut) rebuildCaptions();
+    buildChapters();
     buildTranscript(); updateCaptions(); updateAddress(pending.time);
     formats = video.canPlayType('video/webm; codecs="vp9,opus"') ? ['webm', 'mp4'] : ['mp4', 'webm']; formatIndex = 0; startSource();
   }

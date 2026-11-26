@@ -1,63 +1,31 @@
-My experience in software engineering spans insurance, telecommunications, banking and digital platforms.
+I’m Wariddon Rattanamalee. I build banking APIs at SCB and tools for the staff who review orders at InblackM.
 
-I've been developing software since 2018,
+I started in insurance in 2018. Since then I’ve worked on telecom services, access management and banking systems. Let me show you a few examples.
 
-working on backend services, web applications and automation.
+At Thai Insurance, I built an API that sent policy data to the insurance regulator in real time. I handled the certificates and encryption for that connection.
 
-The focus is data integrity and clear system integration.
+I also worked on TMB Tablet and the systems staff used for agents, partners and account statements.
 
-My career began at Thai Insurance in 2018.
+At CAT Telecom, I built Java and Spring Boot features and helped test them against what the business needed.
 
-I developed Java applications and a policy submission API.
+At TISCO, I built Python services and Angular screens for user access. I also worked on digital signatures and helped test performance with LoadRunner.
 
-That included certificate handling and AES encryption,
+At SCB, my role is Software engineering, Full Stack Developer. I build banking APIs in Java and Spring Boot.
 
-alongside business workflows built on relational databases.
+During the SCB Connect migration, I helped update the gateway and trace issues the team found during user acceptance testing.
 
-At CAT Telecom, I developed Java and Spring Boot features,
+One Redis service could outlive its login token. I changed how it renews the token and switches connection pools, so it reconnects with fresh credentials.
 
-and supported application testing.
+For monthly AML reports, I made sure the team gets a different email when there’s no data and when delivery fails. Those need different follow-up.
 
-At TISCO, I worked with Python and Angular on Access Governance,
+I also work part-time at InblackM as a Senior Tech Development Consultant. I build order review and pricing screens in React and Next.js.
 
-and contributed Java features to a Digital Signature System.
+When staff hand over an order, I check who owns it and whether it’s still open. The queue and order record change together.
 
-My primary role today is Backend Developer at SCB.
+I use Claude and Codex to trace requests across services or follow an order from the staff screen to the worker that handles it.
 
-I develop banking APIs and system integrations.
+I read the changes and run the tests myself. For our read-only admin assistant, I also check the references and keep the original search results available.
 
-My work includes service modernization, testing and troubleshooting.
+I studied computer science at Burapha University and later completed an MBA in finance and banking at Ramkhamhaeng University.
 
-For Azure Managed Redis, I implemented token renewal and connection pool rollover.
-
-I also adapted gateway authentication to use current credentials when reconnecting.
-
-Another contribution was report delivery,
-
-with separate handling for ZIP files, empty datasets and failures.
-
-In parallel, I work part-time at InblackM,
-
-as a Senior Tech Development Consultant.
-
-My contributions include order review screens, transactional order handover and staff single sign-on.
-
-I also work on automation and Go ERP services.
-
-I use Claude and Codex in both current roles,
-
-to understand code, investigate issues and draft changes.
-
-I then review the implementation and verify its behavior.
-
-At InblackM, I also implemented a read-only admin assistant,
-
-with evidence validation and a search fallback.
-
-Together, these roles connect backend engineering,
-
-full-stack development and operational integrations.
-
-The common focus is data integrity,
-
-clear workflows and reliable application behavior.
+Thanks for listening. You can find the slides and my resume on my portfolio.

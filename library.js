@@ -40,3 +40,8 @@ query.form.addEventListener('submit',event=>{event.preventDefault();update();doc
 reset.addEventListener('click',()=>{query.value='';shelf='-1';update();query.focus()});
 function openLink(){const entry=document.getElementById(location.hash.slice(1));if(!entry?.matches('.entry'))return;if(entry.hidden){query.value='';shelf='-1';update(false)}entry.open=true;entry.scrollIntoView()}
 update(false);openLink();window.addEventListener('hashchange',openLink);
+
+const readerShortcuts = document.querySelector('.reader-rail details');
+const narrowDesk = matchMedia('(max-width:1100px)');
+readerShortcuts.open = !narrowDesk.matches;
+narrowDesk.addEventListener('change', () => { readerShortcuts.open = !narrowDesk.matches; });

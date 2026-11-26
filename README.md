@@ -123,4 +123,4 @@ Current application materials identify the banking experience as Siam Commercial
 
 ## Interview films · 26 November 2026
 
-Both cuts now use the corresponding English or Thai interview slides. Each language has its own first-person narration, captions and transcript. The full introduction runs for 141.5 seconds and the highlights for 45 seconds. The current SCB role is Software engineering, Full Stack Developer.
+Both cuts use the original 60 fps career animation, with the updated SCB role on screen. Each language has its own first-person narration, captions and transcript. The full introduction runs for 141.5 seconds and the highlights for 45 seconds. The current SCB role is Software engineering, Full Stack Developer.

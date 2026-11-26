@@ -32,7 +32,7 @@
     return language === 'th' ? list.map(chapter => ({ ...chapter, ...window.experienceChapterThai[chapter.key] })) : list;
   };
   const prefix = () => cut === 'short' ? 'highlight' : 'experience';
-  const mediaVersion = () => '?v=20261126-film';
+  const mediaVersion = () => '?v=20261126-motion';
   const timeFromAddress = () => {
     const value = Number(params.get('t'));
     return Number.isFinite(value) ? Math.max(0, value) : 0;
@@ -67,7 +67,7 @@
   function shareChapter(chapter) {
     const address = new URL('video.html', location.protocol === 'file:' ? 'https://wariddon.github.io/' : location.href);
     address.searchParams.set('cut', cut); address.searchParams.set('lang', language); address.searchParams.set('t', String(chapter.start));
-    address.searchParams.set('v', '20261126-film');
+    address.searchParams.set('v', '20261126-motion');
     $('#chapter-url').value = address.href; $('#share-chapter-title').textContent = chapter.title;
   }
   function showRelated(chapter) {

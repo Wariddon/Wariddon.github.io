@@ -1,0 +1,16 @@
+* { box-sizing: border-box; }
+body { margin: 0; color: #20342d; background: #f4f3ed; font-family: system-ui, sans-serif; }
+main { max-width: 40rem; padding: 2rem 1rem; margin: auto; }
+h1 { font-size: clamp(2rem, 8vw, 3.5rem); }
+section { margin: 1rem 0; padding: 1.4rem; background: white; border: 1px solid #d0d9d2; border-radius: .75rem; }
+h2, .price { margin: 0 0 .5rem; }
+.price { font-size: 2rem; }
+small { font-size: 1rem; }
+form, li { display: flex; align-items: end; gap: 1rem; }
+label { display: grid; gap: .25rem; }
+input, button { font: inherit; padding: .6rem; border: 1px solid #73887b; border-radius: .3rem; }
+button { color: white; background: #175740; cursor: pointer; }
+button:disabled { opacity: .55; }
+ul { padding: 0; }
+li { justify-content: space-between; border-top: 1px solid #dde4df; padding: .75rem 0; }
+p:empty { display: none; }

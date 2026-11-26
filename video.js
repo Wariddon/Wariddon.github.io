@@ -32,7 +32,7 @@
     return language === 'th' ? list.map(chapter => ({ ...chapter, ...window.experienceChapterThai[chapter.key] })) : list;
   };
   const prefix = () => cut === 'short' ? 'highlight' : 'experience';
-  const mediaVersion = () => '?v=20261126-motion';
+  const mediaVersion = () => language === 'th' ? '?v=20261126-th-motion' : '?v=20261126-motion';
   const timeFromAddress = () => {
     const value = Number(params.get('t'));
     return Number.isFinite(value) ? Math.max(0, value) : 0;
@@ -137,7 +137,7 @@
     let chapter = fullChapters[0]; for (const item of fullChapters) if (item.start <= time) chapter = item;
     return (shortSegments.find(segment => segment.key === (chapter.key === 'backend' ? 'scb' : chapter.key)) || shortSegments[0]).start;
   }
-  function startSource() { video.src = `assets/video/${prefix()}-${language}.${formats[formatIndex]}${mediaVersion()}`; video.load(); }
+  function startSource() { video.poster = 'assets/video/'+(language === 'th' ? 'poster-th.jpg' : 'poster.jpg')+mediaVersion(); video.src = `assets/video/${prefix()}-${language}.${formats[formatIndex]}${mediaVersion()}`; video.load(); }
   function selectMedia(lang, edition, initial = false) {
     if (pending || (!initial && lang === language && edition === cut)) return;
     const changedCut = cut !== edition;

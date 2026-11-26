@@ -1,4 +1,4 @@
-const fullTitles = ['Wariddon Rattanamalee, Software Engineer','Engineering profile','Professional experience','SCB banking services','Azure Managed Redis modernization','AML report delivery','Customer data correctness','InblackM platforms and automation','Order handover and payment state','Shared staff identity across applications','Read-only admin AI assistant','AI-assisted engineering in both roles','TISCO Financial Group','CAT Telecom','Thai Insurance','Education and professional development','Contact and discussion'];
+const fullTitles = ["Wariddon Rattanamalee", "What I work on", "Where I\u2019ve worked", "My work at SCB", "Keeping Redis connections alive", "Sending monthly AML reports", "When a customer clears an address", "My work at InblackM", "Handing over an order", "One staff login for two apps", "Finding an order with the admin assistant", "How I use Claude and Codex", "TISCO Financial Group", "CAT Telecom", "Thai Insurance", "Education and training", "Contact"];
 const image = document.querySelector('#slide-image');
 const position = document.querySelector('#slide-position');
 const previous = document.querySelector('#previous-slide');
@@ -11,13 +11,13 @@ const exitPresentation = document.querySelector('#exit-presentation');
 const error = document.querySelector('#slide-error');
 const decks = {
   full: { titles: fullTitles, directory: 'slides', pdf: 'Wariddon_Rattanamalee_Presentation.pdf' },
-  short: { titles: ['Wariddon Rattanamalee, Software Engineer','Professional experience','SCB banking services','Azure Managed Redis modernization','InblackM platforms and automation','AI-assisted engineering in both roles','Contact and discussion'], directory: 'slides-short', pdf: 'Wariddon_Rattanamalee_Presentation_Short.pdf' }
+  short: { titles: ["Wariddon Rattanamalee", "Where I\u2019ve worked", "My work at SCB", "Keeping Redis connections alive", "My work at InblackM", "How I use Claude and Codex", "Contact"], directory: 'slides-short', pdf: 'Wariddon_Rattanamalee_Presentation_Short.pdf' }
 };
 let deckKey = new URL(location.href).searchParams.get('deck') === 'short' ? 'short' : 'full';
 let titles = decks[deckKey].titles;
 let current = 0;
 let buttons = [];
-const source = index => `assets/${decks[deckKey].directory}/slide-${String(index+1).padStart(2,'0')}.png?v=20261106-scb`;
+const source = index => `assets/${decks[deckKey].directory}/slide-${String(index+1).padStart(2,'0')}.png?v=20261126`;
 function buildOverview() {
   grid.replaceChildren();
   buttons = titles.map((title,index) => {
@@ -28,8 +28,8 @@ function buildOverview() {
     button.append(preview,caption); button.addEventListener('click',()=>{ show(index); overview.close(); }); grid.append(button); return button;
   });
   document.querySelectorAll('[data-deck]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.deck===deckKey)));
-  document.querySelector('#deck-download').href=`assets/${decks[deckKey].pdf}?v=20261106-scb`;
-  document.querySelector('#slide-error a').href=`assets/${decks[deckKey].pdf}?v=20261106-scb`;
+  document.querySelector('#deck-download').href=`assets/${decks[deckKey].pdf}?v=20261126`;
+  document.querySelector('#slide-error a').href=`assets/${decks[deckKey].pdf}?v=20261126`;
 }
 function chooseDeck(key) {
   if(!Object.hasOwn(decks,key)) return;

@@ -91,3 +91,5 @@
 .entry .language-answer > summary { justify-content: flex-start; gap: .65rem; color: #235942; font-weight: 700; padding: .7rem 0; }
 .entry .language-answer > summary::after { content: '＋'; font: inherit; }
 .entry .language-answer[open] > summary::after { content: '−'; }
+
+.language-answer figcaption a { color: inherit; text-decoration: underline; }

@@ -49,3 +49,13 @@ const readerShortcuts = document.querySelector('.reader-rail details');
 const narrowDesk = matchMedia('(max-width:1100px)');
 readerShortcuts.open = !narrowDesk.matches;
 narrowDesk.addEventListener('change', () => { readerShortcuts.open = !narrowDesk.matches; });
+
+document.querySelectorAll('.language-answer[data-filename]').forEach(panel => {
+  const snippet = panel.querySelector('pre code');
+  const file = new Blob([snippet.textContent + '\n'], {type: 'text/plain;charset=utf-8'});
+  const download = document.createElement('a');
+  download.download = panel.dataset.filename;
+  download.href = URL.createObjectURL(file);
+  download.textContent = 'ดาวน์โหลด ' + download.download;
+  panel.querySelector('figcaption').append(' · ', download);
+});

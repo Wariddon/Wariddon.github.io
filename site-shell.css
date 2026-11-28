@@ -47,6 +47,10 @@
   .site-header .site-links a:hover { background: var(--light); color: var(--ink); }
   .site-header .site-links a[aria-current] { background: var(--action); color: var(--on-action); }
   .site-header :focus-visible { outline: 2px solid var(--teal); outline-offset: -2px; }
+  .site-header .site-links a[aria-current]:focus-visible { outline-color: var(--on-action); }
+  .slide-arrow:focus-visible, .exit-presentation:focus-visible {
+    outline: 2px solid #a7edcb; outline-offset: 2px;
+  }
   .section-links { display: flex; gap: 8px 20px; flex-wrap: wrap; padding-top: 14px; color: var(--teal); font-size: .82rem; }
   .library { --frame: 100%; --gutter: var(--edge); background: var(--paper); color: var(--ink); }
   .workspace-bar { background: var(--deep); border-color: var(--line); color: var(--on-deep); }
@@ -61,6 +65,9 @@
   .results .entry > summary:hover, .shelf-list button:hover, .chapter-grid button[aria-current=true],
   .transcript-list > button:hover, .shelf-list button[aria-pressed=true], .workspace-search button:hover {
     background: var(--light); color: var(--ink);
+  }
+  .shelf-list button[aria-pressed=true], .chapter-grid button[aria-current=true] {
+    box-shadow: inset 3px 0 var(--teal);
   }
   .library .shelves, .library .results { background: var(--surface); padding: 12px; }
   .library :is(.entry, .reader-rail, .result-head, .shelves, .example, .reading-resource, .lesson-check, .solution, .language-answer, .lesson-neighbors, td, th),
@@ -116,6 +123,8 @@
 }
 @media screen and (max-width:520px) {
   .site-header nav.site-links { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); }
-  .site-header .site-links a { padding: 10px 2px; }
+  .site-header .site-links a {
+    display: grid; place-items: center; min-height: 44px; padding: 8px 2px;
+  }
   .exit-presentation { min-height: 44px; font-size: .8rem; }
 }

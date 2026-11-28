@@ -28,7 +28,9 @@ function update(save = true) {
   });
   filters.forEach(b => b.setAttribute('aria-pressed',String(b.dataset.filter === shelf)));
   const selected = filters.find(b => b.dataset.filter === shelf);
-  document.querySelector('#result-title').textContent = shelf !== '-1' ? selected.firstElementChild.textContent : phrase ? 'ผลการค้นหา' : 'ทุกหัวข้อ';
+  const resultTitle = document.querySelector('#result-title');
+  resultTitle.lang = shelf === '-1' ? 'th' : 'en';
+  resultTitle.textContent = shelf !== '-1' ? selected.firstElementChild.textContent : phrase ? 'ผลการค้นหา' : 'ทุกหัวข้อ';
   document.querySelector('#count').textContent = total+' หัวข้อ';
   document.querySelector('#empty').hidden = total !== 0;
   reset.hidden = !phrase && shelf === '-1';

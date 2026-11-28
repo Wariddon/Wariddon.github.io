@@ -2,7 +2,7 @@
 @media screen {
   body { --edge: clamp(14px, 2vw, 36px); --control-border: #718c7d; }
   [data-theme="dark"] body { --control-border: #828282; }
-  [data-theme="dark"] :is(.presentation-shell, .film-screen, .library .snippet) {
+  [data-theme="dark"] :is(.presentation-page, .presentation-shell, .film-screen, .library .snippet) {
     background: var(--paper);
   }
   [data-theme="dark"] :is(.loading-note, .exit-presentation, .slide-arrow:not(:disabled):hover) {
@@ -13,6 +13,12 @@
   [data-theme="dark"] :is(.slide-position span, .keyboard-hint) { color: var(--muted); }
   [data-theme="dark"] :is(.interview-stage iframe, .interview-cases img) { background: var(--surface); }
   [data-theme="dark"] .slide-overview::backdrop { background: #000b; }
+  [data-theme="dark"] :is(.slide-stage img, .thumbnail-grid img) {
+    filter: grayscale(1) invert(1);
+  }
+  [data-theme="dark"] :is(.slide-stage img, .thumbnail-grid img)[data-dark-artwork] {
+    filter: grayscale(1);
+  }
   .library .site-header { background: var(--surface); }
   .site-header .appearance-toggle {
     background: var(--surface); color: var(--ink); border-color: var(--control-border);

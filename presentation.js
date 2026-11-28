@@ -18,12 +18,16 @@ let titles = decks[deckKey].titles;
 let current = 0;
 let buttons = [];
 const source = index => `assets/${decks[deckKey].directory}/slide-${String(index+1).padStart(2,'0')}.png?v=rights-20261126`;
+// The cover and closing slide already have a dark background in the exported decks.
+function usesDarkArtwork(index) { return index === 0 || index === titles.length - 1; }
+
 function buildOverview() {
   grid.replaceChildren();
   buttons = titles.map((title,index) => {
     const button = document.createElement('button');
     button.type = 'button'; button.setAttribute('aria-label',`Slide ${index+1}: ${title}`);
     const preview = document.createElement('img'); preview.src = source(index); preview.alt = ''; preview.loading = 'lazy'; preview.width = 1280; preview.height = 720;
+    preview.toggleAttribute('data-dark-artwork', usesDarkArtwork(index));
     const caption = document.createElement('span'); const number = document.createElement('strong'); number.textContent = String(index+1).padStart(2,'0'); caption.append(number,document.createTextNode(title));
     button.append(preview,caption); button.addEventListener('click',()=>{ show(index); overview.close(); }); grid.append(button); return button;
   });
@@ -41,6 +45,7 @@ document.querySelectorAll('[data-deck]').forEach(button=>button.addEventListener
 function show(index,updateAddress=true) {
   current = Math.max(0,Math.min(titles.length-1,Number.isFinite(index)?Math.trunc(index):0));
   error.hidden = true; image.src = source(current); image.alt = `Slide ${current+1}: ${titles[current]}`;
+  image.toggleAttribute('data-dark-artwork', usesDarkArtwork(current));
   position.replaceChildren(document.createTextNode(`${current+1} / ${titles.length}`)); const label = document.createElement('span'); label.textContent = titles[current]; position.append(label);
   previous.disabled = current === 0; next.disabled = current === titles.length-1;
   buttons.forEach((button,i)=>{ if(i===current)button.setAttribute('aria-current','true');else button.removeAttribute('aria-current'); });

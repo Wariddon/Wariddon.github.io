@@ -30,8 +30,8 @@ function update(save = true) {
   const selected = filters.find(b => b.dataset.filter === shelf);
   const resultTitle = document.querySelector('#result-title');
   resultTitle.lang = shelf === '-1' ? 'th' : 'en';
-  resultTitle.textContent = shelf !== '-1' ? selected.firstElementChild.textContent : phrase ? 'ผลการค้นหา' : 'ทุกหัวข้อ';
-  document.querySelector('#count').textContent = total+' หัวข้อ';
+  resultTitle.textContent = shelf !== '-1' ? selected.firstElementChild.textContent : phrase ? 'ผลการค้นหา' : 'บทเรียน';
+  document.querySelector('#count').textContent = total+' บท';
   document.querySelector('#empty').hidden = total !== 0;
   reset.hidden = !phrase && shelf === '-1';
   if(save){const url=new URL(location.href);url.hash='';for(const [key,value] of [['q',query.value.trim()],['shelf',shelf==='-1'?'':shelf]]){if(value)url.searchParams.set(key,value);else url.searchParams.delete(key)}history.replaceState(null,'',url)}

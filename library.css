@@ -115,3 +115,30 @@
   .workspace-bar-inner { padding-block: 8px; gap: 12px; }
   .workspace-search { flex: 1; max-width: 18rem; }
 }
+
+/* Compact catalogue navigation and lesson rows */
+.catalog-layout { padding-block-start: 18px; }
+.shelves summary, .reader-rail summary { font-size: 1rem; }
+.shelf-list { margin-top: 6px; gap: 0; }
+.shelf-list button { padding: 5px 8px; font-size: .92rem; line-height: 1.4; min-height: 32px; }
+.reader-rail { padding: 10px 12px; }
+.reader-rail nav { margin-top: 5px; }
+.reader-rail a { padding-block: 8px; }
+.result-head { justify-content: flex-start; flex-wrap: wrap; gap: 3px 10px; padding-bottom: 6px; border-bottom: 1px solid #a9b8aa; }
+.result-head h2 { margin: 0; font-size: 1.1rem; line-height: 1.4; overflow-wrap: anywhere; }
+.result-head #count { font-size: .85rem; }
+.result-head .reset { margin: 0 0 0 auto; padding: 3px 8px; font-size: .85rem; min-height: 32px; }
+.results .entry { margin: 0; border: 0; border-bottom: 1px solid #d6d8c9; border-radius: 0; background: transparent; }
+.results .entry > summary { padding: 8px 6px; gap: 10px; min-height: 44px; }
+.results .entry > summary strong { font-size: 1rem; line-height: 1.45; }
+.results .entry > summary .lesson-title-en { font-size: .85rem; line-height: 1.35; margin-top: 2px; }
+.results .entry:not([open]) > summary small { display: none; }
+.results .entry[open] { background: #fffdf7; }
+@media (max-width: 760px) {
+  .catalog-layout { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); grid-template-areas: "shelves rail" "results results"; align-items: start; gap: 8px; padding-top: 10px; }
+  .catalog-layout:has(.shelves details[open]), .catalog-layout:has(.reader-rail details[open]) { grid-template-areas: "shelves shelves" "rail rail" "results results"; }
+  .shelves, .reader-rail { border: 1px solid #d6d8c9; border-radius: 4px; background: #f2f1e8; padding: 0 10px; }
+  .shelves summary, .reader-rail summary { padding: 8px 0; line-height: 1.45; min-height: 40px; }
+  .shelf-list, .reader-rail nav { margin-bottom: 8px; }
+  .shelf-list button { min-height: 44px; }
+}

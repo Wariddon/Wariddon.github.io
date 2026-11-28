@@ -1,6 +1,19 @@
 /* Shared navigation, page edges, and screen-only reading surfaces. */
 @media screen {
-  body { --edge: clamp(14px, 2vw, 36px); }
+  body { --edge: clamp(14px, 2vw, 36px); --control-border: #718c7d; }
+  [data-theme="dark"] body { --control-border: #6f9281; }
+  .library .site-header { background: var(--surface); }
+  .site-header .appearance-toggle {
+    background: var(--surface); color: var(--ink); border-color: var(--control-border);
+  }
+  .site-header .appearance-toggle:is(:hover,[aria-pressed=true]) { background: var(--light); }
+  .company-select-label select { background: var(--surface); }
+  :is(.company-select-label select, .film-controls select, .transcript-toolbar select,
+      .chapter-share input, .hero-actions .secondary, .interview-loading button,
+      .interview-navigation button:not(:last-child)) { border-color: var(--control-border); }
+  .interview-steps button[aria-selected=true] > span { color: inherit; }
+  .cut-buttons button:disabled { opacity: 1; }
+  .exit-presentation { opacity: 1; background: #18382c; }
   body .wrap, body .cv, body .document-footer, .interview-presenting .interview-main {
     width: 100%; max-width: none; margin-inline: auto; padding-inline: var(--edge);
   }
@@ -46,11 +59,12 @@
   .library :is(.answer a, .reader-rail small, .entry summary small, .lesson-check h3),
   .library .entry summary::after, .entry :is(.solution,.language-answer) > summary { color: var(--teal); }
   .library .snippet { background: #1e352e; color: #effbf6; }
-  .library .snippet figcaption, .library .snippet a { color: #a7edcb; }
+  .library .snippet figcaption, .library .answer .snippet a { color: #a7edcb; }
   .entry > summary .lesson-subtitle { display: block; }
   .library :focus-visible, .workspace-search:focus-within { outline-color: var(--teal); }
   .entry .answer { margin-inline: 0; }
-  #interview-present { float: right; margin-block: 0 10px; padding: 8px 16px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface); color: var(--ink); }
+  #interview-present { float: right; margin-block: 0 10px; min-height: 44px; padding: 8px 16px; border: 1px solid var(--control-border); border-radius: 7px; background: var(--surface); color: var(--ink); }
+  #interview-present[aria-pressed=true] { background: var(--action); color: var(--on-action); }
   .interview-intro, .interview-steps { clear: both; }
   .material-button, .deck-switch button[aria-pressed=true], .cut-buttons button[aria-pressed=true],
   .interview-navigation button:last-child, .interview-steps button[aria-selected=true] { background: var(--action); color: var(--on-action); }
@@ -85,5 +99,6 @@
 }
 @media screen and (max-width:520px) {
   .site-header nav.site-links { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); }
-  .site-header .site-links a { padding: 7px 2px; }
+  .site-header .site-links a { padding: 10px 2px; }
+  .exit-presentation { min-height: 44px; font-size: .8rem; }
 }

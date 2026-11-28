@@ -1,9 +1,9 @@
 (() => {
   const steps = [
     { key: 'film', name: 'Career film', title: 'Start with a 45-second overview.', href: 'video.html?cut=short&v=20261106-scb' },
-    { key: 'slides', name: 'Presentation', title: 'See the projects I worked on.', href: 'presentation.html?deck=short&v=20261106-scb' },
-    { key: 'work', name: 'Selected work', title: 'Read the project notes.', href: 'index.html?v=20261106-scb#work' },
-    { key: 'resume', name: 'Resume', title: 'Read or download my resume.', href: 'resume.html?v=20261106-scb' }
+    { key: 'slides', name: 'Presentation', title: 'Open the seven-slide presentation.', href: 'presentation.html?deck=short&v=20261106-scb' },
+    { key: 'work', name: 'Selected work', title: 'Read about three projects.', href: 'index.html?v=20261106-scb#work' },
+    { key: 'resume', name: 'Resume', title: 'Read or download my resume in English.', href: 'resume.html?v=20261106-scb' }
   ];
   const tabs = [...document.querySelectorAll('[data-step]')];
   const shell = document.querySelector('#interview-shell');

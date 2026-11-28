@@ -2,9 +2,7 @@ const query = document.querySelector('#query');
 const entries = [...document.querySelectorAll('.entry')];
 const filters = [...document.querySelectorAll('[data-filter]')];
 const reset = document.querySelector('#reset');
-const params = new URLSearchParams(location.search);
-let shelf = filters.some(b => b.dataset.filter === params.get('shelf')) ? params.get('shelf') : '-1';
-query.value = params.get('q') || '';
+let shelf = '-1';
 const normalize = value => value.normalize('NFC').toLowerCase().trim();
 const index = entries.map(entry => {
   const content = entry.cloneNode(true);
@@ -17,35 +15,69 @@ function words(text) {
   const tokens = segmenter ? [...segmenter.segment(text)].filter(s => s.isWordLike).map(s => s.segment) : text.split(/\s+/);
   return tokens.filter(token => !stop.has(token));
 }
-function update(save = true) {
+function queryMatcher() {
   const phrase = normalize(query.value);
   const tokens = words(phrase);
+  return text => text.includes(phrase) || (tokens.length > 0 && tokens.every(token => text.includes(token)));
+}
+function saveFilters({ keepLesson = false } = {}) {
+  const url = new URL(location.href);
+  if (!keepLesson) url.hash = '';
+  for (const [key, value] of [['q', query.value.trim()], ['shelf', shelf === '-1' ? '' : shelf]]) {
+    if (value) url.searchParams.set(key, value);
+    else url.searchParams.delete(key);
+  }
+  history.replaceState(null, '', url);
+}
+function update() {
+  const matches = queryMatcher();
   let total = 0;
   entries.forEach((entry,i) => {
-    const match = index[i].includes(phrase) || (tokens.length > 0 && tokens.every(t => index[i].includes(t)));
-    entry.hidden = !(match && (shelf === '-1' || entry.dataset.shelf === shelf));
+    entry.hidden = !(matches(index[i]) && (shelf === '-1' || entry.dataset.shelf === shelf));
     if (!entry.hidden) total++;
   });
   filters.forEach(b => b.setAttribute('aria-pressed',String(b.dataset.filter === shelf)));
   const selected = filters.find(b => b.dataset.filter === shelf);
   const resultTitle = document.querySelector('#result-title');
   resultTitle.lang = 'en';
-  resultTitle.textContent = shelf !== '-1' ? selected.firstElementChild.textContent : phrase ? 'Search results' : 'Lessons';
+  resultTitle.textContent = shelf !== '-1' ? selected.firstElementChild.textContent : query.value.trim() ? 'Search results' : 'Lessons';
   document.querySelector('#count').textContent = total + (total === 1 ? ' lesson' : ' lessons');
   document.querySelector('#empty').hidden = total !== 0;
-  reset.hidden = !phrase && shelf === '-1';
-  if(save){const url=new URL(location.href);url.hash='';for(const [key,value] of [['q',query.value.trim()],['shelf',shelf==='-1'?'':shelf]]){if(value)url.searchParams.set(key,value);else url.searchParams.delete(key)}history.replaceState(null,'',url)}
+  reset.hidden = !query.value.trim() && shelf === '-1';
+}
+function applyFilters() {
+  update();
+  saveFilters();
+}
+function openAddress() {
+  const params = new URLSearchParams(location.search);
+  const category = params.get('shelf');
+  shelf = filters.some(button => button.dataset.filter === category) ? category : '-1';
+  query.value = params.get('q') || '';
+
+  const entry = document.getElementById(location.hash.slice(1));
+  if (entry?.matches('.entry')) {
+    if (shelf !== '-1' && entry.dataset.shelf !== shelf) shelf = '-1';
+    if (!queryMatcher()(index[entries.indexOf(entry)])) query.value = '';
+    saveFilters({ keepLesson: true });
+    entry.open = true;
+    update();
+    entry.scrollIntoView();
+  } else {
+    update();
+  }
 }
 const shelves = document.querySelector('.shelves details');
 const small = matchMedia('(max-width:760px)');
 shelves.open = !small.matches;
 small.addEventListener('change',()=>{shelves.open=!small.matches});
-filters.forEach(b=>b.addEventListener('click',()=>{shelf=b.dataset.filter;update();if(small.matches){shelves.open=false;shelves.querySelector('summary').focus()}}));
-query.addEventListener('input',()=>update());
-query.form.addEventListener('submit',event=>{event.preventDefault();update();document.querySelector('#catalog').scrollIntoView()});
-reset.addEventListener('click',()=>{query.value='';shelf='-1';update();query.focus()});
-function openLink(){const entry=document.getElementById(location.hash.slice(1));if(!entry?.matches('.entry'))return;if(entry.hidden){query.value='';shelf='-1';update(false)}entry.open=true;entry.scrollIntoView()}
-update(false);openLink();window.addEventListener('hashchange',openLink);
+filters.forEach(b=>b.addEventListener('click',()=>{shelf=b.dataset.filter;applyFilters();if(small.matches){shelves.open=false;shelves.querySelector('summary').focus()}}));
+query.addEventListener('input', applyFilters);
+query.form.addEventListener('submit',event=>{event.preventDefault();applyFilters();document.querySelector('#catalog').scrollIntoView()});
+reset.addEventListener('click',()=>{query.value='';shelf='-1';applyFilters();query.focus()});
+openAddress();
+window.addEventListener('hashchange', openAddress);
+window.addEventListener('popstate', openAddress);
 
 const readerShortcuts = document.querySelector('.reader-rail details');
 const narrowDesk = matchMedia('(max-width:1100px)');

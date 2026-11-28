@@ -169,7 +169,7 @@
   video.addEventListener('timeupdate', () => { updateChapter(); updateTranscript(); });
   $('#copy-chapter').addEventListener('click', async () => {
     try { await navigator.clipboard.writeText($('#chapter-url').value); $('#share-status').textContent = 'Chapter link copied.'; }
-    catch { $('#chapter-url').focus(); $('#chapter-url').select(); $('#share-status').textContent = 'Select Copy or press Ctrl+C to copy the link.'; }
+    catch { $('#chapter-url').focus(); $('#chapter-url').select(); $('#share-status').textContent = 'The link is selected. Use your device’s copy command.'; }
   });
   window.addEventListener('message', event => {
     if (event.source === window.parent && event.origin === location.origin && event.data?.type === 'portfolio:pause') { if (pending) pending.play = false; video.pause(); }

@@ -50,9 +50,9 @@ const projectList = document.querySelector('.projects');
 const toolkit = document.querySelector('.toolkit');
 const skillGroups = [...toolkit.children];
 const roleViews = {
-  all: { projects: [0,1,2,3,4,5,6,7,8], skills: [0,1,2,3], note: 'The complete engineering portfolio.' },
-  backend: { projects: [0,1,2,4,7,8,6,3,5], skills: [0,2,3,1], note: 'Backend focus: Java, cloud integration and data integrity come first.' },
-  fullstack: { projects: [2,3,5,6,4,8,0,1,7], skills: [1,0,2,3], note: 'Full-stack focus: staff applications and connected services come first.' }
+  all: { projects: [0,1,2,3,4,5,6,7,8], skills: [0,1,2,3], note: 'All projects and skills.' },
+  backend: { projects: [0,1,2,4,7,8,6,3,5], skills: [0,2,3,1], note: 'Java services, cloud integrations, and data work appear first.' },
+  fullstack: { projects: [2,3,5,6,4,8,0,1,7], skills: [1,0,2,3], note: 'Staff applications and their backend services appear first.' }
 };
 function applyRole(role, updateAddress = true) {
   const key = Object.hasOwn(roleViews, role) ? role : 'all';
@@ -71,13 +71,23 @@ roleButtons.forEach(button => button.addEventListener('click', () => applyRole(b
 window.addEventListener('popstate', () => applyRole(new URL(location.href).searchParams.get('focus'), false));
 applyRole(new URL(location.href).searchParams.get('focus'), false);
 
-document.querySelectorAll('.work-previews a[href^="#case-"]').forEach(link => link.addEventListener('click', () => {
-  const target = document.querySelector(link.getAttribute('href'));
-  if (!target) return;
-  if (target.hidden) {
+function openLinkedCase(hash) {
+  const project = document.getElementById(hash.slice(1));
+  if (!projects.includes(project)) return;
+  if (project.hidden) {
     activeCategory = 'all';
-    if (activeCompany !== 'all' && activeCompany !== target.dataset.company) activeCompany = target.dataset.company;
+    if (activeCompany !== 'all' && activeCompany !== project.dataset.company) activeCompany = project.dataset.company;
     filterWork(true);
   }
-  target.querySelector('details').open = true;
-}));
+  project.querySelector('details').open = true;
+  return project;
+}
+
+document.querySelectorAll('.work-previews a[href^="#case-"]').forEach(link => {
+  link.addEventListener('click', () => openLinkedCase(link.hash));
+});
+function openCaseFromAddress() {
+  openLinkedCase(location.hash)?.scrollIntoView();
+}
+window.addEventListener('hashchange', openCaseFromAddress);
+openCaseFromAddress();

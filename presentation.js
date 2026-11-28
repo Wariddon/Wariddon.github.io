@@ -33,8 +33,8 @@ function buildOverview() {
     button.append(preview,caption); button.addEventListener('click',()=>{ show(index); overview.close(); }); grid.append(button); return button;
   });
   document.querySelectorAll('[data-deck]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.deck===deckKey)));
-  document.querySelector('#deck-download').href=`assets/${decks[deckKey].pdf}?v=rights-20261126`;
-  document.querySelector('#slide-error a').href=`assets/${decks[deckKey].pdf}?v=rights-20261126`;
+  document.querySelector('#deck-download').href=`assets/${decks[deckKey].pdf}?v=copy-review`;
+  document.querySelector('#slide-error a').href=`assets/${decks[deckKey].pdf}?v=copy-review`;
 }
 function chooseDeck(key) {
   if(!Object.hasOwn(decks,key)) return;
@@ -81,6 +81,8 @@ exitPresentation.addEventListener('click',leavePresentation);
 document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement)presentationMode(false);});
 document.addEventListener('keydown',event=>{
   if(overview.open||event.altKey||event.ctrlKey||event.metaKey||event.target.closest('input,textarea,select'))return;
+  const readingSlide = ssoSlide.contains(event.target);
+  if (readingSlide && ['PageDown','PageUp','Home','End',' '].includes(event.key)) return;
   if(['ArrowRight','PageDown'].includes(event.key)||(event.code==='Space'&&!event.target.closest('button,a'))){event.preventDefault();show(current+1);}
   else if(['ArrowLeft','PageUp'].includes(event.key)){event.preventDefault();show(current-1);}
   else if(event.key==='Home'){event.preventDefault();show(0);}

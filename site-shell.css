@@ -79,6 +79,12 @@
   .interview-intro, .interview-steps { clear: both; }
   .material-button, .deck-switch button[aria-pressed=true], .cut-buttons button[aria-pressed=true],
   .interview-navigation button:last-child, .interview-steps button[aria-selected=true] { background: var(--action); color: var(--on-action); }
+  .embedded-video .film-main .film-details {
+    grid-template-columns: minmax(0,1fr); gap: 24px; margin-top: 0; padding: 20px var(--edge) 26px;
+  }
+  .embedded-video .film-details .application-links {
+    padding: 20px 0 0; border: 0; border-top: 1px solid var(--line);
+  }
   .embedded-material .site-header, .embedded-video .site-header { display: none; }
 }
 @media screen and (min-width:1101px) {

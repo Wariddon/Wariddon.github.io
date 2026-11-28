@@ -15,7 +15,7 @@
   let loadingFrame = null;
   function frameReady(frame) {
     try {
-      const expected = frame.id === 'interview-video' ? '#experience-video' : frame.id === 'interview-slides' ? '#slide-image' : '#resume-pages';
+      const expected = frame.id === 'interview-video' ? '#experience-video' : frame.id === 'interview-slides' ? '#slide-image' : '#resume-main';
       return frame.contentDocument?.readyState === 'complete' && !!frame.contentDocument.querySelector(expected);
     } catch { return false; }
   }

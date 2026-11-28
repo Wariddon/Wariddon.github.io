@@ -3,17 +3,17 @@
   :root { color-scheme: light; }
   :root[data-theme="dark"] { color-scheme: dark; }
   body {
-    --paper: #f5f7f8; --surface: #ffffff; --ink: #162a36; --muted: #495e69;
-    --teal: #126553; --line: #cdd8d9; --light: #e7f0ed;
-    --action: #135c4c; --on-action: #ffffff; --accent: #a7edcb;
-    --deep: #173b38; --on-deep: #effbf6; --soft-deep: #c2ddd3;
+    --paper: #f3f8fe; --surface: #ffffff; --ink: #162f50; --muted: #4a617c;
+    --teal: #1b5ca2; --line: #c7d8ea; --light: #e4f0fd;
+    --action: #185aa3; --on-action: #ffffff; --accent: #b6dcff;
+    --deep: #173960; --on-deep: #f2f8ff; --soft-deep: #c7dcf3;
     background: var(--paper); color: var(--ink);
   }
   [data-theme="dark"] body {
-    --paper: #10191e; --surface: #19262d; --ink: #eef5f2; --muted: #b6c7c9;
-    --teal: #91dfba; --line: #38494f; --light: #21343a;
-    --action: #9be1be; --on-action: #112a24;
-    --deep: #162f2d; --on-deep: #f0faf6; --soft-deep: #c0ddd2;
+    --paper: #101d30; --surface: #172941; --ink: #eff6ff; --muted: #b7cbe3;
+    --teal: #92caff; --line: #354d68; --light: #203953;
+    --action: #9ccfff; --on-action: #0f2845;
+    --deep: #193452; --on-deep: #f0f7ff; --soft-deep: #c2d8f2;
   }
   .header, .document-header {
     max-width: none; min-height: 64px; height: auto; padding: 10px max(20px, calc((100vw - 1192px)/2));
@@ -44,8 +44,10 @@
   .primary, .primary:hover, .cv .download, .filters button[aria-pressed=true] { background: var(--action); color: var(--on-action); }
   .secondary { background: var(--surface); color: var(--ink); border: 1px solid var(--line); }
   .hero .current { background: var(--deep); color: var(--on-deep); border: 1px solid var(--line); border-radius: 16px; padding: clamp(18px,2.4vw,30px); }
+  :root:not([data-theme="dark"]) .hero .current { background: #e3effd; color: #19395e; --accent: #225d9a; --soft-deep: #3e5877; }
+  :root:not([data-theme="dark"]) .hero .current-role { border-color: #b5cfe7; }
   .hero .current .eyebrow { color: var(--accent); letter-spacing: .09em; }
-  .hero .current-role { padding-bottom: 14px; margin-bottom: 14px; border-color: #59726a; }
+  .hero .current-role { padding-bottom: 14px; margin-bottom: 14px; border-color: #486681; }
   .hero .current-role > span, .hero .current-note p { color: var(--soft-deep); }
   .hero .current-company { font-size: 1.4rem; }
   .hero .current-note .asterisk { color: var(--accent); }
@@ -53,6 +55,10 @@
   .project-icon, .skills-section { background: var(--light); }
   .contact-section, .career-film-play { background: var(--deep); color: var(--on-deep); }
   .contact-section .contact-links button { color: var(--on-deep); }
+  ::selection { background: #bbddff; color: #132e4b; }
+  .job, .role-label, .education { border-color: var(--line); }
+  .preview-image { background: var(--light); }
+  .cv :focus-visible { outline-color: var(--teal); }
   .technology-band { background: var(--surface); }
   .technology-band > .wrap { min-height: 52px; padding-block: 10px; }
   .section-heading { margin-bottom: 26px; }

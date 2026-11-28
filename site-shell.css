@@ -45,8 +45,8 @@
   .results .entry > summary .lesson-subtitle { color: var(--muted); }
   .library :is(.answer a, .reader-rail small, .entry summary small, .lesson-check h3),
   .library .entry summary::after, .entry :is(.solution,.language-answer) > summary { color: var(--teal); }
-  .library .snippet { background: #11273e; color: #f0f6ff; }
-  .library .snippet figcaption, .library .snippet a { color: #aed9ff; }
+  .library .snippet { background: #1e352e; color: #effbf6; }
+  .library .snippet figcaption, .library .snippet a { color: #a7edcb; }
   .entry > summary .lesson-subtitle { display: block; }
   .library :focus-visible, .workspace-search:focus-within { outline-color: var(--teal); }
   .entry .answer { margin-inline: 0; }

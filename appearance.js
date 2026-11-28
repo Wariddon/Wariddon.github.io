@@ -8,6 +8,8 @@
   function render() {
     const dark = preference === "dark" || (preference !== "light" && system.matches);
     document.documentElement.dataset.theme = dark ? "dark" : "light";
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+    if (themeColor) themeColor.content = dark ? "#0e0e0e" : "#173b38";
     const button = document.querySelector(".appearance-toggle");
     if (button) {
       button.hidden = false;

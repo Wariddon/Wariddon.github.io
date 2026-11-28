@@ -10,10 +10,10 @@
     background: var(--paper); color: var(--ink); accent-color: var(--action);
   }
   [data-theme="dark"] body {
-    --paper: #101d18; --surface: #192b23; --ink: #eef5f2; --muted: #b6cbc0;
-    --teal: #91dfba; --line: #385247; --light: #223a30;
+    --paper: #0e0e0e; --surface: #181818; --ink: #f2f2f2; --muted: #bdbdbd;
+    --teal: #91dfba; --line: #404040; --light: #262626;
     --action: #9be1be; --on-action: #112a24;
-    --deep: #162f25; --on-deep: #f0faf6; --soft-deep: #c0ddd2;
+    --deep: #131313; --on-deep: #f2f2f2; --soft-deep: #c6c6c6;
   }
   .header, .document-header {
     max-width: none; min-height: 64px; height: auto; padding: 10px max(20px, calc((100vw - 1192px)/2));

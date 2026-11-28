@@ -95,3 +95,23 @@
 .language-answer figcaption a { color: inherit; text-decoration: underline; }
 
 .entry > summary .lesson-title-en { display: block; margin-top: .15rem; color: #496154; font-size: .92rem; line-height: 1.45; overflow-wrap: anywhere; }
+
+.workspace-bar { background: #193f35; color: #fff8e8; border-bottom: 2px solid #c3a775; }
+.workspace-bar-inner {
+  width: min(100%, var(--frame)); margin-inline: auto; padding: 14px var(--gutter);
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.workspace-bar h1 { font: 600 clamp(1.3rem, 2.4vw, 2rem)/1.2 Georgia, serif; margin: 0; }
+.workspace-search {
+  display: flex; align-items: center; width: min(52%, 30rem); min-width: 0;
+  margin: 0; padding: 0 3px 0 12px; border-radius: 6px; background: #fffdf7; color: #193f35;
+}
+.workspace-search:focus-within { outline: 2px solid #e7c782; outline-offset: 3px; }
+.workspace-search input { width: 100%; min-width: 0; padding: 5px 0; background: transparent; color: inherit; border: 0; font: inherit; }
+.workspace-search input::placeholder { color: #59685e; }
+.workspace-search button { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border: 0; border-radius: 4px; background: transparent; color: inherit; cursor: pointer; }
+.workspace-search button:hover { background: #e5eadf; }
+@media (max-width: 600px) {
+  .workspace-bar-inner { padding-block: 8px; gap: 12px; }
+  .workspace-search { flex: 1; max-width: 18rem; }
+}

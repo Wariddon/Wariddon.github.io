@@ -1,0 +1,89 @@
+/* Shared navigation, page edges, and screen-only reading surfaces. */
+@media screen {
+  body { --edge: clamp(14px, 2vw, 36px); }
+  body .wrap, body .cv, body .document-footer, .interview-presenting .interview-main {
+    width: 100%; max-width: none; margin-inline: auto; padding-inline: var(--edge);
+  }
+  body .site-header {
+    position: relative; inset: auto; display: flex; flex-flow: row wrap; align-items: center;
+    justify-content: flex-start; gap: 12px; width: 100%; height: auto; min-height: 64px;
+    margin: 0; padding: 9px var(--edge); background: var(--surface); color: var(--ink);
+    border-bottom: 1px solid var(--line);
+  }
+  .site-header .brand { margin-right: auto; color: var(--ink); }
+  .site-header nav.site-links {
+    position: static; display: flex; flex-wrap: nowrap; align-items: center; justify-content: flex-start;
+    width: auto; gap: 2px; padding: 3px; border: 0; border-radius: 10px;
+    background: var(--paper); box-shadow: none;
+  }
+  .site-header .site-links a {
+    flex: none; padding: 9px clamp(8px,1vw,18px); border: 0; border-radius: 7px;
+    color: var(--muted); font: 600 .88rem/1.4 system-ui,sans-serif; text-decoration: none;
+  }
+  .site-header .site-links a:hover { background: var(--light); color: var(--ink); }
+  .site-header .site-links a[aria-current] { background: var(--action); color: var(--on-action); }
+  .site-header :focus-visible { outline: 2px solid var(--teal); outline-offset: -2px; }
+  .section-links { display: flex; gap: 8px 20px; flex-wrap: wrap; padding-top: 14px; color: var(--teal); font-size: .82rem; }
+  .library { --frame: 100%; --gutter: var(--edge); background: var(--paper); color: var(--ink); }
+  .workspace-bar { background: var(--deep); border-color: var(--line); color: var(--on-deep); }
+  .workspace-bar h1 { font: 700 clamp(1.25rem,2vw,1.75rem)/1.25 system-ui,sans-serif; }
+  .workspace-search, .results .entry[open], .cinema, .chapter-share, .interview-stage,
+  .thumbnail-grid button, .transcript-toolbar select, .interview-loading button,
+  .interview-navigation button { background: var(--surface); color: var(--ink); }
+  .workspace-search input::placeholder { color: var(--muted); }
+  .shelves, .reader-rail, .results { border-radius: 10px; }
+  .reader-rail, .related-work, .lesson-table th, .answer .example, .lesson-neighbors a,
+  .answer .reading-resource, .result-head .reset, .results .entry[open] > summary,
+  .results .entry > summary:hover, .shelf-list button:hover, .chapter-grid button[aria-current=true],
+  .transcript-list > button:hover, .shelf-list button[aria-pressed=true], .workspace-search button:hover {
+    background: var(--light); color: var(--ink);
+  }
+  .library .shelves, .library .results { background: var(--surface); padding: 12px; }
+  .library :is(.entry, .reader-rail, .result-head, .shelves, .example, .reading-resource, .lesson-check, .solution, .language-answer, .lesson-neighbors, td, th),
+  .library .reader-rail a { border-color: var(--line); }
+  .library :is(.shelf-list button, .reader-rail a, .result-head span, .lesson-subtitle, .reading-resource small, .lesson-neighbors small),
+  .results .entry > summary .lesson-subtitle { color: var(--muted); }
+  .library :is(.answer a, .reader-rail small, .entry summary small, .lesson-check h3),
+  .library .entry summary::after, .entry :is(.solution,.language-answer) > summary { color: var(--teal); }
+  .library .snippet { background: #11273e; color: #f0f6ff; }
+  .library .snippet figcaption, .library .snippet a { color: #aed9ff; }
+  .entry > summary .lesson-subtitle { display: block; }
+  .library :focus-visible, .workspace-search:focus-within { outline-color: var(--teal); }
+  .entry .answer { margin-inline: 0; }
+  #interview-present { float: right; margin-block: 0 10px; padding: 8px 16px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface); color: var(--ink); }
+  .interview-intro, .interview-steps { clear: both; }
+  .material-button, .deck-switch button[aria-pressed=true], .cut-buttons button[aria-pressed=true],
+  .interview-navigation button:last-child, .interview-steps button[aria-selected=true] { background: var(--action); color: var(--on-action); }
+  .embedded-material .site-header, .embedded-video .site-header { display: none; }
+}
+@media screen and (min-width:1101px) {
+  .cv-content > :is(#experience,#projects,#earlier) { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 14px; align-items: start; }
+  .cv-content > section > h2 { grid-column: 1/-1; }
+  .cv-content .employment + .employment { margin-top: 0; }
+  .library .catalog-layout { grid-template-columns: clamp(220px,17vw,310px) minmax(0,1fr) clamp(200px,16vw,290px); gap: var(--edge); }
+  .film-main { display: grid; grid-template-columns: minmax(0,2fr) minmax(295px,1fr); gap: 20px var(--edge); align-items: start; }
+  .film-main > * { grid-column: 1/-1; }
+  .film-main .cinema { grid-column: 1; grid-row: 3; }
+  .film-main .film-details { grid-column: 2; grid-row: 3; display: grid; grid-template-columns: 1fr; margin-top: 0; gap: 20px; }
+  .film-details .application-links { padding-left: 0; border-left: 0; }
+  .embedded-video .film-main { display: block; }
+}
+@media screen and (max-width:840px) {
+  body .site-header { gap: 5px; padding-block: 6px; }
+  .site-header nav.site-links { order: 4; width: 100%; overflow-x: auto; }
+  .site-header .site-links a { flex: 1 0 auto; text-align: center; }
+}
+@media print { .site-header, .section-links { display: none; } }
+@media screen {
+  .presentation-shell, .presentation-main { grid-template-columns: minmax(0,1fr); }
+  .presentation-bar .material-actions { flex-wrap: wrap; }
+  .site-header .brand { font: 750 1.1rem/1.2 system-ui,sans-serif; }
+  .site-header .monogram { width: 34px; height: 34px; font-size: 12px; }
+  .film-controls select { background: var(--surface); }
+  .chapter-share button, .language-switch button[aria-pressed=true] { color: var(--on-action); background: var(--action); }
+  .media-error { color: #492d14; }
+}
+@media screen and (max-width:520px) {
+  .site-header nav.site-links { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); }
+  .site-header .site-links a { padding: 7px 2px; }
+}

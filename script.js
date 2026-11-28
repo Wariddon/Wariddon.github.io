@@ -1,13 +1,3 @@
-const menu = document.querySelector('.menu-toggle');
-const nav = document.querySelector('#navigation');
-function closeMenu() { nav.classList.remove('open'); menu.setAttribute('aria-expanded', 'false'); }
-menu.addEventListener('click', () => {
-  const open = menu.getAttribute('aria-expanded') !== 'true';
-  menu.setAttribute('aria-expanded', String(open)); nav.classList.toggle('open', open);
-});
-nav.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
-document.addEventListener('keydown', event => { if (event.key === 'Escape' && nav.classList.contains('open')) { closeMenu(); menu.focus(); } });
-window.matchMedia('(min-width: 1001px)').addEventListener('change', event => { if (event.matches) closeMenu(); });
 const filters = [...document.querySelectorAll('[data-filter]')];
 const projects = [...document.querySelectorAll('[data-category]')];
 const companySelect = document.querySelector('#company-filter');

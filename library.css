@@ -94,7 +94,7 @@
 
 .language-answer figcaption a { color: inherit; text-decoration: underline; }
 
-.entry > summary .lesson-title-en { display: block; margin-top: .15rem; color: #496154; font-size: .92rem; line-height: 1.45; overflow-wrap: anywhere; }
+.entry > summary .lesson-subtitle { display: block; margin-top: .15rem; color: #496154; font-size: .92rem; line-height: 1.45; overflow-wrap: anywhere; }
 
 .workspace-bar { background: #193f35; color: #fff8e8; border-bottom: 2px solid #c3a775; }
 .workspace-bar-inner {
@@ -131,7 +131,7 @@
 .results .entry { margin: 0; border: 0; border-bottom: 1px solid #d6d8c9; border-radius: 0; background: transparent; }
 .results .entry > summary { padding: 8px 6px; gap: 10px; min-height: 44px; }
 .results .entry > summary strong { font-size: 1rem; line-height: 1.45; }
-.results .entry > summary .lesson-title-en { font-size: .85rem; line-height: 1.35; margin-top: 2px; }
+.results .entry > summary .lesson-subtitle { font-size: .85rem; line-height: 1.35; margin-top: 2px; }
 .results .entry:not([open]) > summary small { display: none; }
 .results .entry[open] { background: #fffdf7; }
 @media (max-width: 760px) {

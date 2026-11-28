@@ -29,9 +29,9 @@ function update(save = true) {
   filters.forEach(b => b.setAttribute('aria-pressed',String(b.dataset.filter === shelf)));
   const selected = filters.find(b => b.dataset.filter === shelf);
   const resultTitle = document.querySelector('#result-title');
-  resultTitle.lang = shelf === '-1' ? 'th' : 'en';
-  resultTitle.textContent = shelf !== '-1' ? selected.firstElementChild.textContent : phrase ? 'ผลการค้นหา' : 'บทเรียน';
-  document.querySelector('#count').textContent = total+' บท';
+  resultTitle.lang = 'en';
+  resultTitle.textContent = shelf !== '-1' ? selected.firstElementChild.textContent : phrase ? 'Search results' : 'Lessons';
+  document.querySelector('#count').textContent = total + (total === 1 ? ' lesson' : ' lessons');
   document.querySelector('#empty').hidden = total !== 0;
   reset.hidden = !phrase && shelf === '-1';
   if(save){const url=new URL(location.href);url.hash='';for(const [key,value] of [['q',query.value.trim()],['shelf',shelf==='-1'?'':shelf]]){if(value)url.searchParams.set(key,value);else url.searchParams.delete(key)}history.replaceState(null,'',url)}

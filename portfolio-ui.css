@@ -3,17 +3,17 @@
   :root { color-scheme: light; }
   :root[data-theme="dark"] { color-scheme: dark; }
   body {
-    --paper: #f5f7f8; --surface: #ffffff; --ink: #162a36; --muted: #495e69;
-    --teal: #126553; --line: #cdd8d9; --light: #e7f0ed;
+    --paper: #f4f8f5; --surface: #ffffff; --ink: #192e27; --muted: #476055;
+    --teal: #126553; --line: #cad9d0; --light: #e7f0ed;
     --action: #135c4c; --on-action: #ffffff; --accent: #a7edcb;
     --deep: #173b38; --on-deep: #effbf6; --soft-deep: #c2ddd3;
-    background: var(--paper); color: var(--ink);
+    background: var(--paper); color: var(--ink); accent-color: var(--action);
   }
   [data-theme="dark"] body {
-    --paper: #10191e; --surface: #19262d; --ink: #eef5f2; --muted: #b6c7c9;
-    --teal: #91dfba; --line: #38494f; --light: #21343a;
+    --paper: #101d18; --surface: #192b23; --ink: #eef5f2; --muted: #b6cbc0;
+    --teal: #91dfba; --line: #385247; --light: #223a30;
     --action: #9be1be; --on-action: #112a24;
-    --deep: #162f2d; --on-deep: #f0faf6; --soft-deep: #c0ddd2;
+    --deep: #162f25; --on-deep: #f0faf6; --soft-deep: #c0ddd2;
   }
   .header, .document-header {
     max-width: none; min-height: 64px; height: auto; padding: 10px max(20px, calc((100vw - 1192px)/2));

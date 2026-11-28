@@ -85,3 +85,9 @@
 .lesson-neighbors a { padding:8px 10px; text-decoration:none; border-radius:4px; background:#f4f2e9; line-height:1.55; }
 .answer .permalink { text-align:right; margin-top:10px; }
 .answer .permalink a { display:inline-block; padding:4px 8px; font-size:.8rem; }
+
+.language-practice { margin: 1.25rem 0; }
+.language-answer { border-top: 1px solid #ccd5c9; }
+.entry .language-answer > summary { justify-content: flex-start; gap: .65rem; color: #235942; font-weight: 700; padding: .7rem 0; }
+.entry .language-answer > summary::after { content: '＋'; font: inherit; }
+.entry .language-answer[open] > summary::after { content: '−'; }

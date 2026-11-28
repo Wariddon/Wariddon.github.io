@@ -2355,19 +2355,238 @@ function makeSearch(fetchRows, render) {
 <details class="entry" id="arch-layers" data-shelf="18" data-terms="Fundamental Software Architectural Patterns architecture pattern สถาปัตยกรรม layered n-tier controller service repository MVC dependency"><summary><span><small>Fundamental Software Architectural Patterns · 3/15</small><strong>Layered และ N-tier · แยกหน้าที่กับแยกเครื่อง</strong></span></summary><div class="answer"><p>Controller แปลงคำขอจาก HTTP ส่วน application service คุม use case และ repository จัดการข้อมูล คำว่า layer พูดถึงหน้าที่ในโค้ด ส่วน tier พูดถึงส่วนที่รันหรือ deploy แยกกัน</p><div class="example"><b>เส้นทางในตัวอย่าง</b><p>HTTP → Controller → CancelOrder → Repository</p></div><h3>ลองออกแบบ</h3><p>เว็บกับ batch ต้องยกเลิกออเดอร์ได้ตามกฎเดียวกัน ควรวางเงื่อนไข “ยกเลิกได้ก่อนจัดส่ง” ตรงไหน?</p><details class="solution" open><summary>เฉลย</summary><div class="worked-method"><b>วิธีคิด</b><ol><li>ให้เว็บแปลง HTTP และ batch แปลงรายการงานเป็นคำสั่งรูปเดียวกัน แล้วส่งไป use case เดียว</li><li>ให้กฎตรวจสถานะอยู่ใน domain หรือ use case และให้ repository อัปเดตโดยมีเงื่อนไขสถานะหรือ version เพื่อรับมือกับการจัดส่งที่เกิดพร้อมกัน</li></ol></div><b>ผลที่ควรได้</b><p>ทดสอบกฎจากทั้งสองทางเข้า เมื่อออเดอร์ถูกจัดส่งระหว่างอ่านกับเขียน การเปลี่ยนสถานะต้องถูกปฏิเสธ</p><b>ต้นทุนที่ต้องยอมรับ</b><p>การแยก layer ช่วยให้ตามกฎได้ แต่ถ้าทุกชั้นมีเพียงเมธอดส่งต่ออย่างเดียว การแก้เล็กน้อยจะกระจายหลายไฟล์</p><p><strong>ถ้าคนสัมภาษณ์ถามต่อ</strong> แยก Controller กับ Service คนละ package ต้องเรียกผ่าน HTTP ไหม?</p><p><strong>แนวตอบ</strong> เรียกฟังก์ชันใน process เดียวได้ การเพิ่ม network hop มีต้นทุน latency และ failure mode จึงควรมีเหตุผลด้าน deploy หรือ scaling รองรับ</p></details><div class="lesson-neighbors"><a href="#arch-client-server"><small>บทก่อนหน้า</small><span>Client–Server · ใครมีสิทธิ์ตัดสินราคา</span></a><a href="#arch-mvc"><small>บทถัดไป</small><span>MVC · แก้กฎใน Model แล้วให้หลายหน้าจอใช้ร่วมกัน</span></a></div><p class="permalink"><a href="#arch-layers">ลิงก์ตรงมาบทนี้</a></p></div></details>
 <details class="entry" id="arch-mvc" data-shelf="18" data-terms="Fundamental Software Architectural Patterns architecture pattern สถาปัตยกรรม model view controller presentation architecture UI MVC"><summary><span><small>Fundamental Software Architectural Patterns · 4/15</small><strong>MVC · แก้กฎใน Model แล้วให้หลายหน้าจอใช้ร่วมกัน</strong></span></summary><div class="answer"><p>Model เก็บข้อมูลและพฤติกรรมที่หน้าจอใช้ View นำเสนอผล ส่วน Controller รับการกระทำของผู้ใช้แล้วประสานงาน ในเว็บ MVC มักเห็นชัดจากเส้นทาง request ไปจนถึงการ render หน้า</p><div class="example"><b>เส้นทางในตัวอย่าง</b><p>กดใช้คูปอง → Controller → Model คำนวณยอด → View แสดงราคา</p></div><h3>ลองออกแบบ</h3><p>หน้าตะกร้าให้ส่วนลด 10% แต่หน้าจ่ายเงินแสดงยอดเต็ม เพราะแต่ละ template เขียนสูตรเอง ควรย้ายอะไรไปไหน?</p><details class="solution" open><summary>เฉลย</summary><div class="worked-method"><b>วิธีคิด</b><ol><li>ให้ Controller รับรหัสคูปองและรายการสินค้า แล้วเรียกกฎคิดราคาใน Model หรือ domain service ที่หน้าอื่นเรียกใช้ร่วมกันได้</li><li>ให้ View รับยอดก่อนลด ส่วนลด และยอดสุทธิ ทดสอบทั้งหน้าตะกร้าและหน้าจ่ายเงินด้วยข้อมูลชุดเดียว รวมกรณีคูปองหมดอายุ</li></ol></div><b>ผลที่ควรได้</b><p>สินค้าราคา 200 บาท คูปองที่ใช้ได้ลด 10% ทั้งสองหน้าแสดงยอดสุทธิ 180 บาท ส่วนคูปองหมดอายุให้ Model คืนผลที่อธิบายได้และ View แสดงเหตุผล</p><b>ต้นทุนที่ต้องยอมรับ</b><p>หากย้ายกฎทั้งหมดไปไว้ใน Controller ปัญหาจะกลับมาเมื่อเพิ่ม mobile API จึงควรแยก logic ที่หลายทางเข้าใช้ร่วมกัน</p><p><strong>ถ้าคนสัมภาษณ์ถามต่อ</strong> MVC กับ Layered ใช้พร้อมกันได้อย่างไร?</p><p><strong>แนวตอบ</strong> ใช้ MVC จัดส่วนที่ผู้ใช้โต้ตอบ แล้วให้ Controller เรียก application service ในอีก layer เพื่อประสานการบันทึกข้อมูล</p></details><div class="lesson-neighbors"><a href="#arch-layers"><small>บทก่อนหน้า</small><span>Layered และ N-tier · แยกหน้าที่กับแยกเครื่อง</span></a><a href="#arch-modular"><small>บทถัดไป</small><span>Modular Monolith · แยกขอบเขตในแอปเดียว</span></a></div><p class="permalink"><a href="#arch-mvc">ลิงก์ตรงมาบทนี้</a></p></div></details>
 <details class="entry" id="arch-modular" data-shelf="18" data-terms="Fundamental Software Architectural Patterns architecture pattern สถาปัตยกรรม modules domain boundaries monolith coupling cohesion"><summary><span><small>Fundamental Software Architectural Patterns · 5/15</small><strong>Modular Monolith · แยกขอบเขตในแอปเดียว</strong></span></summary><div class="answer"><p>แบ่งโมดูลตามความสามารถทางธุรกิจ เช่น Order, Stock และ Billing แต่ปล่อยแอปเป็นหน่วยเดียว แต่ละโมดูลมีทางเข้าที่ตกลงกันและรับผิดชอบข้อมูลของตัวเอง</p><div class="example"><b>เส้นทางในตัวอย่าง</b><p>Checkout → Stock.reserve → Order.confirm ภายในแอปเดียว</p></div><h3>ลองออกแบบ</h3><p>ถ้าทีม Reporting เริ่ม UPDATE ตาราง Stock เองเพราะแก้ง่าย จะกันโมดูลพัวพันกันอย่างไร?</p><details class="solution" open><summary>เฉลย</summary><div class="worked-method"><b>วิธีคิด</b><ol><li>ระบุว่า Stock เป็นเจ้าของการเปลี่ยนยอด ให้ Reporting อ่านผ่าน read model หรือช่องทางอ่านที่กำหนด</li><li>ย้ายกฎแก้ยอดกลับเข้าคำสั่งของ Stock แล้วตรวจ dependency ใน build หรือ architecture test เพื่อกันการ import ส่วนภายใน</li></ol></div><b>ผลที่ควรได้</b><p>เปลี่ยนโครงสร้างตาราง Stock ได้โดยมีจุดที่ต้องตามแก้จำกัด และยังทำ transaction ภายในฐานเดียวได้เมื่อ use case ต้องการ</p><b>ต้นทุนที่ต้องยอมรับ</b><p>การบังคับขอบเขตต้องอาศัยวินัยและการตรวจใน CI อีกทั้งยังขยายทุกโมดูลพร้อมกันเมื่อ scale แอป</p><p><strong>ถ้าคนสัมภาษณ์ถามต่อ</strong> จะรู้ได้อย่างไรว่าควรแยกโมดูลออกเป็น service?</p><p><strong>แนวตอบ</strong> วัดว่าโหลด รอบปล่อยรุ่น หรือผลกระทบจากการล้มต่างกันจริง แล้วประเมินว่าสัญญาข้ามขอบนิ่งพอให้แยกได้ไหม</p></details><div class="lesson-neighbors"><a href="#arch-mvc"><small>บทก่อนหน้า</small><span>MVC · แก้กฎใน Model แล้วให้หลายหน้าจอใช้ร่วมกัน</span></a><a href="#arch-ports"><small>บทถัดไป</small><span>Hexagonal · แยกกฎงานออกจากเครื่องมือ</span></a></div><p class="permalink"><a href="#arch-modular">ลิงก์ตรงมาบทนี้</a></p></div></details>
-<details class="entry" id="arch-ports" data-shelf="18" data-terms="Fundamental Software Architectural Patterns architecture pattern สถาปัตยกรรม ports and adapters hexagonal clean architecture dependency inversion"><summary><span><small>Fundamental Software Architectural Patterns · 6/15</small><strong>Hexagonal · แยกกฎงานออกจากเครื่องมือ</strong></span></summary><div class="answer"><p>ให้แกนธุรกิจกำหนดสิ่งที่ต้องใช้ เช่น อ่านสถานะออเดอร์ ส่วน adapter รับหน้าที่แปลเป็น SQL หรือ HTTP การทดสอบกฎจึงใช้ฟังก์ชันจำลองแทนฐานจริงได้</p><div class="example"><b>เส้นทางในตัวอย่าง</b><p>HTTP adapter → use case → port อ่านสถานะ ← SQL adapter</p></div><h3>ลองออกแบบ</h3><p>เขียนฟังก์ชันตรวจว่ายกเลิกได้ไหม แล้วทดสอบ PENDING กับ SHIPPED โดยไม่เปิดฐานข้อมูล</p><details class="solution" open><summary>เฉลย</summary><div class="worked-method"><b>วิธีคิด</b><ol><li>กำหนด port เล็กที่สุดที่กฎต้องการ กรณีนี้คือฟังก์ชันที่รับ ID แล้วคืนสถานะ</li><li>ส่ง implementation เข้ามาจากข้างนอก ใน test ใช้ตัวอ่านจาก dict ส่วนระบบจริงค่อยเสียบ repository</li></ol></div><figure class="snippet"><figcaption>Python 3 · ลองรันพร้อมชุดทดสอบ</figcaption><pre><code>def can_cancel(order_id, read_status):
+<details class="entry" id="arch-ports" data-shelf="18" data-terms="Golang Go Rust Java Python Fundamental Software Architectural Patterns architecture pattern สถาปัตยกรรม ports and adapters hexagonal clean architecture dependency inversion"><summary><span><small>Fundamental Software Architectural Patterns · 6/15</small><strong>Hexagonal · แยกกฎงานออกจากเครื่องมือ</strong></span></summary><div class="answer"><p>ให้แกนธุรกิจกำหนดสิ่งที่ต้องใช้ เช่น อ่านสถานะออเดอร์ ส่วน adapter รับหน้าที่แปลเป็น SQL หรือ HTTP การทดสอบกฎจึงใช้ฟังก์ชันจำลองแทนฐานจริงได้</p><div class="example"><b>เส้นทางในตัวอย่าง</b><p>HTTP adapter → use case → port อ่านสถานะ ← SQL adapter</p></div><h3>ลองออกแบบ</h3><p>เขียนฟังก์ชันตรวจว่ายกเลิกได้ไหม แล้วทดสอบ PENDING กับ SHIPPED โดยไม่เปิดฐานข้อมูล</p><details class="solution" open><summary>เฉลย</summary><div class="worked-method"><b>วิธีคิด</b><ol><li>กำหนด port เล็กที่สุดที่กฎต้องการ กรณีนี้คือฟังก์ชันที่รับ ID แล้วคืนสถานะ</li><li>ส่ง implementation เข้ามาจากข้างนอก ใน test ใช้ตัวอ่านจาก dict ส่วนระบบจริงค่อยเสียบ repository</li></ol></div><div class="language-practice"><h3>ลองอธิบายตอนสัมภาษณ์</h3><p>“ผมเลือก Hexagonal เพราะกฎยกเลิกออเดอร์ต้องใช้ได้ทั้งจากเว็บและ batch แต่กฎต้องการรู้แค่สถานะครับ ผมให้แกนงานกำหนด port สำหรับอ่านสถานะ แล้วเสียบตัวอ่านจากฐานจริงหรือตัวจำลองเข้ามาได้ ถ้ากติกาเปลี่ยน ผมทดสอบที่เดียว ส่วน SQL adapter ผมยังทดสอบกับฐานจริงแยกอีกชุด ถ้าเป็นหน้าที่อ่านตารางเดียวและไม่มีกฎร่วม ผมจะเริ่มจากฟังก์ชันธรรมดาก่อน”</p><h3>ซ้อมเขียนแยกตามภาษา</h3><p>ลองสามเคสเหมือนกันทั้งสี่ภาษา ออเดอร์ 10 รอชำระจึงยกเลิกได้ ออเดอร์ 11 ส่งแล้วจึงยกเลิกไม่ได้ และ ID 99 ต้องแจ้งว่าไม่พบ ข้อนี้ตรวจเฉพาะกฎอ่านสถานะ เมื่อรันผ่าน โปรแกรมจะจบโดยไม่มีข้อความ</p><details class="language-answer" data-filename="main.go"><summary>Go (Golang)</summary><p><strong>เหตุผลที่เขียนแบบนี้</strong> ผมใช้ชนิดฟังก์ชัน StatusReader เป็น port เพราะ use case ต้องการ operation เดียว ค่า found ทำให้แยกออเดอร์ที่ส่งแล้วจาก ID ที่ไม่มีในแผนที่ได้</p><figure class="snippet"><figcaption>Go 1.21+ · go run main.go</figcaption><pre><code>package main
+
+import &quot;fmt&quot;
+
+// StatusReader is the input the cancellation rule needs.
+type StatusReader func(id int) (string, bool)
+
+func canCancel(id int, read StatusReader) (bool, error) {
+	status, found := read(id)
+	if !found {
+		return false, fmt.Errorf(&quot;order %d not found&quot;, id)
+	}
+	return status == &quot;PENDING&quot;, nil
+}
+
+func main() {
+	orders := map[int]string{10: &quot;PENDING&quot;, 11: &quot;SHIPPED&quot;}
+	read := func(id int) (string, bool) {
+		status, found := orders[id]
+		return status, found
+	}
+	for id, want := range map[int]bool{10: true, 11: false} {
+		got, err := canCancel(id, read)
+		if err != nil || got != want {
+			panic(&quot;unexpected eligibility&quot;)
+		}
+	}
+	if _, err := canCancel(99, read); err == nil {
+		panic(&quot;expected missing order&quot;)
+	}
+}</code></pre></figure></details><details class="language-answer" data-filename="main.rs"><summary>Rust</summary><p><strong>เหตุผลที่เขียนแบบนี้</strong> ผมรับ closure ที่คืน Option&lt;Status&gt; เป็น port แล้วแปลง None เป็น LookupError คนเรียกจึงแยก Ok(false) ของงานที่ส่งแล้วออกจากการค้นไม่พบได้</p><figure class="snippet"><figcaption>rustc --edition=2021 main.rs แล้วรันโปรแกรม main ที่ได้</figcaption><pre><code>#[derive(Debug, PartialEq)]
+enum Status {
+    Pending,
+    Shipped,
+}
+
+#[derive(Debug, PartialEq)]
+enum LookupError {
+    Missing,
+}
+
+fn can_cancel(id: u32, read: impl Fn(u32) -&gt; Option&lt;Status&gt;) -&gt; Result&lt;bool, LookupError&gt; {
+    let status = read(id).ok_or(LookupError::Missing)?;
+    Ok(status == Status::Pending)
+}
+
+fn main() {
+    let read = |id| match id {
+        10 =&gt; Some(Status::Pending),
+        11 =&gt; Some(Status::Shipped),
+        _ =&gt; None,
+    };
+    assert_eq!(can_cancel(10, read), Ok(true));
+    assert_eq!(can_cancel(11, read), Ok(false));
+    assert_eq!(can_cancel(99, read), Err(LookupError::Missing));
+}</code></pre></figure></details><details class="language-answer" data-filename="Main.java"><summary>Java</summary><p><strong>เหตุผลที่เขียนแบบนี้</strong> ผมให้ use case อ้าง StatusReader ที่มีเมธอดเดียว ใน test จึงใช้ lambda แทน repository ได้ Optional.empty() ใช้บอกว่าค้นไม่พบก่อนตรวจ enum</p><figure class="snippet"><figcaption>JDK 17+ · java -Dfile.encoding=UTF-8 Main.java</figcaption><pre><code>import java.util.Map;
+import java.util.Optional;
+import java.util.NoSuchElementException;
+
+class Main {
+    enum Status { PENDING, SHIPPED }
+    interface StatusReader {
+        Optional&lt;Status&gt; find(int id);
+    }
+
+    static boolean canCancel(int id, StatusReader reader) {
+        Status status = reader.find(id).orElseThrow(
+            () -&gt; new NoSuchElementException(&quot;Order &quot; + id));
+        return status == Status.PENDING;
+    }
+
+    public static void main(String[] args) {
+        var orders = Map.of(10, Status.PENDING, 11, Status.SHIPPED);
+        StatusReader read = id -&gt; Optional.ofNullable(orders.get(id));
+        if (!canCancel(10, read) || canCancel(11, read)) {
+            throw new AssertionError(&quot;Unexpected eligibility&quot;);
+        }
+        try {
+            canCancel(99, read);
+            throw new AssertionError(&quot;Expected missing order&quot;);
+        } catch (NoSuchElementException expected) {
+            // Unknown order and shipped order have different outcomes.
+        }
+    }
+}</code></pre></figure></details><details class="language-answer" data-filename="main.py" open><summary>Python</summary><p><strong>เหตุผลที่เขียนแบบนี้</strong> ผมส่ง callable เข้าไปตรง ๆ ตัวอย่างใช้ dict เป็น adapter ในหน่วยความจำ ถ้าไม่มี key ตัวอ่านจะส่ง KeyError แยกจาก False ของออเดอร์ที่มีแต่ส่งแล้ว</p><figure class="snippet"><figcaption>Python 3 · python main.py</figcaption><pre><code>def can_cancel(order_id, read_status):
     return read_status(order_id) == &quot;PENDING&quot;
+
 
 orders = {10: &quot;PENDING&quot;, 11: &quot;SHIPPED&quot;}
 assert can_cancel(10, orders.__getitem__)
-assert not can_cancel(11, orders.__getitem__)</code></pre></figure><b>ผลที่ควรได้</b><p>ได้ True สำหรับ PENDING และ False สำหรับ SHIPPED ตัวอย่างนี้ฝึกเฉพาะกฎตรวจสิทธิ์ยกเลิก การเขียนสถานะจริงต้องตรวจการแก้พร้อมกันอีกชั้น</p><b>ต้นทุนที่ต้องยอมรับ</b><p>ถ้าสร้าง interface ให้ทุกคลาสโดยที่ไม่มี boundary ที่ต้องสลับจะเพิ่มงานดูแล ใช้ port ตรงจุดที่มี I/O หรือกฎที่ต้องทดสอบแยก</p><p><strong>ถ้าคนสัมภาษณ์ถามต่อ</strong> จะมั่นใจได้อย่างไรว่า fake กับฐานจริงคืนค่าเหมือนกัน?</p><p><strong>แนวตอบ</strong> ใช้ชุด contract test ร่วมกันสำหรับกรณีพบข้อมูล ไม่พบข้อมูล และ error แล้วเพิ่ม integration test ให้ adapter จริง</p></details><div class="reading-resources"><a class="reading-resource" href="https://alistair.cockburn.us/hexagonal-architecture/"><span><small>อ่านต่อ</small><strong>Alistair Cockburn · Hexagonal Architecture</strong></span><span aria-hidden="true">↗</span></a></div><div class="lesson-neighbors"><a href="#arch-modular"><small>บทก่อนหน้า</small><span>Modular Monolith · แยกขอบเขตในแอปเดียว</span></a><a href="#arch-pipeline"><small>บทถัดไป</small><span>Pipe and Filter · แยกขั้นนำเข้าไฟล์</span></a></div><p class="permalink"><a href="#arch-ports">ลิงก์ตรงมาบทนี้</a></p></div></details>
-<details class="entry" id="arch-pipeline" data-shelf="18" data-terms="Fundamental Software Architectural Patterns architecture pattern สถาปัตยกรรม pipes filters pipeline ETL streaming batch"><summary><span><small>Fundamental Software Architectural Patterns · 7/15</small><strong>Pipe and Filter · แยกขั้นนำเข้าไฟล์</strong></span></summary><div class="answer"><p>ไฟล์ยอดขายหนึ่งไฟล์อาจมีแถวว่าง จำนวนติดลบ และยอดที่ต้องแปลงหน่วย ให้แต่ละขั้นรับข้อมูลในรูปที่ชัด แล้วส่งต่อเฉพาะข้อมูลที่ขั้นถัดไปรับได้</p><div class="example"><b>เส้นทางในตัวอย่าง</b><p>อ่านบรรทัด → parse → validate → แปลงเป็นสตางค์ → รวมยอด</p></div><h3>ลองออกแบบ</h3><p>ข้อมูล 12.50, x, -3 และ 0.25 บาท ต้องได้ยอดของแถวที่ใช้ได้พร้อมเลขแถวที่ต้องตรวจ เขียนขั้นแปลงและขั้นรวมให้ทดสอบแยกได้</p><details class="solution" open><summary>เฉลย</summary><div class="worked-method"><b>วิธีคิด</b><ol><li>กำหนดรูปแบบราคาเป็นเลขทศนิยมไม่ติดลบที่มีเศษไม่เกินสองหลัก เก็บเลขบรรทัดไว้ตั้งแต่เริ่มอ่าน</li><li>ให้ parser คืนจำนวนเต็มสตางค์ ให้ขั้นรวมตัดสินว่าจะเก็บข้อผิดพลาดไว้หรือหยุดทั้งไฟล์</li></ol></div><figure class="snippet"><figcaption>Python 3 · ลองรันพร้อมชุดทดสอบ</figcaption><pre><code>import re
+assert not can_cancel(11, orders.__getitem__)
+try:
+    can_cancel(99, orders.__getitem__)
+except KeyError:
+    pass
+else:
+    raise AssertionError(&quot;expected missing order&quot;)</code></pre></figure></details></div><b>ผลที่ควรได้</b><p>ได้ True สำหรับ PENDING และ False สำหรับ SHIPPED ตัวอย่างนี้ฝึกเฉพาะกฎตรวจสิทธิ์ยกเลิก การเขียนสถานะจริงต้องตรวจการแก้พร้อมกันอีกชั้น</p><b>ต้นทุนที่ต้องยอมรับ</b><p>ถ้าสร้าง interface ให้ทุกคลาสโดยที่ไม่มี boundary ที่ต้องสลับจะเพิ่มงานดูแล ใช้ port ตรงจุดที่มี I/O หรือกฎที่ต้องทดสอบแยก</p><p><strong>ถ้าคนสัมภาษณ์ถามต่อ</strong> จะมั่นใจได้อย่างไรว่า fake กับฐานจริงคืนค่าเหมือนกัน?</p><p><strong>แนวตอบ</strong> ใช้ชุด contract test ร่วมกันสำหรับกรณีพบข้อมูล ไม่พบข้อมูล และ error แล้วเพิ่ม integration test ให้ adapter จริง</p></details><div class="reading-resources"><a class="reading-resource" href="https://alistair.cockburn.us/hexagonal-architecture/"><span><small>อ่านต่อ</small><strong>Alistair Cockburn · Hexagonal Architecture</strong></span><span aria-hidden="true">↗</span></a></div><div class="lesson-neighbors"><a href="#arch-modular"><small>บทก่อนหน้า</small><span>Modular Monolith · แยกขอบเขตในแอปเดียว</span></a><a href="#arch-pipeline"><small>บทถัดไป</small><span>Pipe and Filter · แยกขั้นนำเข้าไฟล์</span></a></div><p class="permalink"><a href="#arch-ports">ลิงก์ตรงมาบทนี้</a></p></div></details>
+<details class="entry" id="arch-pipeline" data-shelf="18" data-terms="Golang Go Rust Java Python Fundamental Software Architectural Patterns architecture pattern สถาปัตยกรรม pipes filters pipeline ETL streaming batch"><summary><span><small>Fundamental Software Architectural Patterns · 7/15</small><strong>Pipe and Filter · แยกขั้นนำเข้าไฟล์</strong></span></summary><div class="answer"><p>ไฟล์ยอดขายหนึ่งไฟล์อาจมีแถวว่าง จำนวนติดลบ และยอดที่ต้องแปลงหน่วย ให้แต่ละขั้นรับข้อมูลในรูปที่ชัด แล้วส่งต่อเฉพาะข้อมูลที่ขั้นถัดไปรับได้</p><div class="example"><b>เส้นทางในตัวอย่าง</b><p>อ่านบรรทัด → parse → validate → แปลงเป็นสตางค์ → รวมยอด</p></div><h3>ลองออกแบบ</h3><p>ข้อมูล 12.50, x, -3 และ 0.25 บาท ต้องได้ยอดของแถวที่ใช้ได้พร้อมเลขแถวที่ต้องตรวจ เขียนขั้นแปลงและขั้นรวมให้ทดสอบแยกได้</p><details class="solution" open><summary>เฉลย</summary><div class="worked-method"><b>วิธีคิด</b><ol><li>กำหนดรูปแบบราคาเป็นเลขทศนิยมไม่ติดลบที่มีเศษไม่เกินสองหลัก เก็บเลขบรรทัดไว้ตั้งแต่เริ่มอ่าน</li><li>ให้ parser คืนจำนวนเต็มสตางค์ ให้ขั้นรวมตัดสินว่าจะเก็บข้อผิดพลาดไว้หรือหยุดทั้งไฟล์</li></ol></div><div class="language-practice"><h3>ลองอธิบายตอนสัมภาษณ์</h3><p>“ผมเลือก Pipe and Filter เพราะการตรวจรูปแบบราคากับการรวมยอดเปลี่ยนคนละเหตุผลครับ ผมให้ขั้นแรกแปลงข้อความเป็นสตางค์ ขั้นถัดไปค่อยตัดสินว่าจะรวมยอดหรือจดเลขแถวที่ผิด วิธีนี้ทดสอบ 2.5 กับ 1.234 ได้โดยไม่ต้องเปิดไฟล์จริง ถ้ากฎบัญชีกำหนดว่าแถวเดียวผิดต้องหยุดทั้งชุด ผมเปลี่ยนนโยบายที่ขั้นรวมได้ ถ้ามีแค่ค่าเดียวให้แปลง ผมเรียก parser ตรง ๆ ก็พอ”</p><h3>ซ้อมเขียนแยกตามภาษา</h3><p>ตัวอย่างกำหนดให้ราคาและยอดรวมที่ใช้ทดสอบอยู่ในช่วงจำนวนเต็ม signed 64-bit หน่วยสตางค์ ลองทั้งแถวผิดที่คั่นระหว่างแถวดี ราคา 2.5 บาทที่ต้องได้ 250 สตางค์ ทศนิยมสามหลักที่ต้องถูกปฏิเสธ และไฟล์ว่างที่ต้องคืนยอด 0 เมื่อรันผ่าน โปรแกรมจะจบโดยไม่มีข้อความ</p><details class="language-answer" data-filename="main.go"><summary>Go (Golang)</summary><p><strong>เหตุผลที่เขียนแบบนี้</strong> ผมให้ toSatang คืนยอดคู่กับ bool เพื่อให้ขั้นรวมตัดสินชะตาของแถวเอง เพราะ 0 เป็นยอดที่ถูกต้อง จึงใช้ 0 เป็นสัญญาณราคาเสียไม่ได้</p><figure class="snippet"><figcaption>Go 1.21+ · go run main.go</figcaption><pre><code>package main
+
+import (
+	&quot;regexp&quot;
+	&quot;slices&quot;
+	&quot;strconv&quot;
+	&quot;strings&quot;
+)
+
+var amount = regexp.MustCompile(&quot;^[0-9]+([.][0-9]{1,2})?$&quot;)
+
+func toSatang(text string) (int64, bool) {
+	if !amount.MatchString(text) {
+		return 0, false
+	}
+	baht, fraction, _ := strings.Cut(text, &quot;.&quot;)
+	digits := baht + (fraction + &quot;00&quot;)[:2]
+	value, err := strconv.ParseInt(digits, 10, 64)
+	return value, err == nil
+}
+
+func summarize(lines []string) (int64, []int) {
+	var total int64
+	var rejected []int
+	for i, line := range lines {
+		value, ok := toSatang(line)
+		if !ok {
+			rejected = append(rejected, i+1)
+			continue
+		}
+		total += value
+	}
+	return total, rejected
+}
+
+func main() {
+	check := func(lines []string, want int64, bad []int) {
+		total, rejected := summarize(lines)
+		if total != want || !slices.Equal(rejected, bad) {
+			panic(&quot;unexpected summary&quot;)
+		}
+	}
+	check([]string{&quot;12.50&quot;, &quot;x&quot;, &quot;-3&quot;, &quot;0.25&quot;}, 1275, []int{2, 3})
+	check([]string{&quot;0&quot;, &quot;0.01&quot;, &quot;2.5&quot;, &quot;1.234&quot;}, 251, []int{4})
+	check(nil, 0, nil)
+}</code></pre></figure></details><details class="language-answer" data-filename="main.rs"><summary>Rust</summary><p><strong>เหตุผลที่เขียนแบบนี้</strong> ผมใช้ Option&lt;i64&gt; ตรงรอยต่อระหว่างขั้น Some(0) คือราคาศูนย์ ส่วน None ทำให้ขั้นรวมเก็บเลขแถวผิดได้โดยยังอ่านแถวถัดไป</p><figure class="snippet"><figcaption>rustc --edition=2021 main.rs แล้วรันโปรแกรม main ที่ได้</figcaption><pre><code>fn digits(text: &amp;str) -&gt; bool {
+    !text.is_empty() &amp;&amp; text.bytes().all(|b| b.is_ascii_digit())
+}
+
+fn to_satang(text: &amp;str) -&gt; Option&lt;i64&gt; {
+    let (baht, fraction) = match text.split_once(&#x27;.&#x27;) {
+        Some((whole, part)) if digits(part) &amp;&amp; part.len() &lt;= 2 =&gt; (whole, part),
+        Some(_) =&gt; return None,
+        None =&gt; (text, &quot;&quot;),
+    };
+    if !digits(baht) {
+        return None;
+    }
+    let value = baht.parse::&lt;i64&gt;().ok()?.checked_mul(100)?;
+    let cents = match fraction.len() {
+        0 =&gt; 0,
+        1 =&gt; fraction.parse::&lt;i64&gt;().ok()? * 10,
+        _ =&gt; fraction.parse::&lt;i64&gt;().ok()?,
+    };
+    value.checked_add(cents)
+}
+
+fn summarize(lines: &amp;[&amp;str]) -&gt; (i64, Vec&lt;usize&gt;) {
+    let mut total = 0;
+    let mut rejected = Vec::new();
+    for (i, line) in lines.iter().enumerate() {
+        match to_satang(line) {
+            Some(value) =&gt; total += value,
+            None =&gt; rejected.push(i + 1),
+        }
+    }
+    (total, rejected)
+}
+
+fn main() {
+    assert_eq!(summarize(&amp;[&quot;12.50&quot;, &quot;x&quot;, &quot;-3&quot;, &quot;0.25&quot;]), (1275, vec![2, 3]));
+    assert_eq!(summarize(&amp;[&quot;0&quot;, &quot;0.01&quot;, &quot;2.5&quot;, &quot;1.234&quot;]), (251, vec![4]));
+    assert_eq!(summarize(&amp;[]), (0, vec![]));
+}</code></pre></figure></details><details class="language-answer" data-filename="Main.java"><summary>Java</summary><p><strong>เหตุผลที่เขียนแบบนี้</strong> ผมคืน OptionalLong จาก parser เพื่อสื่อทั้งสตางค์ที่แปลงสำเร็จและแถวผิด ส่วน record Summary เก็บยอดกับเลขแถวที่ต้องตามแก้เป็นผลลัพธ์ชุดเดียว</p><figure class="snippet"><figcaption>JDK 17+ · java -Dfile.encoding=UTF-8 Main.java</figcaption><pre><code>import java.util.ArrayList;
+import java.util.List;
+import java.util.OptionalLong;
+import java.util.regex.Pattern;
+
+class Main {
+    static final Pattern AMOUNT = Pattern.compile(&quot;[0-9]+(?:[.][0-9]{1,2})?&quot;);
+    record Summary(long total, List&lt;Integer&gt; rejected) {}
+
+    static OptionalLong toSatang(String text) {
+        if (!AMOUNT.matcher(text).matches()) return OptionalLong.empty();
+        int point = text.indexOf(&#x27;.&#x27;);
+        String baht = point &lt; 0 ? text : text.substring(0, point);
+        String fraction = point &lt; 0 ? &quot;&quot; : text.substring(point + 1);
+        try {
+            return OptionalLong.of(Long.parseLong(baht + (fraction + &quot;00&quot;).substring(0, 2)));
+        } catch (NumberFormatException tooLarge) {
+            return OptionalLong.empty();
+        }
+    }
+
+    static Summary summarize(List&lt;String&gt; lines) {
+        long total = 0;
+        var rejected = new ArrayList&lt;Integer&gt;();
+        for (int i = 0; i &lt; lines.size(); i++) {
+            var value = toSatang(lines.get(i));
+            if (value.isPresent()) total += value.getAsLong();
+            else rejected.add(i + 1);
+        }
+        return new Summary(total, rejected);
+    }
+
+    static void check(List&lt;String&gt; lines, long total, List&lt;Integer&gt; rejected) {
+        if (!summarize(lines).equals(new Summary(total, rejected))) {
+            throw new AssertionError(&quot;Unexpected summary&quot;);
+        }
+    }
+
+    public static void main(String[] args) {
+        check(List.of(&quot;12.50&quot;,&quot;x&quot;,&quot;-3&quot;,&quot;0.25&quot;), 1275, List.of(2,3));
+        check(List.of(&quot;0&quot;,&quot;0.01&quot;,&quot;2.5&quot;,&quot;1.234&quot;), 251, List.of(4));
+        check(List.of(), 0, List.of());
+    }
+}</code></pre></figure></details><details class="language-answer" data-filename="main.py" open><summary>Python</summary><p><strong>เหตุผลที่เขียนแบบนี้</strong> ผมให้ parser โยน ValueError สำหรับแถวที่อ่านไม่ได้ แล้วให้ summarize รับผิดชอบนโยบายข้ามแถวนั้น ใช้ enumerate เริ่มที่ 1 เพื่อให้เลขแถวตรงกับไฟล์ที่คนจะกลับไปแก้</p><figure class="snippet"><figcaption>Python 3 · python main.py</figcaption><pre><code>import re
+
 
 def to_satang(text):
     if not re.fullmatch(r&quot;[0-9]+(?:[.][0-9]{1,2})?&quot;, text):
         raise ValueError(&quot;invalid amount&quot;)
     baht, _, fraction = text.partition(&quot;.&quot;)
     return int(baht) * 100 + int(fraction.ljust(2, &quot;0&quot;))
+
 
 def summarize(lines):
     total, rejected = 0, []
@@ -2378,8 +2597,10 @@ def summarize(lines):
             rejected.append(n)
     return total, rejected
 
-assert to_satang(&quot;0.01&quot;) == 1
-assert summarize([&quot;12.50&quot;, &quot;x&quot;, &quot;-3&quot;, &quot;0.25&quot;]) == (1275, [2, 3])</code></pre></figure><b>ผลที่ควรได้</b><p>ผลรวมคือ 1,275 สตางค์ แถว 2 และ 3 ต้องตรวจ แก้ขั้นแปลงแล้วทดสอบซ้ำได้โดยไม่ต้องรันระบบรายงานทั้งหมด</p><b>ต้นทุนที่ต้องยอมรับ</b><p>หากข้อผิดพลาดเพียงหนึ่งแถวทำให้ยอดบัญชีทั้งไฟล์ใช้ไม่ได้ ต้องพักทั้งชุดและแจ้งสาเหตุก่อนส่งผลเข้า ledger</p><p><strong>ถ้าคนสัมภาษณ์ถามต่อ</strong> ถ้าไฟล์ใหญ่กว่า RAM ล่ะ?</p><p><strong>แนวตอบ</strong> ส่ง iterator ของบรรทัดเข้าทีละแถวและเขียนรายการผิดลงปลายทางระหว่างทางแทนการสะสมทั้งหมดไว้ใน list</p></details><div class="lesson-neighbors"><a href="#arch-ports"><small>บทก่อนหน้า</small><span>Hexagonal · แยกกฎงานออกจากเครื่องมือ</span></a><a href="#arch-plugin"><small>บทถัดไป</small><span>Microkernel · เสียบตัวอ่านไฟล์ตามชนิด</span></a></div><p class="permalink"><a href="#arch-pipeline">ลิงก์ตรงมาบทนี้</a></p></div></details>
+
+assert summarize([&quot;12.50&quot;, &quot;x&quot;, &quot;-3&quot;, &quot;0.25&quot;]) == (1275, [2, 3])
+assert summarize([&quot;0&quot;, &quot;0.01&quot;, &quot;2.5&quot;, &quot;1.234&quot;]) == (251, [4])
+assert summarize([]) == (0, [])</code></pre></figure></details></div><b>ผลที่ควรได้</b><p>ผลรวมคือ 1,275 สตางค์ แถว 2 และ 3 ต้องตรวจ แก้ขั้นแปลงแล้วทดสอบซ้ำได้โดยไม่ต้องรันระบบรายงานทั้งหมด</p><b>ต้นทุนที่ต้องยอมรับ</b><p>หากข้อผิดพลาดเพียงหนึ่งแถวทำให้ยอดบัญชีทั้งไฟล์ใช้ไม่ได้ ต้องพักทั้งชุดและแจ้งสาเหตุก่อนส่งผลเข้า ledger</p><p><strong>ถ้าคนสัมภาษณ์ถามต่อ</strong> ถ้าไฟล์ใหญ่กว่า RAM ล่ะ?</p><p><strong>แนวตอบ</strong> ส่ง iterator ของบรรทัดเข้าทีละแถวและเขียนรายการผิดลงปลายทางระหว่างทางแทนการสะสมทั้งหมดไว้ใน list</p></details><div class="lesson-neighbors"><a href="#arch-ports"><small>บทก่อนหน้า</small><span>Hexagonal · แยกกฎงานออกจากเครื่องมือ</span></a><a href="#arch-plugin"><small>บทถัดไป</small><span>Microkernel · เสียบตัวอ่านไฟล์ตามชนิด</span></a></div><p class="permalink"><a href="#arch-pipeline">ลิงก์ตรงมาบทนี้</a></p></div></details>
 <details class="entry" id="arch-plugin" data-shelf="18" data-terms="Fundamental Software Architectural Patterns architecture pattern สถาปัตยกรรม plugin microkernel extension registry"><summary><span><small>Fundamental Software Architectural Patterns · 8/15</small><strong>Microkernel · เสียบตัวอ่านไฟล์ตามชนิด</strong></span></summary><div class="answer"><p>ระบบนำเข้ารองรับหลายผู้ให้บริการ แต่ละรายส่งไฟล์ต่างรูปแบบ ให้ kernel ดูแลลำดับงานกับผลตรวจ ส่วน plugin แปลงข้อมูลเฉพาะรายตามสัญญาเดียวกัน</p><div class="example"><b>เส้นทางในตัวอย่าง</b><p>ไฟล์ → kernel เลือก parser → plugin → รายการมาตรฐาน → ตรวจยอด</p></div><h3>ลองออกแบบ</h3><p>ผู้ให้บริการรายใหม่ส่ง JSON ขณะที่รายเดิมส่ง CSV เพิ่มความสามารถอย่างไรให้แกนหลักเปลี่ยนน้อย?</p><details class="solution" open><summary>เฉลย</summary><div class="worked-method"><b>วิธีคิด</b><ol><li>กำหนดสัญญาร่วม เช่น parse(stream) คืนแถวที่มี ref, จำนวนสตางค์ และสกุลเงิน พร้อมกติกาของ error</li><li>ลงทะเบียน parser ด้วย format และ version ทดสอบ plugin ทุกตัวด้วยชุดกรณีมาตรฐาน รวมกรณี format ที่ไม่มีตัวอ่าน</li></ol></div><b>ผลที่ควรได้</b><p>เพิ่ม JSON parser แล้วเลือกผ่าน registry ได้ ออกแบบให้ format ที่ไม่รู้จักหยุดพร้อมเหตุผล เพื่อกันการเดาผิดแล้วลงยอดผิด</p><b>ต้นทุนที่ต้องยอมรับ</b><p>plugin ใน process เดียวอาจทำให้โปรแกรมหลักล้มได้ ถ้ารับโค้ดจากภายนอกต้องพิจารณา isolation และสิทธิ์ให้เหมาะ</p><p><strong>ถ้าคนสัมภาษณ์ถามต่อ</strong> Plugin ต่างจาก Pipeline ตรงไหน?</p><p><strong>แนวตอบ</strong> Plugin ตอบว่าใครทำขั้นนี้ได้ ส่วน Pipeline ตอบว่าข้อมูลผ่านขั้นใดตามลำดับ ทั้งสองแนวทางอยู่ในระบบเดียวกันได้</p></details><div class="lesson-neighbors"><a href="#arch-pipeline"><small>บทก่อนหน้า</small><span>Pipe and Filter · แยกขั้นนำเข้าไฟล์</span></a><a href="#arch-broker"><small>บทถัดไป</small><span>Broker และ Pub/Sub · ใครควรได้รับข้อความ</span></a></div><p class="permalink"><a href="#arch-plugin">ลิงก์ตรงมาบทนี้</a></p></div></details>
 <details class="entry" id="arch-broker" data-shelf="18" data-terms="Fundamental Software Architectural Patterns architecture pattern สถาปัตยกรรม message broker competing consumers queue pub sub fanout"><summary><span><small>Fundamental Software Architectural Patterns · 9/15</small><strong>Broker และ Pub/Sub · ใครควรได้รับข้อความ</strong></span></summary><div class="answer"><p>งานส่งใบเสร็จหนึ่งชิ้นควรถูกทำสำเร็จครั้งเดียว แต่เหตุการณ์ OrderConfirmed หนึ่งครั้งอาจต้องไปทั้ง Billing และ Analytics เลือกการส่งให้ตรงความหมายก่อนเลือกผลิตภัณฑ์</p><div class="example"><b>เส้นทางในตัวอย่าง</b><p>OrderConfirmed → subscription ของ Billing และ subscription ของ Analytics</p></div><h3>ลองออกแบบ</h3><p>มี worker ส่งเมลสามตัวกับ service วิเคราะห์ยอดอีกหนึ่งตัว ควรต่อทุกตัวเข้าคิวเดียวกันไหม?</p><details class="solution" open><summary>เฉลย</summary><div class="worked-method"><b>วิธีคิด</b><ol><li>สร้างช่องรับแยกตามความรับผิดชอบ ให้ worker เมลสามตัวแบ่งงานกันภายใน subscription เดียว ส่วน Analytics มี subscription ของตัวเอง</li><li>หยุด Analytics ชั่วคราวแล้วตรวจว่าเมลยังเดินได้ จากนั้นให้ worker เมลล้มหลังส่งแต่ก่อน ack เพื่อทดสอบการรับซ้ำ</li></ol></div><b>ผลที่ควรได้</b><p>ทั้งสองฝ่ายเห็นเหตุการณ์เดียวกันได้อย่างอิสระ ส่วน worker เมลช่วยกันแบ่งโหลด ต้องใช้กลไก idempotency ที่ครอบคลุมปลายทางส่งเมล หรือกระทบยอดผลที่ยังไม่ทราบก่อนส่งซ้ำ</p><b>ต้นทุนที่ต้องยอมรับ</b><p>broker เพิ่มจุดที่ต้องดู backlog, retention และการเปลี่ยน schema การ ack อย่างเดียวไม่ยืนยันว่าอีเมลถึงกล่องผู้รับ</p><p><strong>ถ้าคนสัมภาษณ์ถามต่อ</strong> ถ้าใช้ Kafka และอยากให้สองระบบเห็นทุก event ควรจัดกลุ่มอย่างไร?</p><p><strong>แนวตอบ</strong> ให้แต่ละระบบใช้ consumer group ของตนเอง ภายในกลุ่มจึงกระจาย partition ให้สมาชิก</p></details><div class="reading-resources"><a class="reading-resource" href="#queue"><span><small>อ่านต่อ</small><strong>ฝึกออกแบบ worker ให้รับข้อความซ้ำ</strong></span><span aria-hidden="true">↗</span></a></div><div class="lesson-neighbors"><a href="#arch-plugin"><small>บทก่อนหน้า</small><span>Microkernel · เสียบตัวอ่านไฟล์ตามชนิด</span></a><a href="#arch-event"><small>บทถัดไป</small><span>Event-driven · ตามออเดอร์ที่ยืนยันแล้วแต่ใบเสร็จยังไม่มา</span></a></div><p class="permalink"><a href="#arch-broker">ลิงก์ตรงมาบทนี้</a></p></div></details>
 <details class="entry" id="arch-event" data-shelf="18" data-terms="Fundamental Software Architectural Patterns architecture pattern สถาปัตยกรรม event driven choreography eventual consistency outbox"><summary><span><small>Fundamental Software Architectural Patterns · 10/15</small><strong>Event-driven · ตามออเดอร์ที่ยืนยันแล้วแต่ใบเสร็จยังไม่มา</strong></span></summary><div class="answer"><p>เหตุการณ์บอกข้อเท็จจริงที่เกิดแล้ว เช่น OrderConfirmed ฝั่งสั่งซื้อไม่จำเป็นต้องรอทุกผู้รับทำงานเสร็จ แต่ต้องบอกผู้ใช้ได้ว่างานไหนสำเร็จถึงขั้นใด</p><div class="example"><b>เส้นทางในตัวอย่าง</b><p>Order + Outbox ใน transaction เดียว → Publisher → Receipt worker</p></div><h3>ลองออกแบบ</h3><p>ถ้า commit ออเดอร์แล้ว process หยุดก่อน publish ผู้ใช้ต้องซื้อซ้ำไหม?</p><details class="solution" open><summary>เฉลย</summary><div class="worked-method"><b>วิธีคิด</b><ol><li>บันทึก order กับ outbox ที่มี event ID ภายใน transaction เดียว ให้ publisher มาหยิบรายการที่ยังไม่ส่ง</li><li>ลองหยุดหลัง publish แต่ก่อนทำเครื่องหมายว่าส่งแล้ว ผู้รับอาจเห็น event ซ้ำ จึงต้องผูกการประมวลผลกับ key ที่ตรวจซ้ำได้</li></ol></div><b>ผลที่ควรได้</b><p>เปิด order ID เดิมดูสถานะยืนยันได้ ระบบไล่ใบเสร็จจาก event ID เดิมได้ และมีสัญญาณเตือนเมื่ออายุงานค้างเกินเป้า</p><b>ต้นทุนที่ต้องยอมรับ</b><p>สิ่งที่ผู้ใช้เห็นจะสอดคล้องกันภายหลัง การ debug ต้องมี correlation ID ตลอดทางและนิยามสถานะค้าง</p><p><strong>ถ้าคนสัมภาษณ์ถามต่อ</strong> ทำไมไม่ส่งเมลใน transaction ของฐานข้อมูลเลย?</p><p><strong>แนวตอบ</strong> transaction ของฐานไม่ได้ย้อนผลที่ mail provider รับไปแล้ว อีกทั้งการรอเครือข่ายทำให้ล็อกค้างนานขึ้น</p></details><div class="reading-resources"><a class="reading-resource" href="#outbox"><span><small>อ่านต่อ</small><strong>ไล่ transaction กับ outbox</strong></span><span aria-hidden="true">↗</span></a></div><div class="lesson-neighbors"><a href="#arch-broker"><small>บทก่อนหน้า</small><span>Broker และ Pub/Sub · ใครควรได้รับข้อความ</span></a><a href="#arch-services"><small>บทถัดไป</small><span>Microservices · เลือกขอบเขตที่ปล่อยรุ่นได้เอง</span></a></div><p class="permalink"><a href="#arch-event">ลิงก์ตรงมาบทนี้</a></p></div></details>

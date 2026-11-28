@@ -13,3 +13,49 @@
 
 .deck-switch{display:flex;gap:4px;background:var(--light);padding:4px;border-radius:7px}.deck-switch button{border:0;background:transparent;color:var(--ink);font-size:11px;font-weight:650;white-space:nowrap;padding:8px 11px;border-radius:4px}.deck-switch button[aria-pressed="true"]{color:white;background:var(--ink)}.presentation-bar{flex-wrap:wrap;gap:12px 20px}.deck-switch button:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
 @media(max-width:600px){.presentation-bar{gap:10px}.presentation-bar>div:first-child{width:100%}.deck-switch{width:100%}.deck-switch button{flex:1}.presentation-bar .material-actions{gap:14px}.presentation-bar .material-title{font-size:16px}}
+
+/* Readable slide content when a fixed-size slide image would shrink on a phone. */
+.slide-stage > img[hidden], .sso-slide[hidden] { display: none; }
+.sso-slide {
+  width: min(100%, 1160px);
+  max-height: 100%;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: clamp(18px, 4vw, 56px);
+  background: var(--surface, var(--paper));
+  color: var(--ink);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 6px 28px #0003;
+}
+.sso-slide:focus-visible { outline: 2px solid var(--teal); outline-offset: -4px; }
+.sso-slide-header p:first-child { margin: 0 0 6px; color: var(--teal); font-size: .85rem; font-weight: 700; }
+.sso-slide-header h2 {
+  margin: 0;
+  font: 750 clamp(1.4rem, 3vw, 2.75rem)/1.15 Manrope, "DM Sans", sans-serif;
+}
+.sso-slide-header p:last-child {
+  max-width: 65ch;
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: clamp(.92rem, 1.6vw, 1.1rem);
+}
+.sso-slide-details {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: clamp(16px, 3vw, 32px) 0 0;
+}
+.sso-slide-details div {
+  padding: clamp(12px, 2vw, 22px);
+  background: var(--light);
+  border-radius: 8px;
+}
+.sso-slide-details dt { margin: 0 0 4px; color: var(--teal); font-weight: 700; }
+.sso-slide-details dd { margin: 0; line-height: 1.45; }
+
+@media (max-width: 680px) {
+  .sso-slide { width: calc(100% - 24px); }
+  .sso-slide-details { grid-template-columns: 1fr; gap: 8px; }
+  .sso-slide-details dd { font-size: .9rem; }
+}

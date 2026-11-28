@@ -9,7 +9,7 @@
   <link rel="canonical" href="https://wariddon.github.io/presentation.html">
   <link rel="icon" href="assets/favicon.svg?v=forest" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css?v=forest"><link rel="stylesheet" href="materials.css?v=forest">
-  <script src="presentation.js?v=dark-artwork" defer></script>
+  <script src="presentation.js?v=sso-slide" defer></script>
   <link rel="stylesheet" href="material-embed.css?v=20261105-interview">
   <script src="material-embed.js?v=rights-20261126" defer></script>
 <script src="appearance.js?v=black"></script><link rel="stylesheet" href="portfolio-ui.css?v=black"><link rel="stylesheet" href="site-shell.css?v=dark-artwork"></head>
@@ -25,6 +25,27 @@
       <button class="exit-presentation" id="exit-presentation" hidden>Exit presentation</button>
       <div class="slide-stage" id="slide-stage" aria-label="Presentation slide">
         <img id="slide-image" data-dark-artwork src="assets/slides/slide-01.png" width="1280" height="720" alt="Slide 1: Wariddon Rattanamalee, Software Engineer" draggable="false" fetchpriority="high">
+        <article class="sso-slide" id="sso-slide" aria-labelledby="sso-title" tabindex="0" hidden>
+          <header class="sso-slide-header">
+            <p>InblackM · Staff tools</p>
+            <h2 id="sso-title">One staff login for two apps</h2>
+            <p>I connected Audit to System’s single sign-on so staff could move between the two apps using the same account.</p>
+          </header>
+          <dl class="sso-slide-details">
+            <div>
+              <dt>Why it mattered</dt>
+              <dd>Staff use System and Audit in the same workflow. Both apps needed to recognize who was signed in.</dd>
+            </div>
+            <div>
+              <dt>What I changed</dt>
+              <dd>I updated the session checks and backend requests used when staff sign in or sign out.</dd>
+            </div>
+            <div>
+              <dt>What I tested</dt>
+              <dd>I checked expired sessions, sign-in redirects, and the return path between the two apps.</dd>
+            </div>
+          </dl>
+        </article>
         <p id="slide-error" hidden>Unable to load this slide. <a href="assets/Wariddon_Rattanamalee_Presentation.pdf?v=rights-20261126">Open the PDF presentation.</a></p>
       </div>
       <div class="slide-controls"><button class="slide-arrow" id="previous-slide" aria-label="Previous slide" title="Previous slide (Left arrow)">← <span>Previous</span></button><p class="slide-position" id="slide-position" aria-live="polite" aria-atomic="true">1 / 17 <span>Introduction</span></p><button class="slide-arrow" id="next-slide" aria-label="Next slide" title="Next slide (Right arrow)"><span>Next</span> →</button></div>

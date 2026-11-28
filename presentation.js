@@ -1,5 +1,6 @@
 const fullTitles = ["Wariddon Rattanamalee", "What I work on", "Where I\u2019ve worked", "My work at SCB", "Keeping Redis connections alive", "Sending monthly AML reports", "When a customer clears an address", "My work at InblackM", "Handing over an order", "One staff login for two apps", "Finding an order with the admin assistant", "How I use Claude and Codex", "TISCO Financial Group", "CAT Telecom", "Thai Insurance", "Education and training", "Contact"];
 const image = document.querySelector('#slide-image');
+const ssoSlide = document.querySelector('#sso-slide');
 const position = document.querySelector('#slide-position');
 const previous = document.querySelector('#previous-slide');
 const next = document.querySelector('#next-slide');
@@ -44,8 +45,17 @@ function chooseDeck(key) {
 document.querySelectorAll('[data-deck]').forEach(button=>button.addEventListener('click',()=>chooseDeck(button.dataset.deck)));
 function show(index,updateAddress=true) {
   current = Math.max(0,Math.min(titles.length-1,Number.isFinite(index)?Math.trunc(index):0));
-  error.hidden = true; image.src = source(current); image.alt = `Slide ${current+1}: ${titles[current]}`;
-  image.toggleAttribute('data-dark-artwork', usesDarkArtwork(current));
+  const showSso = deckKey === 'full' && current === 9;
+  const enteringSso = showSso && ssoSlide.hidden;
+  ssoSlide.hidden = !showSso;
+  if (enteringSso) ssoSlide.scrollTop = 0;
+  image.hidden = showSso;
+  error.hidden = true;
+  if (!showSso) {
+    image.alt = `Slide ${current+1}: ${titles[current]}`;
+    image.toggleAttribute('data-dark-artwork', usesDarkArtwork(current));
+    image.src = source(current);
+  }
   position.replaceChildren(document.createTextNode(`${current+1} / ${titles.length}`)); const label = document.createElement('span'); label.textContent = titles[current]; position.append(label);
   previous.disabled = current === 0; next.disabled = current === titles.length-1;
   buttons.forEach((button,i)=>{ if(i===current)button.setAttribute('aria-current','true');else button.removeAttribute('aria-current'); });
@@ -82,5 +92,5 @@ let touch = null;
 document.querySelector('#slide-stage').addEventListener('pointerdown',event=>{if(event.pointerType==='touch')touch={x:event.clientX,y:event.clientY,id:event.pointerId};});
 window.addEventListener('pointerup',event=>{if(!touch||touch.id!==event.pointerId)return;const dx=event.clientX-touch.x,dy=event.clientY-touch.y;touch=null;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.4)show(current+(dx<0?1:-1));});
 window.addEventListener('pointercancel',()=>{touch=null;});
-image.addEventListener('error',()=>{error.hidden=false;}); image.addEventListener('load',()=>{error.hidden=true;});
+image.addEventListener('error',()=>{if(!image.hidden)error.hidden=false;}); image.addEventListener('load',()=>{error.hidden=true;});
 window.addEventListener('hashchange',fromAddress); buildOverview(); fromAddress();
